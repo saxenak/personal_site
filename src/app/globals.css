@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  /* Ajna Brand Colors */
+  --brand-dark: #3E4253;      /* Dark blue-gray */
+  --brand-teal: #365F6A;      /* Teal/blue-green */
+  --brand-light: #E6EEF2;     /* Light gray */
+  --brand-white: #FFFFFF;     /* White */
+  
+  /* Afacad Flux font configuration */
+  --font-afacad-flux: 'Afacad Flux', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+
+  /* Default theme using brand colors */
+  --background: var(--brand-white);
+  --foreground: var(--brand-dark);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Ajna Brand Color Palette */
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-light: var(--brand-light);
+  --color-brand-white: var(--brand-white);
+
+  /* Primary/Secondary using brand colors */
+  --color-primary: var(--brand-teal);
+  --color-secondary: var(--brand-dark);
+  --color-accent: var(--brand-light);
+
+  /* Font families */
+  --font-sans: var(--font-afacad-flux);
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--brand-dark);
+    --foreground: var(--brand-light);
+  }
+}
+
+/* Global typography and font optimization */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-afacad-flux);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+}
+
+/* Typography utilities */
+.text-crisp {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+h1 { font-size: 2.25rem; font-weight: 300; }
+h2 { font-size: 1.875rem; font-weight: 300; }
+h3 { font-size: 1.5rem; font-weight: 300; }
+h4 { font-size: 1.25rem; font-weight: 300; }
+h5 { font-size: 1.125rem; font-weight: 300; }
+h6 { font-size: 1rem; font-weight: 300; }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: black;
+  color: white;
+  font-family: var(--font-afacad-flux), system-ui, sans-serif;
+  font-weight: 300;
+}
+
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+}
