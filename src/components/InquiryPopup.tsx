@@ -170,7 +170,7 @@ export default function InquiryPopup({ isOpen, onClose, artworkTitle }: InquiryP
               <div className="text-center py-8">
                 <div className="text-green-600 text-5xl mb-4">✓</div>
                 <h3 className="text-xl font-light mb-2 text-gray-800">Message Sent!</h3>
-                <p className="text-gray-600">Thank you for your inquiry. I'll get back to you soon.</p>
+                <p className="text-gray-600">Thank you for your inquiry. I&apos;ll get back to you soon.</p>
               </div>
             )}
           </motion.div>

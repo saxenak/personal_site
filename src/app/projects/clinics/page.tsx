@@ -61,8 +61,8 @@ export default function Clinics() {
         >
           <h2 className="text-3xl font-light mb-6">TRAIN WITH AN OLYMPIAN</h2>
           <p className="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto mb-8">
-            Transform your athletic potential with personalized training from Olympic athlete Kirti Saxena. 
-            Whether you're a beginner or elite competitor, I'll help you reach your next level.
+            Transform your athletic potential with personalized training from Olympic athlete Kirti Saxena.
+            Whether you&apos;re a beginner or elite competitor, I&apos;ll help you reach your next level.
           </p>
           
           <motion.a

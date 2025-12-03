@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     // Create Stripe checkout session
     console.log('💳 Creating Stripe session...');
     
-    const sessionConfig: any = {
+    const sessionConfig: Stripe.Checkout.SessionCreateParams = {
       payment_method_types: ['card'],
       line_items: [
         {

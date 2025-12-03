@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // In a real application, you'd want to store this in a database
 // For now, we'll store it in memory (this will reset when the server restarts)
-let waiverData: Array<{
+const waiverData: Array<{
   sessionId: string;
   participantName: string;
   email: string;

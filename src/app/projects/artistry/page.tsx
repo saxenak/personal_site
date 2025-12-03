@@ -272,8 +272,8 @@ export default function Artistry() {
           <div className="border border-gray-800 rounded-lg p-12">
             <h2 className="text-3xl font-light mb-6">Commission Work</h2>
             <p className="text-gray-400 mb-8 max-w-2xl mx-auto">
-              Interested in a custom piece? I accept select commissions for original artworks. 
-              Let's discuss your vision and create something unique together.
+              Interested in a custom piece? I accept select commissions for original artworks.
+              Let&apos;s discuss your vision and create something unique together.
             </p>
             <button 
               onClick={() => {

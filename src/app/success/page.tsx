@@ -75,7 +75,7 @@ export default function Success() {
             I will contact you within 24 hours to arrange next steps.
           </p>
           <p className="text-sm text-gray-500">
-            You should receive a confirmation email shortly. If you don't see it, 
+            You should receive a confirmation email shortly. If you don&apos;t see it,
             please check your spam folder or contact me directly.
           </p>
         </div>

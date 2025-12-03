@@ -79,8 +79,8 @@ export default function CheckoutButton({
         
         if (stripe) {
           console.log('Using Stripe.js redirect method');
-          const result = await (stripe as any).redirectToCheckout({ sessionId });
-          
+          const result = await stripe.redirectToCheckout({ sessionId });
+
           if (result.error) {
             throw new Error(result.error.message);
           }
