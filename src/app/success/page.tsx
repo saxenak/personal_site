@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-export default function Success() {
+function SuccessContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [emailSent, setEmailSent] = useState(false);
   const searchParams = useSearchParams();
@@ -102,5 +102,20 @@ export default function Success() {
         )}
       </motion.div>
     </main>
+  );
+}
+
+export default function Success() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p>Loading...</p>
+        </div>
+      </main>
+    }>
+      <SuccessContent />
+    </Suspense>
   );
 }
