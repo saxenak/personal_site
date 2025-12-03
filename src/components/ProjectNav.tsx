@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function ProjectNav({ title, onMenuToggle }: { title: string; onMenuToggle?: (isOpen: boolean) => void }) {
+export default function ProjectNav({ onMenuToggle }: { title?: string; onMenuToggle?: (isOpen: boolean) => void }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
@@ -28,6 +28,7 @@ export default function ProjectNav({ title, onMenuToggle }: { title: string; onM
             localStorage.setItem('showIntro', 'true');
           }}
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/KIRTILOGO.PNG"
             alt="Kirti Saxena Logo"
