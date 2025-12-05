@@ -479,8 +479,8 @@ export default function Engineering() {
       keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://ajnamaterials.com',
-      startDate: 'August 2024',
-      endDate: 'December 2024',
+      startDate: 'January 2025',
+      endDate: 'August 2025',
       category: 'work'
     },
    {
