@@ -107,7 +107,7 @@ const generateTimelineMonths = () => {
   return months;
 };
 
-const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opacity, cardIndex, absoluteTop, horizontalOffset }: {
+const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opacity, cardIndex, absoluteTop, horizontalOffset, adjustedTop }: {
   project: Project;
   startMonth: number;
   durationMonths: number;
@@ -116,17 +116,18 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
   cardIndex: number; // unique index for each card
   absoluteTop: number; // absolute top position in pixels
   horizontalOffset: number; // horizontal offset in pixels
+  adjustedTop: number; // adjusted top position to prevent card overlap
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Determine positioning based on category
-  // Education and current (CEO): position at END date (top of bar)
-  // Everything else: position at START date (bottom of bar)
-  const positionAtEnd = project.category === 'education' || project.category === 'current';
-  const cardTopPosition = positionAtEnd ? absoluteTop - 8 : absoluteTop + (durationMonths * 60) - 8;
+  // Use the pre-calculated adjusted position for the card
+  const cardTopPosition = adjustedTop - 8;
 
-  // Get category-specific colors
-  const categoryColor = categoryColors[project.category || 'work'];
+  // Determine if this is an end-positioned category (for date label display)
+  const positionAtEnd = project.category === 'education' || project.category === 'current';
+
+  // Get category-specific colors (with fallback)
+  const categoryColor = categoryColors[project.category || 'work'] || categoryColors.work;
 
   return (
     <Fragment>
@@ -492,7 +493,7 @@ export default function Engineering() {
       keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://ajnamaterials.com',
-      startDate: 'August 2019',
+      startDate: 'June 2019',
       endDate: 'June 2023',
       category: 'design-team'
     },
@@ -545,7 +546,7 @@ export default function Engineering() {
       category: 'research'
     }, 
      {
-      title: 'Varisty Board Member & Womens Team Captain',
+      title: 'Senior Thesis Researcher',
       organization: 'University of Toronto Baja SAE',
       description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
       skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
@@ -556,41 +557,9 @@ export default function Engineering() {
       keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://ajnamaterials.com',
-      startDate: 'November 2019',
-      endDate: 'April 2023',
-      category: 'extracurricular'
-    }, 
-     {
-      title: 'Biomedical Engineering Board Member',
-      organization: 'University of Toronto Baja SAE',
-      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
-      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
-      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
-      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
-      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
-      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
-      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
-      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://ajnamaterials.com',
-      startDate: 'Setember 2021',
-      endDate: 'April 2022',
-      category: 'extracurricular'
-    }, 
-     {
-      title: 'Frosh Leader',
-      organization: 'University of Toronto Baja SAE',
-      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
-      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
-      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
-      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
-      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
-      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
-      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
-      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://ajnamaterials.com',
-      startDate: 'July 2023',
-      endDate: 'September 2023',
-      category: 'extracurricular'
+      startDate: 'January 2025',
+      endDate: 'April 2025',
+      category: 'research'
     }, 
      {
       title: 'Technical Co-Founder',
@@ -608,23 +577,7 @@ export default function Engineering() {
       endDate: 'August 2025',
       category: 'work'
     },
-     {
-      title: 'Senior Thesis Researcher',
-      organization: 'University of Toronto Baja SAE',
-      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
-      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
-      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
-      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
-      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
-      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
-      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
-      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://ajnamaterials.com',
-      startDate: 'January 2025',
-      endDate: 'April 2025',
-      category: 'research'
-    }, 
-  {
+ {
       title: 'Operations Engineer',
       organization: 'Bombardier Aerospace',
       description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
@@ -640,6 +593,118 @@ export default function Engineering() {
       endDate: 'September 2023',
       category: 'work'
     },
+  {
+      title: 'Supply Chain Engineering Intern',
+      organization: 'Bombardier Aerospace',
+      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
+      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
+      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
+      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
+      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
+      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      link: 'https://ajnamaterials.com',
+      startDate: 'September 2021',
+      endDate: 'January 2022',
+      category: 'work'
+    },
+  {
+      title: 'Fashion Model',
+      organization: 'Bombardier Aerospace',
+      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
+      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
+      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
+      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
+      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
+      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      link: 'https://ajnamaterials.com',
+      startDate: 'September 2020',
+      endDate: 'Current',
+      category: 'work'
+    },
+  {
+      title: 'Art Freelance',
+      organization: 'Bombardier Aerospace',
+      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
+      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
+      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
+      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
+      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
+      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      link: 'https://ajnamaterials.com',
+      startDate: 'January 2021',
+      endDate: 'Current',
+      category: 'work'
+    },
+  {
+      title: 'Assistant Coach',
+      organization: 'Bombardier Aerospace',
+      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
+      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
+      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
+      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
+      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
+      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      link: 'https://ajnamaterials.com',
+      startDate: 'August 2025',
+      endDate: 'Current',
+      category: 'work'
+    },
+{
+      title: 'Varisty Board Member & Womens Team Captain',
+      organization: 'University of Toronto Baja SAE',
+      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
+      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
+      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
+      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
+      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
+      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      link: 'https://ajnamaterials.com',
+      startDate: 'August 2019',
+      endDate: 'April 2023',
+      category: 'extracurricular'
+    }, 
+     {
+      title: 'Biomedical Engineering Board Member',
+      organization: 'University of Toronto Baja SAE',
+      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
+      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
+      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
+      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
+      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
+      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      link: 'https://ajnamaterials.com',
+      startDate: 'September 2021',
+      endDate: 'April 2022',
+      category: 'design-team'
+    }, 
+     {
+      title: 'Frosh Leader',
+      organization: 'University of Toronto Baja SAE',
+      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
+      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
+      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
+      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
+      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
+      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      link: 'https://ajnamaterials.com',
+      startDate: 'July 2023',
+      endDate: 'September 2023',
+      category: 'design-team'
+    }, 
   {
       title: 'Olympic Trials 2020',
       organization: 'Bombardier Aerospace',
@@ -688,6 +753,38 @@ export default function Engineering() {
       endDate: 'October 2022',
       category: 'extracurricular'
     },
+  {
+      title: 'University Sports Championships 2020',
+      organization: 'Bombardier Aerospace',
+      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
+      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
+      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
+      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
+      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
+      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      link: 'https://ajnamaterials.com',
+      startDate: 'March 2020',
+      endDate: 'March 2020',
+      category: 'extracurricular'
+    },
+ {
+      title: 'University Sports Championships 2023',
+      organization: 'Bombardier Aerospace',
+      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
+      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
+      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
+      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
+      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      images: ['/images/engineering/ajna-1.jpg', '/images/engineering/ajna-2.jpg'],
+      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      link: 'https://ajnamaterials.com',
+      startDate: 'March 2023',
+      endDate: 'March 2023',
+      category: 'extracurricular'
+    },
   ];
 
   // Calculate the total height needed (96 months from Jan 2018 to Dec 2025)
@@ -696,7 +793,8 @@ export default function Engineering() {
   // Calculate bar offsets and opacities to prevent overlap
   const projectsWithPositioning = allProjects.map((project, idx) => {
     const startMonth = parseDate(project.startDate || '');
-    const endMonth = project.endDate?.toLowerCase() === 'present'
+    const endDateLower = project.endDate?.toLowerCase();
+    const endMonth = (endDateLower === 'present' || endDateLower === 'current')
       ? timelineMonths.length - 1
       : parseDate(project.endDate || '');
     const durationMonths = Math.max(1, endMonth - startMonth);
@@ -705,10 +803,10 @@ export default function Engineering() {
     const reversedStartMonth = timelineMonths.length - 1 - endMonth;
     const absoluteTop = reversedStartMonth * 60;
 
-    // For education cards, card position is at END (absoluteTop)
+    // For education and current cards, card position is at END (absoluteTop)
     // For regular cards, card position is at START (absoluteTop + duration)
-    const isEdu = project.school !== undefined;
-    const cardPosition = isEdu ? absoluteTop : absoluteTop + (durationMonths * 60);
+    const positionAtEnd = project.category === 'education' || project.category === 'current';
+    const cardPosition = positionAtEnd ? absoluteTop : absoluteTop + (durationMonths * 60);
 
     return {
       project,
@@ -722,12 +820,31 @@ export default function Engineering() {
     };
   });
 
-  // All cards aligned at the same horizontal position
-  type ProjectWithOffset = typeof projectsWithPositioning[0] & { horizontalOffset: number };
-  const projectsWithOffsets: ProjectWithOffset[] = projectsWithPositioning.map((item) => {
+  // Sort by card position and add vertical offset for overlapping cards
+  const CARD_HEIGHT = 200; // Approximate height of collapsed card
+  const sortedByPosition = [...projectsWithPositioning].sort((a, b) => a.cardPosition - b.cardPosition);
+
+  // Track adjusted positions to prevent overlap
+  const adjustedPositions: { cardPosition: number; adjustedTop: number }[] = [];
+
+  type ProjectWithOffset = typeof projectsWithPositioning[0] & { horizontalOffset: number; adjustedTop: number };
+  const projectsWithOffsets: ProjectWithOffset[] = sortedByPosition.map((item) => {
+    let adjustedTop = item.cardPosition;
+
+    // Check if this card overlaps with any previous card
+    for (const prev of adjustedPositions) {
+      if (Math.abs(adjustedTop - prev.adjustedTop) < CARD_HEIGHT) {
+        // Push this card down to avoid overlap
+        adjustedTop = prev.adjustedTop + CARD_HEIGHT;
+      }
+    }
+
+    adjustedPositions.push({ cardPosition: item.cardPosition, adjustedTop });
+
     return {
       ...item,
-      horizontalOffset: 0, // All cards at same horizontal position
+      horizontalOffset: 0,
+      adjustedTop,
     };
   });
 
@@ -774,6 +891,7 @@ export default function Engineering() {
                 cardIndex={item.cardIndex}
                 absoluteTop={item.absoluteTop}
                 horizontalOffset={item.horizontalOffset}
+                adjustedTop={item.adjustedTop}
               />
             ))}
           </div>
