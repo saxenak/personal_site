@@ -848,6 +848,10 @@ export default function Engineering() {
     };
   });
 
+  // Calculate the actual height needed based on the last card's position
+  const maxCardPosition = Math.max(...projectsWithOffsets.map(p => p.adjustedTop)) + CARD_HEIGHT + 100;
+  const actualTimelineHeight = Math.max(maxCardPosition, totalHeight);
+
   return (
     <main className="min-h-screen bg-black text-white pb-20">
       <ProjectNav title="KIRTI SAXENA" />
@@ -866,13 +870,13 @@ export default function Engineering() {
         </div>
 
         {/* Timeline Container */}
-        <div className="relative pl-64" style={{ minHeight: `${totalHeight + 600}px` }}>
+        <div className="relative pl-64" style={{ minHeight: `${actualTimelineHeight}px` }}>
           {/* White Central Vertical Line */}
           <div
             className="absolute top-0 w-1 bg-white shadow-lg shadow-white/30"
             style={{
               left: '250px',
-              height: `${totalHeight + 600}px`,
+              height: `${actualTimelineHeight}px`,
               zIndex: 5,
             }}
           />
