@@ -333,9 +333,9 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
                 <Image
                   src={image}
                   alt={`${project.title} - Image ${idx + 1}`}
-                  width={400}
-                  height={250}
-                  className="rounded-lg object-cover w-full h-48 group-hover:shadow-lg transition-shadow"
+                  width={600}
+                  height={400}
+                  className="rounded-lg object-contain w-full h-auto group-hover:shadow-lg transition-shadow"
                 />
               </div>
             ))}
@@ -461,7 +461,7 @@ export default function Engineering() {
       images: ['/images/engineering/ajna-ss1.png', '/images/engineering/ajna-ss2.png'],
       keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://www.seaspan.com/stories/get-to-know-our-newest-cohort-of-interns-making-a-splash-at-seaspan-this-fall/',
+      link: '/pdfs/engineering/SeaspanReport.pdf',
       startDate: 'September 2024',
       endDate: 'January 2025',
       category: 'work'
@@ -469,15 +469,15 @@ export default function Engineering() {
    {
       title: 'Cell Manufacturing Engineering Intern',
       organization: 'Tesla Inc.',
-      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
-      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
-      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
-      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
-      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
-      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      description: 'Worked within the Cell Manufacturing Assembly Line and helped the deployment of a new production line for the Cybertruck battery cells.',
+      skills: ['Battery Cell Engineering', 'Manufacturing Line Deployment', 'AI/ML', 'EV Vehicles', 'Technical Program Managememnt', 'Mechanical Design Optimization'],
+      achieved: 'Deployed a new production line for the Cybertruck battery cells, successfully navigating complex technical and logistical challenges. ',
+      how: 'Processed data from the manufacturing line to optimize performance by making Tableau dashboards for real-time monitoring. Worked on mechanical design changes to improve assembly line efficiency and reduce downtime.',
+      outcome: 'Successfully launched the Cybertruck battery cell production line, contributing to Tesla\'s ability to meet increasing demand for electric vehicles.', 
+      images: ['/images/engineering/ajna-t1.png', '/images/engineering/ajna-t2.png'],
+      keyTakeaway: 'Working at Tesla taught me that time means everything. Whatever reduces time is worth investing in, as in the long-term, the benefit outweighs the cost.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://ajnamaterials.com',
+      link: 'https://www.tesla.com/manufacturing',
       startDate: 'September 2023',
       endDate: 'June 2024',
       category: 'work'
@@ -517,21 +517,21 @@ export default function Engineering() {
      {
       title: 'Machine Learning Engineer',
       organization: 'Pnemonia Detection Research Project',
-      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
-      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
-      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
-      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
-      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
-      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      description: 'Pnemonia detection using a binary classification model trained on chest x-ray images.',
+      skills: ['AI/ML', 'Image Classification', 'Predictative Models', 'Biomedical Engineering', 'Data Analysis and Visualization'],
+      achieved: 'Developed and trained a convolutional neural network (CNN) model achieving over 90% accuracy in detecting pneumonia from chest x-ray images.',
+      how: 'Utilized TensorFlow and GoogLeNet to build the CNN architecture, preprocess the image dataset, and implement data augmentation techniques to enhance model robustness.',
+      outcome: 'Achieved an accuracy of 95% and reliability in pneumonia detection, demonstrating the potential of AI in medical diagnostics and contributing to improved patient outcomes.',
+      images: ['/images/engineering/ajna-pd1.png', '/images/engineering/ajna-pd2.png'],
+      keyTakeaway: 'Building effective machine learning models requires a deep understanding of both the technical aspects and the real-world applications. Specifically within healthcare, where there are high stakes involved, ethically sourced data and rigorous validation is crucial.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://ajnamaterials.com',
+      link: '/pdfs/engineering/PnemoniaDetection.pdf',
       startDate: 'May 2023',
       endDate: 'August 2023',
       category: 'research'
     }, 
      {
-      title: 'Capstone Researcher',
+      title: 'Capstone Engineering Design',
       organization: 'University of Toronto Baja SAE',
       description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
       skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
@@ -565,15 +565,15 @@ export default function Engineering() {
  {
       title: 'Operations Engineer',
       organization: 'Bombardier Aerospace',
-      description: 'Leader of the plan to  ',
+      description: 'Lead the transition plan of a manufacturing plant from North York to Mississauga, closer to the airport. ',
       skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
       achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
       how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
       outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
+      images: ['/images/engineering/ajna-b1.png', '/images/engineering/ajna-b2.png'],
       keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://ajnamaterials.com',
+      link: 'https://bombardier.com/en/magazine/innovation',
       startDate: 'May 2023',
       endDate: 'September 2023',
       category: 'work'
@@ -676,16 +676,13 @@ export default function Engineering() {
     }, 
      {
       title: 'Frosh Leader',
-      organization: 'University of Toronto Baja SAE',
-      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
-      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
-      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
-      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
-      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
+      organization: 'University of Toronto Engineering Society',
+      description: 'One of the leaders responsible for guiding first-year engineering students through their transition into university life. Focused on being the campus tourguide and map expert.',
+      outcome: 'Helped first-year students acclimate to university life, providing support and guidance during their initial weeks on campus.',
       images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
-      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      keyTakeaway: 'Being able to mentor incoming students is a rewarding experience that allows you to give back to the community and help others succeed.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://ajnamaterials.com',
+      link: 'https://www.google.com/search?q=uoft+engineering+frosh+&sca_esv=a0bb12506671175f&udm=2&biw=1512&bih=823&sxsrf=AE3TifNW0r5NQMtrc69XG89JzghWzA30Lg%3A1765745591462&ei=tyM_aZX_G_CF0PEPyLSkoQs&ved=0ahUKEwjVtvj1-r2RAxXwAjQIHUgaKbQQ4dUDCBI&uact=5&oq=uoft+engineering+frosh+&gs_lp=Egtnd3Mtd2l6LWltZyIXdW9mdCBlbmdpbmVlcmluZyBmcm9zaCAyBBAAGB4yBhAAGAgYHkiZD1D4A1jsDHABeACQAQCYAW2gAZYDqgEDNC4xuAEDyAEA-AEBmAICoALAAZgDAIgGAZIHAzEuMaAHiQOyBwMxLjG4B8ABwgcDMi0yyAcHgAgA&sclient=gws-wiz-img',
       startDate: 'July 2023',
       endDate: 'September 2023',
       category: 'design-team'
@@ -708,16 +705,14 @@ export default function Engineering() {
     },
   {
       title: 'Olympic Trials 2024',
-      organization: 'Bombardier Aerospace',
-      description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
-      skills: ['Leadership', 'Product Strategy', 'AI/ML', 'Sustainability', 'Business Development'],
-      achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges',
-      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders',
-      outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
-      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      organization: 'Wrestling Canada',
+      description: 'Competed in Olympic Trials while working at Tesla as an intern during Cybertruck launch.',
+      skills: ['Discipline', 'Resilience', 'Strategy', 'Time Management', 'Pressure Handling'],
+      achieved: 'Placed top 5 in a highly competitive Olympic Trials, becoming one of the Olympic team alternates.',
+      images: ['/images/engineering/ajna-o1.png', '/images/engineering/ajna-o2.png'],
+      keyTakeaway: 'Having a strong support system and effective time management are crucial when balancing high-level athletics with demanding professional commitments.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://ajnamaterials.com',
+      link: 'https://www.mie.utoronto.ca/austin-to-paris-meche-student-kirti-saxena-balances-tesla-internship-and-team-canada-competitions/',
       startDate: 'December 2023',
       endDate: 'December 2023',
       category: 'extracurricular'
