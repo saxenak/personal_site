@@ -17,9 +17,9 @@ export default function Nav() {
 
   return (
     <nav className="fixed w-full z-50 bg-black/50 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-8 py-6 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6 flex justify-between items-center">
         {/* Clickable Name/Title on Left */}
-        <Link href="/" className="text-2xl font-light hover:text-gray-300 transition-colors">
+        <Link href="/" className="text-xl md:text-2xl font-light hover:text-gray-300 transition-colors">
           KIRTI SAXENA
         </Link>
 
@@ -42,7 +42,7 @@ export default function Nav() {
             transition={{ duration: 0.3 }}
             className="absolute top-full left-0 w-full bg-black/90 backdrop-blur-sm border-t border-gray-800"
           >
-            <div className="max-w-7xl mx-auto px-8 py-6">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6">
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 {menuItems.map((item) => (
                   <Link

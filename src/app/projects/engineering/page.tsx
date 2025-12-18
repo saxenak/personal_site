@@ -107,6 +107,139 @@ const generateTimelineMonths = () => {
   return months;
 };
 
+// Mobile-friendly card component
+const MobileProjectCard = ({ project, categoryColor }: {
+  project: Project;
+  categoryColor: { glow: string; border: string; label: string };
+}) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <motion.div
+      className="border-2 rounded-lg bg-black"
+      style={{
+        borderColor: categoryColor.border,
+        boxShadow: `0 0 15px ${categoryColor.glow}`,
+      }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.4 }}
+    >
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-full p-4 text-left"
+      >
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold" dangerouslySetInnerHTML={{ __html: project.title }} />
+            {project.organization && (
+              <p className="text-gray-500 text-sm mt-1">{project.organization}</p>
+            )}
+            {project.school && (
+              <p className="text-gray-500 text-sm mt-1">{project.school}</p>
+            )}
+            {(project.startDate || project.endDate) && (
+              <p className="text-xs mt-1" style={{ color: categoryColor.border }}>
+                {project.startDate} {project.endDate && `— ${project.endDate}`}
+              </p>
+            )}
+          </div>
+          <motion.div
+            animate={{ rotate: isExpanded ? 180 : 0 }}
+            className="text-gray-400 text-xl ml-2"
+          >
+            ↓
+          </motion.div>
+        </div>
+      </button>
+
+      <motion.div
+        initial={false}
+        animate={{ height: isExpanded ? 'auto' : 0 }}
+        className="overflow-hidden"
+      >
+        <div className="p-4 pt-0 border-t border-gray-800">
+          {project.description && (
+            <div className="mb-4">
+              <h4 className="text-sm font-semibold text-gray-300 mb-1">Description:</h4>
+              <p className="text-gray-400 text-sm">{project.description}</p>
+            </div>
+          )}
+
+          {project.skills && project.skills.length > 0 && (
+            <div className="mb-4">
+              <h4 className="text-xs font-semibold text-gray-400 mb-2">SKILLS</h4>
+              <div className="flex flex-wrap gap-1">
+                {project.skills.map((skill) => (
+                  <span key={skill} className="px-2 py-0.5 bg-gray-800 text-gray-300 rounded-full text-xs">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {project.achieved && (
+            <div className="mb-3">
+              <h4 className="text-sm font-semibold text-gray-300 mb-1">Achieved:</h4>
+              <p className="text-gray-400 text-sm">{project.achieved}</p>
+            </div>
+          )}
+
+          {project.how && (
+            <div className="mb-3">
+              <h4 className="text-sm font-semibold text-gray-300 mb-1">How:</h4>
+              <p className="text-gray-400 text-sm">{project.how}</p>
+            </div>
+          )}
+
+          {project.outcome && (
+            <div className="mb-3">
+              <h4 className="text-sm font-semibold text-gray-300 mb-1">Outcome:</h4>
+              <p className="text-gray-400 text-sm">{project.outcome}</p>
+            </div>
+          )}
+
+          {project.images && project.images.length > 0 && (
+            <div className="grid grid-cols-2 gap-2 mb-3">
+              {project.images.map((image, idx) => (
+                <Image
+                  key={idx}
+                  src={image}
+                  alt={`${project.title} - Image ${idx + 1}`}
+                  width={300}
+                  height={200}
+                  className="rounded-lg object-contain w-full h-auto"
+                />
+              ))}
+            </div>
+          )}
+
+          {project.keyTakeaway && (
+            <div className="mb-3">
+              <h4 className="text-sm font-semibold text-gray-300 mb-1">Key Takeaway:</h4>
+              <p className="text-gray-400 text-sm italic">{project.keyTakeaway}</p>
+            </div>
+          )}
+
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block text-sm underline mt-2"
+              style={{ color: categoryColor.border }}
+            >
+              Learn more →
+            </a>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opacity, cardIndex, absoluteTop, horizontalOffset, adjustedTop }: {
   project: Project;
   startMonth: number;
@@ -831,7 +964,7 @@ export default function Engineering() {
   return (
     <main className="min-h-screen bg-black text-white pb-20">
       <ProjectNav title="KIRTI SAXENA" />
-      <div className="pt-32 px-8 max-w-7xl mx-auto">
+      <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-7xl mx-auto">
         <ProjectHeader
           title="My Engineering Journey"
           date="Updated December 2025"
@@ -854,8 +987,8 @@ export default function Engineering() {
           </p>
         </div>
 
-        {/* Timeline Container */}
-        <div className="relative pl-64" style={{ minHeight: `${actualTimelineHeight}px` }}>
+        {/* Timeline Container - Desktop */}
+        <div className="hidden md:block relative pl-64" style={{ minHeight: `${actualTimelineHeight}px` }}>
           {/* White Central Vertical Line */}
           <div
             className="absolute top-0 w-1 bg-white shadow-lg shadow-white/30"
@@ -884,6 +1017,20 @@ export default function Engineering() {
               />
             ))}
           </div>
+        </div>
+
+        {/* Mobile Timeline - Simple stacked cards */}
+        <div className="md:hidden space-y-4 px-4">
+          {projectsWithOffsets.map((item, idx) => {
+            const categoryColor = categoryColors[item.project.category || 'work'] || categoryColors.work;
+            return (
+              <MobileProjectCard
+                key={idx}
+                project={item.project}
+                categoryColor={categoryColor}
+              />
+            );
+          })}
         </div>
       </div>
     </main>

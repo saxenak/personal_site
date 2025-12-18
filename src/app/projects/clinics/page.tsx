@@ -45,7 +45,7 @@ export default function Clinics() {
     <main className="min-h-screen bg-black text-white pb-20">
       <ProjectNav title="CLINICS" />
       
-      <div className="pt-32 px-8 max-w-6xl mx-auto">
+      <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-6xl mx-auto">
         <ProjectHeader 
           title="CLINICS"
           date="2024"

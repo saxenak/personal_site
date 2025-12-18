@@ -159,78 +159,78 @@ export default function Home() {
 
       {/* Logo in top-left corner */}
       <div
-        className="fixed top-8 left-8 z-50 cursor-pointer hover:opacity-80 transition-opacity"
+        className="fixed top-4 left-4 md:top-8 md:left-8 z-50 cursor-pointer hover:opacity-80 transition-opacity"
         onClick={() => setShowIntro(true)}
       >
         <img
           src="/KIRTILOGO.PNG"
           alt="Kirti Saxena Logo"
-          className="h-24 w-auto object-contain"
+          className="h-16 md:h-24 w-auto object-contain"
         />
       </div>
 
       {/* Name in top-right corner */}
       <div
-        className="fixed top-8 right-8 z-50 cursor-pointer hover:opacity-80 transition-opacity"
+        className="fixed top-4 right-4 md:top-8 md:right-8 z-50 cursor-pointer hover:opacity-80 transition-opacity"
         onClick={() => setShowIntro(true)}
       >
-        <h1 className="text-base font-bold">KIRTI SAXENA</h1>
+        <h1 className="text-sm md:text-base font-bold">KIRTI SAXENA</h1>
       </div>
 
-      {/* Full-width horizontal layout */}
+      {/* Full-width horizontal layout - vertical on mobile, horizontal on desktop */}
       <div className="min-h-screen flex items-center relative z-10">
-        <div className="w-full grid grid-cols-5 gap-0">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-0">
           <a
             href="/projects/engineering"
-            className="group h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
+            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
             onMouseEnter={() => handleVideoHover('/engineering_landingpage.mp4')}
             onMouseLeave={handleVideoLeave}
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
+            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
               ENGINEER
             </h2>
           </a>
 
           <a
             href="/projects/athletics"
-            className="group h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
+            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
             onMouseEnter={() => handleVideoHover('/wrestling_landingpage.mp4')}
             onMouseLeave={handleVideoLeave}
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
+            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
               ATHLETE
             </h2>
           </a>
 
           <a
             href="/projects/modelling"
-            className="group h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
+            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
             onMouseEnter={() => handleVideoHover('/model_landingpage.MP4')}
             onMouseLeave={handleVideoLeave}
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
+            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
               MODEL
             </h2>
           </a>
 
           <a
             href="/projects/artistry"
-            className="group h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
+            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
             onMouseEnter={() => handleVideoHover('/artist_landingpage.mp4')}
             onMouseLeave={handleVideoLeave}
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
+            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
               ARTIST
             </h2>
           </a>
 
           <a
             href="/projects/clinics"
-            className="group h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
+            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
             onMouseEnter={() => handleVideoHover('/clinics_landingpage.mp4')}
             onMouseLeave={handleVideoLeave}
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
+            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
               CLINICS
             </h2>
           </a>

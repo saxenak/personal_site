@@ -268,7 +268,7 @@ export default function Modelling() {
       )}
     </AnimatePresence>
 
-      <div className="pt-40 px-8 pb-20">
+      <div className="pt-24 md:pt-40 px-4 md:px-8 pb-20">
         {!selectedCategory ? (
           // Category Grid View
           <div className="max-w-6xl mx-auto">
@@ -285,7 +285,7 @@ export default function Modelling() {
               </p>
             </motion.div>
             
-            <div className="grid grid-cols-3 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
               {modellingProjects.map((category, index) => (
                 <motion.div
                   key={category.id}

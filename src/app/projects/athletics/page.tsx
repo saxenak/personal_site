@@ -76,7 +76,7 @@ export default function Athletics() {
   return (
     <main className="min-h-screen bg-black text-white pb-20">
       <ProjectNav title="KIRTI SAXENA" />
-      <div className="pt-32 px-8 max-w-6xl mx-auto">
+      <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-6xl mx-auto">
         <ProjectHeader 
           title="ATHLETE"
           date="2023"
