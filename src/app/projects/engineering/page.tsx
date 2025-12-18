@@ -287,6 +287,14 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
             </div>
           )}
 
+          {/* Description */}
+          {project.description && (
+            <div className="mb-6 mt-2">
+              <h4 className="text-base font-semibold text-gray-300 mb-2">Description:</h4>
+              <p className="text-gray-400 text-base leading-relaxed">{project.description}</p>
+            </div>
+          )}
+
           {/* Startup/Work-specific fields */}
           {project.skills && (
             <div className="mb-6 mt-2">
@@ -327,19 +335,21 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            {project.images.map((image, idx) => (
-              <div key={idx} className="relative group">
-                <Image
-                  src={image}
-                  alt={`${project.title} - Image ${idx + 1}`}
-                  width={600}
-                  height={400}
-                  className="rounded-lg object-contain w-full h-auto group-hover:shadow-lg transition-shadow"
-                />
-              </div>
-            ))}
-          </div>
+          {project.images.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              {project.images.map((image, idx) => (
+                <div key={idx} className="relative group">
+                  <Image
+                    src={image}
+                    alt={`${project.title} - Image ${idx + 1}`}
+                    width={600}
+                    height={450}
+                    className="rounded-lg object-contain w-full h-auto group-hover:shadow-lg transition-shadow"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
 
           {project.keyTakeaway && (
             <div className="mb-4">
@@ -393,7 +403,7 @@ export default function Engineering() {
   const allProjects: Project[] = [
     {
       title: 'Bachelor of Applied Sciences in Engineering',
-      school: 'University of Toronto (2018 -- 2025)',
+      school: 'University of Toronto [2018 -- 2025]',
       major: 'Mechanical Engineering',
       awards: [
         'Lisa Anne Hamman (2020 & 2022)',
@@ -401,8 +411,7 @@ export default function Engineering() {
         'Varsity Blues Diamond Award (2023)'
       ],
       extracurriculars: [
-        'Womens Varsity Wrestling Team Captain (2019-2023)',
-        'Varsity Board Member (2019-2023)',
+        'Womens Varsity Wrestling Team Captain & Varsity Board Member (2019-2023)',
         'Frosh Leader (2023)',
         'Outreach Director for the Biomedical Engineering Board (2021-2022)'
       ],
@@ -410,8 +419,8 @@ export default function Engineering() {
         'University of Toronto Autonomous Rover Team (2019-2023)',
         'University of Toronto BAJA SAE Team (2018-2020)',
         'Machine Learning Research on Pneumonia Detection (2023)',
-        'Capstone Project on Thermal Coatings (2023)',
-        'Senior Thesis on Recyclable PET (2025)'
+        'Capstone Design Project on Cold Spray Coatings (2023)',
+        'Senior Thesis on PDMS Coatings on Recyclable PET (2025)'
       ],
       images: ['/images/engineering/ajna-g1.JPG', '/images/engineering/ajna-g2.png'],
       startDate: 'Sep 2018',
@@ -420,11 +429,11 @@ export default function Engineering() {
     },
     {
       title: 'CEO & Founder',
-      organization: 'AJNA Materials',
+      organization: 'AJNA Materials [May 2025 -- Present • Toronto]',
       description: 'Founded and leading AJNA, a startup focused on AI-powered life cycle assessment and sustainable procurement solutions.',
-      skills: ['CEO', 'Product Strategy', 'AI/ML', 'Sustainable Systems Design', 'Business Development'],
+      skills: ['CEO', 'Product Strategy', 'AI/ML', 'Sustainable Systems Design', 'Business Development', 'React', 'Python', 'JavaScript', 'Human Centered Design', 'Marketplace Development', 'AWS Console'],
       achieved: 'Designed and launched AJNA\'s AI-LCA procurement architecture, successfully navigating complex technical and business challenges.',
-      how: 'Led cross-functional team, developed product vision, secured initial funding, and built strategic partnerships with industry leaders.',
+      how: 'Led cross-functional team, developed product vision, and built strategic partnerships with industry leaders.',
       outcome: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector.',
       images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
       keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
@@ -436,14 +445,14 @@ export default function Engineering() {
     },
    {
       title: 'Technical Co-Founder',
-      organization: 'HER2HER',
+      organization: 'HER2HER [January 2025 -- September 2025 • Toronto]',
       description: 'Focussed on product development of an at home saliva based tool that tests for breast cancer biomarkers.',
-      skills: ['CTO', 'Research and Development','Technical Product Strategy', 'AI/ML', 'Biomedical Engineering', 'Revenue Strategy'],
-      achieved: 'Researched and prototyped a version of the saliva based breast cancer detection tool. Next steps involve clinical trials and regulatory approval.',
-      how: 'Led cross-functional team, developed product vision, and finalized research.',
-      outcome: 'Successfully protyped the product and developed a fluid connection between amplification methods and micro-controller processing. Pitched at multiple accelerators apart of the University of Toronto (Hatchery & H2i).',
-      images: ['/images/engineering/ajna-h1.png', '/images/engineering/ajna-h2.png'],
-      keyTakeaway: 'Building an hardware start-up with a solution that does not exist and comes purely from research is challenging but exciting',
+      skills: ['CTO', 'Research and Development','Technical Product Strategy', 'AI/ML', 'Biosensor Technology', 'Revenue Strategy', 'Micro-Controller Programming'],
+      achieved: 'Researched and prototyped a saliva based breast cancer detection tool. Next steps involve clinical trials and regulatory approval.',
+      how: 'Led cross-functional team, developed product vision, and finalized research while being apart of the University of Toronto\'s Accelerators (Hatchery & H2i).',
+      outcome: 'Successfully protyped the product and developed a fluid connection between amplification methods and micro-controller processing. Participated in pitch competitions and gained initial traction.',
+      images: ['/images/engineering/HER2HER1.png', '/images/engineering/HER2HER2.png'],
+      keyTakeaway: 'Building a hardware start-up with a solution that does not exist and comes purely from research is challenging but so rewarding when you see it come to life.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: '/pdfs/engineering/HER2HER.pdf',
       startDate: 'January 2025',
@@ -452,14 +461,14 @@ export default function Engineering() {
     },
    {
       title: 'R&D Engineering Intern',
-      organization: 'Seaspan ULC',
+      organization: 'Seaspan ULC [September 2024 -- January 2025 • Vancouver]',
       description: 'Researched autonomous robotic systems for ship inspection and welding tasks. Worked on the backend of Digital Twin software called Digital Ship.',
-      skills: ['Autonomous Robotics', 'AI/ML', 'Research and Development', 'Digital Twin Software', 'Mechanical Design'],
-      achieved: 'Researched and reccomended manufacturing and in water robotic systems. Analyzed each robots functions, how implementation would work on a technical and business level as well as the quotes provided by companies or how much it would cost in-house. Worked on data processing the main dataset of Digital Ship to improve for launch.',
+      skills: ['Autonomous Robotics', 'AI/ML', 'Python', 'JavaScript', 'HTML', 'Research and Development', 'Digital Twin Software', 'Mechanical Design'],
+      achieved: 'Researched and reccomended manufacturing and in water robotic systems. Analyzed each robots functions, how implementation would work on a technical and business level as well as the quotes provided by companies. Worked on data processing the main dataset of Digital Ship to improve for launch.',
       how: 'Processed and assigned data types and conducted server database migration to improve software performance. Focussed on welding, painting and inspection robots to be implemented on the floor.',
-      outcome: 'Successfully improved Digital Ship performance and reccomended autonomous systems for Seaspan to invest in for future manufacturing and in water tasks.',
-      images: ['/images/engineering/ajna-ss1.png', '/images/engineering/ajna-ss2.png'],
-      keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
+      outcome: 'Successfully improved Digital Ship\'s performance and reccomended autonomous systems for Seaspan to invest in for future manufacturing and in water tasks.',
+      images: ['/images/engineering/seaspan1.png', '/images/engineering/seaspan2.png'],
+      keyTakeaway: 'Being able to research and recommend new technology for a traditional industry like shipbuilding showed me the importance of innovation and adaptability in engineering. The future of manufacturing is autonomous and digital, and being able to be part of that transition was an invaluable experience.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: '/pdfs/engineering/SeaspanReport.pdf',
       startDate: 'September 2024',
@@ -468,9 +477,9 @@ export default function Engineering() {
     },
    {
       title: 'Cell Manufacturing Engineering Intern',
-      organization: 'Tesla Inc.',
+      organization: 'Tesla Inc. [September 2023 -- June 2024 • Austin]',
       description: 'Worked within the Cell Manufacturing Assembly Line and helped the deployment of a new production line for the Cybertruck battery cells.',
-      skills: ['Battery Cell Engineering', 'Manufacturing Line Deployment', 'AI/ML', 'EV Vehicles', 'Technical Program Managememnt', 'Mechanical Design Optimization'],
+      skills: ['Battery Cell Engineering', 'Manufacturing Line Deployment', 'AI/ML', 'Tableau Dashboards','EV Vehicles', 'Technical Program Managememnt', 'Mechanical Design Optimization'],
       achieved: 'Deployed a new production line for the Cybertruck battery cells, successfully navigating complex technical and logistical challenges. ',
       how: 'Processed data from the manufacturing line to optimize performance by making Tableau dashboards for real-time monitoring. Worked on mechanical design changes to improve assembly line efficiency and reduce downtime.',
       outcome: 'Successfully launched the Cybertruck battery cell production line, contributing to Tesla\'s ability to meet increasing demand for electric vehicles.', 
@@ -484,11 +493,11 @@ export default function Engineering() {
     },
    {
       title: 'Technical Project Manager',
-      organization: 'University of Toronto Robotics Association Autonomous Rover',
-      description: 'Led the build of an autonomous rover for off-road navigation and object detection tasks.',
+      organization: 'UofT Robotics Association [June 2019 -- June 2023 • Toronto]',
+      description: 'Led the build of an autonomous rover and specifically assisted with lane navigation and and object detection tasks.',
       skills: ['Leadership', 'Autonomous Vehicles', 'OpenCV', 'Python', 'ROS', 'Ardunio', 'PCB Design', 'Teaching'],
-      achieved: 'Placed 1st in IGVC 2023 for the International University division, successfully leading a team of 15 members through design, build, and testing phases.',
-      how: 'Managed the Computer Vision, Electrical, Mechanical and ROS teams, coordinated project timelines, and facilitated collaboration among team members to ensure successful project completion. Focussed on perfecting the lane navigation and object detection algorithms using OpenCV and ROS.',
+      achieved: 'Placed 1st in IGVC 2023 for the International University division, successfully leading an on-site team of 15 and off-site team of over 70 members through design, build, and testing phases.',
+      how: 'Managed the Computer Vision, Electrical, Mechanical and ROS teams. Coordinated project timelines, and facilitated collaboration among team members to ensure successful project completion. Focussed on perfecting the lane navigation and object detection algorithms using OpenCV and ROS.',
       outcome: 'Managed to make the rover run the course autonomously for about 70% of the time',
       images: ['/images/engineering/ajna-u1.png', '/images/engineering/ajna-u2.png'],
       keyTakeaway: ' I joined UTRA as a way to learn more about robotics and autonomous systems. As a mechanical engineering undergradute student, I wanted to expand my knowledge in areas of engineering that I was less familiar with. I first started off of on the electrical team of the rover, working on PCB circuit design. I then moved to software, and realized I loved Computer Vision. From there, I worked my way up to eventually leading the entire project as Technical Project Manager. This experience taught me the importance of effective communication, delegation, and adaptability in leading a successful engineering project. It was also one of the most rewarding experiences of my undergraduate career because I stuck with a design team for multiple years and saw the growth of both myself and the team.',
@@ -500,14 +509,14 @@ export default function Engineering() {
     },
      {
       title: 'Mechanical Engineer',
-      organization: 'University of Toronto Baja SAE',
+      organization: 'UofT Baja SAE [September 2018 -- September 2020 • Toronto]',
       description: 'Worked on the design of an off-road vehicles for the Baja SAE competition.',
       skills: ['Electrical Circuits and Signals', 'Pneumatic Breaks', 'Mechanical Design', 'CAD', 'Safety Standards', 'Insulation and Vibration Analysis'],
       achieved: 'Designed and implemented the braking system and electrical circuits for headlights and backlights for the vehicle, ensuring compliance with safety standards and competition regulations.', 
       how: 'Developed the brakes on CAD, selected appropriate materials, and conducted simulations to validate performance under various conditions. Designed electrical circuits for lighting systems, ensuring reliability and efficiency.',
       outcome: 'Succesfully passed all technical inspections and contributed to the vehicle\'s overall performance in the competition.', 
       images: ['/images/engineering/ajna-ba1.png', '/images/engineering/ajna-ba2.png'],
-      keyTakeaway: 'Building a moving vehicle from scratch is a challenging but rewarding experience. It requires a deep understanding of mechanical systems, attention to detail, and the ability to work effectively in a team environment. I did realize from this experience that I am most definetely not a grease monkey and that I prefer design and management roles within engineering projects.', 
+      keyTakeaway: 'Building a moving vehicle from scratch is a challenging but rewarding experience. It requires a deep understanding of mechanical systems, attention to detail, and the ability to work effectively in a team environment. I realized from this experience that I am not a grease monkey and prefer design and management roles within engineering projects.', 
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://www.facebook.com/UofTBaja/',
       startDate: 'September 2018',
@@ -516,9 +525,9 @@ export default function Engineering() {
     }, 
      {
       title: 'Machine Learning Engineer',
-      organization: 'Pnemonia Detection Research Project',
-      description: 'Pnemonia detection using a binary classification model trained on chest x-ray images.',
-      skills: ['AI/ML', 'Image Classification', 'Predictative Models', 'Biomedical Engineering', 'Data Analysis and Visualization'],
+      organization: 'Pneumonia Research Project [May 2023 -- August 2023 • Toronto]',
+      description: 'Created a pneumonia detection algorithm using a binary classification model trained on chest x-ray images.',
+      skills: ['AI/ML', 'Image Classification', 'Predictative Models', 'Python', 'TensorFlow', 'GoogLeNet','Data Analysis and Visualization'],
       achieved: 'Developed and trained a convolutional neural network (CNN) model achieving over 90% accuracy in detecting pneumonia from chest x-ray images.',
       how: 'Utilized TensorFlow and GoogLeNet to build the CNN architecture, preprocess the image dataset, and implement data augmentation techniques to enhance model robustness.',
       outcome: 'Achieved an accuracy of 95% and reliability in pneumonia detection, demonstrating the potential of AI in medical diagnostics and contributing to improved patient outcomes.',
@@ -532,13 +541,13 @@ export default function Engineering() {
     }, 
      {
       title: 'Capstone Engineering Design',
-      organization: 'C.A.C.T Lab - Advanced Coatings Research',
-      description: 'Developed a Schlierian System to analyze cold spray surface coatings accuracy on various substrates.',
-      skills: ['Surface Coatings', 'Schlierian System', 'Light Refraction', 'Image Analysis', 'Fresnel Equations', 'Laboratory Research'],
+      organization: 'C.A.C.T Lab [September 2022 -- April 2023 • Toronto]',
+      description: 'Developed a Schlierian System to analyze cold spray surface coatings accuracy on various substrates. Apart of the Advanced Coatings and Surface Treatments (C.A.C.T) Lab at the University of Toronto.',
+      skills: ['Surface Coatings', 'Schlierian System', 'Light Refraction', 'Image Analysis', 'Fresnel Equations', 'Laboratory Research', 'Matlab', 'Soldering and Welding'],
       achieved: 'Built a Schlierian System capable of detecting coating thickness variations as small as 10 micrometers on different substrates.',
       how: 'Helped analyze and design the optical setup, mechanically made and assembled the system, and developed image processing algorithms to quantify coating uniformity using Fresnel equations.',
       outcome: 'Successfully was able to see the outcome of different cold spray coatings on various substrates and analyze their thickness variations.', 
-      images: ['/images/engineering/ajna-cp1.png', '/images/engineering/ajna-2.png'],
+      images: ['/images/engineering/ajna-cp1.png', '/images/engineering/ajna-cp2.png'],
       keyTakeaway: 'When I started this research thesis on surface coatings, I thought the actual experiment would be easy to complete. I then realized that small adjusments in the optical setup could drastically change the results. Patience and attention to detail was key, and we as a team iterated on the actual setup of the design many times before getting usable results.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: '/pdfs/engineering/Capstone.pdf',
@@ -548,14 +557,14 @@ export default function Engineering() {
     }, 
      {
       title: 'Senior Thesis Researcher',
-      organization: 'D.R.E.A.M Lab - Sustinable Material Innovation',
+      organization: 'D.R.E.A.M Lab - Sustainable Material Innovation [2025 • Toronto]',
       description: ' Assessing the recyclability of polyethylene terephthalate when treated with an advanced coating.',
-      skills: ['Sustainable Materials', 'Recyclable Materials', 'Life Cycle Assessment', 'Laboratory Research', 'FTIR', 'Hot-Pressing', 'Tensile Testing'],
+      skills: ['Sustainable Materials', 'Recyclable Materials', 'Life Cycle Assessment', 'Laboratory Research', 'FTIR', 'Hot-Pressing', 'Tensile Testing', 'Python'],
       achieved: 'The coating successfully did not alter PET’s chemical backbone, although it may have contributed to polymer chain scission.',
-      how:'Mechanically manipulated the PET samples to apply the coating and then analyzed the results using FTIR and Tensile Testing techniques.',
+      how:'Mechanically manipulated the PET samples with and without the coating, and then analyzed the results using FTIR and Tensile Testing techniques.',
       outcome: 'Found uncoated PET samples to exhibit a higher tensile strength compared to coated PET samples, although the crystalline structure remained intact.',
-      images: ['/images/engineering/ajna-s1.png', '/images/engineering/ajna-s2.png'],
-      keyTakeaway: 'Research is unpredictable and often leads to unexpected results, but it is essential to remain open-minded and persistent in your research. Negative outcomes is still a new finding.',
+      images: ['/images/engineering/PET1.png', '/images/engineering/PET2.png'],
+      keyTakeaway: 'Research is unpredictable and often leads to unexpected results, but it is essential to remain open-minded and persistent in your research. A negative outcomes is still a new finding.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: '/pdfs/engineering/SeniorThesis.pdf',
       startDate: 'January 2025',
@@ -564,12 +573,12 @@ export default function Engineering() {
     },  
  {
       title: 'Operations Engineer',
-      organization: 'Bombardier Aerospace',
-      description: 'Lead the transition plan of a manufacturing plant to a destination 21 kilometres away. Facilitating reimbursements from suppliers due to late deliveries and damages.',
-      skills: ['Leadership', 'Strategy Planning', 'Excel', 'Aircraft Design', 'Financial Analysis', 'FMEA', 'SQL', 'Python'],
-      achieved: 'Facilitated supplier reimbursements worth over $500,000 by conducting detailed damage assessments and negotiating effectively with suppliers. Successfully planned out moving two active maircraft assembly lines.',
+      organization: 'Bombardier Aerospace [May 2023 -- September 2023 • Toronto]',
+      description: 'Created the transition plan of a manufacturing plant to a destination 21 kilometres away. Facilitating reimbursements from suppliers due to late deliveries and damages.',
+      skills: ['Leadership', 'Strategy Planning', 'Microsoft Excel', 'Microsoft Power BI', 'Aircraft Design', 'Financial Analysis', 'FMEA', 'SQL', 'Python'],
+      achieved: 'Facilitated supplier reimbursements worth over $500,000 by conducting detailed damage assessments and negotiating effectively with suppliers. Successfully planned out moving two active aircraft assembly lines.',
       how: 'Used Microsoft excel and project to track and plan. Used FMEA to identify potential risks and develop mitigation strategies during the transition. Collaborated with cross-functional teams to ensure a smooth move with minimal disruption to production schedules.',
-      outcome: 'Plant move happened on time and on budget with minimal production downtime. Gained reimbursement with suppliers through effective communication and proof of damages, resulting in improved future collaboration.', 
+      outcome: 'The plant move happened on time and on budget with minimal production downtime. Gained reimbursement with suppliers through effective communication and proof of damages, resulting in improved future collaboration.', 
       images: ['/images/engineering/ajna-b1.png', '/images/engineering/ajna-b2.png'],
       keyTakeaway: ' ',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
@@ -580,13 +589,13 @@ export default function Engineering() {
     },
   {
       title: 'Supply Chain Engineering Intern',
-      organization: 'Pepsico Canada',
+      organization: 'Pepsico Canada [September 2021 -- January 2022 • Vancouver] ',
       description: 'Worked on quality control and supply chain optimization projects within the beverage division.',
-      skills: ['Machine Design', 'CAD', 'Ansys', 'Supply Chain', 'Process Optimization', 'Data Analysis'],
+      skills: ['Machine Design', 'CAD', 'ANSYS', 'Supply Chain', 'Process Optimization', 'Data Analysis', 'Microsoft Excel'],
       achieved: 'Optimized a machine design used in the hot fill bottling process, resulting in a 3% increase in efficiency.',
       how: 'Discovered a corroding bearing ball within the mechanism that caused for overfilling. Redesigned the part in CAD and simulated the new design in Ansys to ensure durability.',
       outcome: 'Helped improve overall production efficiency and reduce downtime within the bottling plant.',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
+      images: ['/images/engineering/pepsi1.png', '/images/engineering/pepsi2.png'],
       keyTakeaway: 'Sometimes a small piece in a machine can have a big impact on overall performance. Attention to detail is crucial in engineering.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://www.pepsicojobs.com/main/careerareas/procurementdistribution',
@@ -596,55 +605,56 @@ export default function Engineering() {
     },
   {
       title: 'Fashion Model',
-      organization: 'Icon Model Management',
-      description: 'Scouted within an airport at age 16, I decided to sign with a modelling agency in Toronto when I turned 19.', 
-      skills: ['Versatility', 'Adaptability', 'Presentation', 'Modelling', 'Creative Direction', 'Acting'],
+      organization: 'Icon Model Management [2020 -- Present •  Toronto]',
+      description: 'Scouted within an airport at age 16 and then  decided to sign with a modelling agency in Toronto at age 19.', 
+      skills: ['Versatility', 'Adaptability', 'Presentation', 'Fashion', 'Creative Direction'],
       achieved: 'Became one of the only South Asian Models signed in Toronto. Published in Vogue, National Geographic and worked throughout school.',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
-      keyTakeaway: 'People think models are full of themselves but it is genuinely the most humbling experience. Imagine someone looking at you and you not getting a job based off of things you cannot really control. This experience taught me that even though I could be very successful and talented in some peoples eyes, in others I may not appear to be anything. So I learned to be to be confident in myself and embrace rejection.',
+      images: [],
+      keyTakeaway: 'People think models are full of themselves but genuinely, for me, it is the most humbling experience. Imagine someone looking at you up and down and you not getting the job, purely based off of things you cannot really control. This experience taught me that even though I could be very successful and talented in some peoples eyes, in others I may not appear to be much. So I learned to be to be confident in myself and embrace rejection.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://kirtisaxena/model.com',
+      link: 'https://www.kirtisaxena.com/projects/modelling',
       startDate: 'September 2020',
       endDate: 'Current',
       category: 'work'
     },
   {
       title: 'Art Creator',
-      organization: 'Xena Designs',
-      description: 'Started painting canvases as a hobby during the pandemic and turned it into a small business selling canvas art pieces at locally.', 
+      organization: 'Xena Designs [2021 -- Present •  Toronto]',
+      description: 'Started painting canvases as a hobby during the pandemic and turned it into a small business selling canvas art pieces.', 
       skills: ['Adobe Photoshop', 'Adobe Illustrator', 'Business Development', 'Modelling Paste', 'Acrylic Painting', 'Creative Direction'],
       how: 'Sold art pieces for law firms, local businesses and individuals. Created custom pieces for clients based off of their vision and turned it into digital art.', 
       outcome: 'Was able to make a small profit off of my art pieces and learned the basics of running a small business.',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
+      images: [],
       keyTakeaway: 'Although COVID hit Toronto really hard, it gave me the oppurtunity to explore my creative side. I always painted during highschool but never took it seriously. During the pandemic, I started selling my art pieces locally and it turned into a small business. This experience taught me that sometimes the best ideas come from unexpected places.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://kirtisaxena/artist.com',
+      link: 'https://www.kirtisaxena.com/projects/artistry',
       startDate: 'January 2021',
       endDate: 'Current',
       category: 'work'
     },
   {
       title: 'Wrestling Instructor',
-      organization: 'Akhara of Champions Wrestling Club',
+      organization: 'Akhara of Champions Wrestling Club [Toronto]',
       description: 'Teach wrestling techniques, focus on a high-performance mentality and strategies to aspiring athletes.',
-      skills: ['Leadership', 'Teaching', 'Mentorship', 'Discipline', 'High-Performance'],
+      skills: ['Leadership', 'Teaching', 'Mentorship', 'Discipline', 'High-Performance', 'Diversity and Inclusion'],
       achieved: 'Teach ages 8-21 the fundamentals of wrestling, their advanced techniques, and mental strategies for competition.',
       how: 'Analyze videos of athletes, create personalized training plans, and provide one-on-one coaching to improve performance.',
       outcome: 'Successfully taught athletes who have gone on to compete at provincial and national levels, instilling confidence and discipline.',
-      images: ['/images/engineering/ajna-w1.jpg', '/images/engineering/ajna-w2.JPG'],
+      images: ['/images/engineering/wrestlinginstructor2.jpg', '/images/engineering/wrestlinginstructor3.JPG'],
       keyTakeaway: 'Being able to teach others is one of the most rewarding experiences, as it allows you to give back and inspire the next generation.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://kirtisaxena/athlete.com',
+      link: 'https://www.kirtisaxena.com/projects/athletics',
       startDate: 'August 2025',
       endDate: 'Current',
       category: 'work'
     },
 {
-      title: 'Varisty Board Member & Womens Team Captain',
-      organization: 'Varsity Blues',
-      skills: ['Leadership', 'Discipline', 'Mentor', 'Team Player', ''],
-      achieved: 'Successfully brought product to market, onboarded first customers, and positioned company for growth in sustainable tech sector',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
+      title: 'Varsity Board Member & Womens Team Captain',
+      organization: 'Varsity Blues [September 2019 -- April 2023 • Toronto]',
+      description: 'Served as team captain for the women\'s wrestling team while also contributing as a board member for varsity athletics.',
+      skills: ['Leadership', 'Discipline', 'Mentor', 'Team Player', 'Responsibility', 'Event Planning', 'Mental Health Advocate'],
+      achieved: 'Led the women\'s wrestling team to multiple competitive seasons while balancing academic and athletic responsibilities.',
+      images: [],
       keyTakeaway: 'Being a team captain taught me the importance of training individually while fostering a good team environment. This in conjunction with being on the varsity board taught me how to balance athletics and academics effectively.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://www.utoronto.ca/news/be-ahead-game-how-two-accomplished-athletes-balance-sport-and-studying-u-t',
@@ -654,12 +664,12 @@ export default function Engineering() {
     }, 
      {
       title: 'Operations Director',
-      organization: 'CUBE (Biomedical Engineering Board)',
-      description: 'Resposible for organizing and leading outreach events to promote biomedical engineering within the university and local community.', 
-      skills: ['Leadership', 'Events Planning', 'Biomedical Engineering', 'Sponsor Outreach' , 'Partnership Development'],
+      organization: 'CUBE [September 2021 -- April 2022 • Toronto]',
+      description: 'Responsible for organizing and leading outreach events to promote biomedical engineering within the university and local community. CUBE is a student run biomedical engineering board.', 
+      skills: ['Leadership', 'Events Planning', 'Sponsor Outreach' , 'Partnership Development'],
       achieved: 'Successfully organized multiple outreach events, including workshops, guest lectures, and networking sessions, attracting over 200 participants and fostering collaboration between students and industry professionals.', 
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
-      keyTakeaway: 'Organizing events and leading a team requires strong communication and organizational skills. It is important to be adaptable and open to feedback in order to improve future events.',
+      images: [],
+      keyTakeaway: 'Being able to host lectures and mentorship events that individuals will think are worth the time and effort require finding good mentors and matching them with students who are willing to learn. This made me figure out the best way to help someone grow.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://cube.skule.ca/',
       startDate: 'September 2021',
@@ -668,10 +678,10 @@ export default function Engineering() {
     }, 
      {
       title: 'Frosh Leader',
-      organization: 'University of Toronto Engineering Society',
+      organization: 'UofT Engineering Society [July 2023 -- September 2023 • Toronto]',
       description: 'One of the leaders responsible for guiding first-year engineering students through their transition into university life. Focused on being the campus tourguide and map expert.',
       outcome: 'Helped first-year students acclimate to university life, providing support and guidance during their initial weeks on campus.',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
+      images: [],
       keyTakeaway: 'Being able to mentor incoming students is a rewarding experience that allows you to give back to the community and help others succeed.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://www.google.com/search?q=uoft+engineering+frosh+&sca_esv=a0bb12506671175f&udm=2&biw=1512&bih=823&sxsrf=AE3TifNW0r5NQMtrc69XG89JzghWzA30Lg%3A1765745591462&ei=tyM_aZX_G_CF0PEPyLSkoQs&ved=0ahUKEwjVtvj1-r2RAxXwAjQIHUgaKbQQ4dUDCBI&uact=5&oq=uoft+engineering+frosh+&gs_lp=Egtnd3Mtd2l6LWltZyIXdW9mdCBlbmdpbmVlcmluZyBmcm9zaCAyBBAAGB4yBhAAGAgYHkiZD1D4A1jsDHABeACQAQCYAW2gAZYDqgEDNC4xuAEDyAEA-AEBmAICoALAAZgDAIgGAZIHAzEuMaAHiQOyBwMxLjG4B8ABwgcDMi0yyAcHgAgA&sclient=gws-wiz-img',
@@ -681,11 +691,11 @@ export default function Engineering() {
     }, 
   {
       title: 'Olympic Trials 2020',
-      organization: 'Wrestling Canada',
+      organization: 'Wrestling Canada [December 2019 • Montreal]',
       description: 'Competed in Olympic Trials while recovering from ACL, Meniscus, PCL and MCL surgery.',
-      skills: ['Discipline', 'Resilience', 'Strategy', 'Time Management', 'Pressure Handling'],
-      achieved: 'Scored within the first round. Competed against the top wrestlers in Canada while recovering from an ACL surgery.',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
+      skills: ['Discipline', 'Resilience', 'Strategy', 'Time Management', 'Injury Management'],
+      achieved: 'Scored within the first round. Competed against the top wrestlers in Canada while recovering from an knee surgery.',
+      images: [],
       keyTakeaway: 'Being a Junior wrestling a Senior level competition taught me to never back down from a challenge, even if the odds are against you. It is important to always give your best effort and learn from every experience, regardless of the outcome.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://www.facebook.com/loveengill/videos/wrestling-phenom-kirti-saxena-from-gta/362208641350244/',
@@ -695,10 +705,12 @@ export default function Engineering() {
     },
   {
       title: 'Olympic Trials 2024',
-      organization: 'Wrestling Canada',
+      organization: 'Wrestling Canada [December 2023 • Edmonton] ',
       description: 'Competed in Olympic Trials while working at Tesla as an intern during Cybertruck launch and recovering from my second meniscus surgery.',
-      skills: ['Discipline', 'Resilience', 'Strategy', 'Time Management', 'Pressure Handling'],
-      achieved: 'Placed top 5 in a highly competitive Olympic Trials, becoming one of the Olympic team alternates.',
+      skills: ['Discipline', 'Resilience', 'Strategy', 'Time Management', 'Pressure Handling', 'Injury Management'],
+      achieved: 'Placed in the top 5 in a highly competitive Olympic Trials, becoming one of the Olympic team alternates for Paris 2024.',
+      how: 'Balanced rigorous training with a demanding Tesla internship, managing recovery from meniscus surgery while maintaining peak performance for competition.',
+      outcome: 'Secured position as an Olympic team alternate, demonstrating ability to compete at the highest level while managing multiple commitments.',
       images: ['/images/engineering/ajna-o1.png', '/images/engineering/ajna-o2.png'],
       keyTakeaway: 'Having a strong support system and effective time management are crucial when balancing high-level athletics with demanding professional commitments.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
@@ -708,13 +720,13 @@ export default function Engineering() {
       category: 'extracurricular'
     },
   {
-      title: 'U23 World Championships 2022',
-      organization: 'United World Wrestling',
-      description: 'Competed at the U23 World Championships in Spain.', 
+      title: 'U23 World Championships',
+      organization: 'United World Wrestling [2022 • Pontevedra]',
+      description: 'Competed at the U23 World Championships in Pontevedra, Spain.', 
       skills: ['Discipline', 'Resilience', 'Strategy', 'Time Management', 'Pressure Handling'],
       achieved: 'Placed 11th in the World after suffering a third to second degree burn incident a few months prior to the competition.',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
-      keyTakeaway: 'Overcoming adversity and setbacks is a crucial part of athletic development. It is important to stay focused on your goals and maintain a positive mindset, even in the face of challenges.',
+      images: [],
+      keyTakeaway: 'Overcoming adversity and setbacks is a crucial part of athletic development. Sometimes things out of your control happen, and you don\'t know when things will return to normal or if that is a possibility. It is important that you come back harder, stronger and more determined than before.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://globalnews.ca/video/9208833/canadian-female-wrestler-set-to-compete-at-the-u23-world-championships-in-spain',
       startDate: 'October 2022',
@@ -722,31 +734,30 @@ export default function Engineering() {
       category: 'extracurricular'
     },
   {
-      title: 'University Sports Championships 2020',
-      organization: 'USPORTS',
+      title: 'University Sports Championships',
+      organization: 'U SPORTS [September 2019 -- March 2020 • Toronto]',
       description: 'Competed at the National University Sports Championships within my first year of varsity wrestling.',
-      skills: ['Discipline', 'Resilience', 'Strategy', 'Time Management', 'Pressure Handling'],
+      skills: ['Discipline', 'Resilience', 'High Performance', 'Time Management', 'Pressure Handling'],
       achieved: 'Placed 5th in the Nation, earning All-Canadian status in my first year of varsity wrestling.',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
-      keyTakeaway: 'Within my first year of varsity wrestling I would wake up at 5 AM, commute for an hour and mat practise in the mornings. Then go to classes, nap on a couch around campus, and head to my midday lift. Classes again and then commute for an hour to my evening mat practise. Go to sleep. Repeat. Time management and discipline were crucial to balancing academics and athletics successfully.',
+      images: [],
+      keyTakeaway: 'Within my first year of varsity wrestling I would wake up at 5 AM, commute for an hour and have mat practise in the mornings. Then I would go to morning classes, nap on a couch around campus, and head to my midday weight lift. I then would have afternoon classes and then commute for an hour to my evening mat practise. Eat, go to sleep. Repeat. Time management and discipline were crucial to balancing academics and athletics successfully, although the injuries were tough to deal with.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://varsityblues.ca/news/2020/2/19/wrestling-off-to-st-catharines-for-national-championships.aspx',
-      startDate: 'March 2020',
+      startDate: 'September 2019',
       endDate: 'March 2020',
       category: 'extracurricular'
     },
  {
-      title: 'University Sports Championships 2023',
-      organization: 'USPORTS',
-      description: 'Competed at the National University Sports Championships within my second year of varsity wrestling.',
+      title: 'University Sports Championships',
+      organization: 'U SPORTS [September 2022 -- March 2023 • Toronto]',
+      description: 'National University Sports Championships for my second year of varsity wrestling. Last year as Womens Team Captain.',
       skills: ['Discipline', 'Resilience', 'Strategy', 'Time Management', 'Pressure Handling'],
       achieved: 'Qualified for the USPORTS National Championships but had to withdraw due to a second bucket tear in my Meniscus.',
-      images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
+      images: [],
       keyTakeaway: 'Even though I had to withdraw from the competition, I learned the importance of listening to my body and prioritizing long-term health over short-term goals. Recovery and rehabilitation are essential aspects of an athlete\'s journey.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://www.utoronto.ca/news/it-s-ok-struggle-student-overcomes-injury-compete-wrestling-world-championships',
       startDate: 'September 2022', 
-      startDate: 'March 2023',
       endDate: 'March 2023',
       category: 'extracurricular'
     },
@@ -823,14 +834,23 @@ export default function Engineering() {
       <div className="pt-32 px-8 max-w-7xl mx-auto">
         <ProjectHeader
           title="My Engineering Journey"
-          date="Updated November 2025"
+          date="Updated December 2025"
           category="Technical Portfolio"
         />
 
         {/* Blurb Section */}
-        <div className="mb-16 max-w-4xl mx-auto">
+        <div className="mb-16 max-w-4xl mx-auto space-y-4">
           <p className="text-gray-300 text-lg leading-relaxed">
-            From research to internships to full time jobs to ceo, my engineering journey has been driven by curiosity and a passion for solving complex problems. This timeline showcases the milestones that have shaped my career—from research projects to competing as an athlete, to all of my extracurriculars that shaped my interest to then building a scalable venture.
+            My engineering journey is a <span style={{ color: '#FFD700' }}>unique</span> one.
+          </p>
+          <p className="text-gray-300 text-lg leading-relaxed">
+            It consists of me forming myself as an individual and as an engineer. I would say all of my experiences, both within and external of <span style={{ color: '#EC4899' }}>school</span> helped shape what I truly want to invest my time in.
+          </p>
+          <p className="text-gray-300 text-lg leading-relaxed">
+            From doing <span style={{ color: '#C77CBF' }}>extracurriculars</span> like being a frosh leader to being a dedicated <span style={{ color: '#024AA2' }}>athlete</span> and competing in World Championships all the way to working at multiple <span style={{ color: '#FD9635' }}>companies</span> like Tesla, taking on <span style={{ color: '#FD9635' }}>part time jobs</span> like being a signed model in the city to indulging in <span style={{ color: '#9F484F' }}>research</span> on coatings and materials to being the project manager of a <span style={{ color: '#C77CBF' }}>design team</span> that builds an autonomous rover.
+          </p>
+          <p className="text-gray-300 text-lg leading-relaxed">
+            <span style={{ color: '#FFD700' }}>Every single thing</span> ; very setback, every win, every mistake, every award, every learning experience and every person has shaped who I am today and my decision making. Although my pathway was not conventional or easy, <span style={{ color: '#FFD700' }}>I would never change it</span>.
           </p>
         </div>
 
