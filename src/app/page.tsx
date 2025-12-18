@@ -169,9 +169,9 @@ export default function Home() {
         />
       </div>
 
-      {/* Name in top-right corner */}
+      {/* Name in top-right corner - hidden on mobile */}
       <div
-        className="fixed top-4 right-4 md:top-8 md:right-8 z-50 cursor-pointer hover:opacity-80 transition-opacity"
+        className="fixed top-4 right-4 md:top-8 md:right-8 z-50 cursor-pointer hover:opacity-80 transition-opacity hidden md:block"
         onClick={() => setShowIntro(true)}
       >
         <h1 className="text-sm md:text-base font-bold">KIRTI SAXENA</h1>

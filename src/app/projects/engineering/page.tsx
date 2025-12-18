@@ -128,51 +128,54 @@ const MobileProjectCard = ({ project, categoryColor }: {
     >
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-4 text-left"
+        className="w-full p-6 text-left hover:bg-gray-800/70 hover:border-gray-600 transition-all duration-300 group relative"
       >
-        <div className="flex justify-between items-start">
+        <div className="flex justify-between items-center">
           <div className="flex-1">
-            <h3 className="text-lg font-semibold" dangerouslySetInnerHTML={{ __html: project.title }} />
+            <h3 className="text-2xl font-semibold group-hover:text-white transition-colors duration-300" dangerouslySetInnerHTML={{ __html: project.title }} />
             {project.organization && (
-              <p className="text-gray-500 text-sm mt-1">{project.organization}</p>
+              <p className="text-gray-500 group-hover:text-gray-400 mt-1 text-lg transition-colors duration-300">{project.organization}</p>
             )}
             {project.school && (
-              <p className="text-gray-500 text-sm mt-1">{project.school}</p>
-            )}
-            {(project.startDate || project.endDate) && (
-              <p className="text-xs mt-1" style={{ color: categoryColor.border }}>
-                {project.startDate} {project.endDate && `— ${project.endDate}`}
-              </p>
+              <p className="text-gray-500 group-hover:text-gray-400 mt-1 text-lg transition-colors duration-300">{project.school}</p>
             )}
           </div>
-          <motion.div
-            animate={{ rotate: isExpanded ? 180 : 0 }}
-            className="text-gray-400 text-xl ml-2"
-          >
-            ↓
-          </motion.div>
+          <div className="flex flex-col items-center gap-1">
+            <motion.div
+              animate={{ rotate: isExpanded ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+              className="text-gray-400 group-hover:text-gray-200 transition-colors duration-300 text-2xl"
+            >
+              ↓
+            </motion.div>
+            <span className="text-xs text-gray-500 group-hover:text-gray-400 transition-colors duration-300">
+              {isExpanded ? 'Click to close' : 'Click to expand'}
+            </span>
+          </div>
         </div>
+        <div className="absolute inset-0 border-2 border-transparent group-hover:border-gray-600/50 rounded-lg transition-all duration-300 pointer-events-none"></div>
       </button>
 
       <motion.div
         initial={false}
         animate={{ height: isExpanded ? 'auto' : 0 }}
+        transition={{ duration: 0.3 }}
         className="overflow-hidden"
       >
-        <div className="p-4 pt-0 border-t border-gray-800">
+        <div className="p-6 pt-4 border-t border-gray-800">
           {project.description && (
-            <div className="mb-4">
-              <h4 className="text-sm font-semibold text-gray-300 mb-1">Description:</h4>
-              <p className="text-gray-400 text-sm">{project.description}</p>
+            <div className="mb-6 mt-2">
+              <h4 className="text-base font-semibold text-gray-300 mb-2">Description:</h4>
+              <p className="text-gray-400 text-base leading-relaxed">{project.description}</p>
             </div>
           )}
 
           {project.skills && project.skills.length > 0 && (
-            <div className="mb-4">
-              <h4 className="text-xs font-semibold text-gray-400 mb-2">SKILLS</h4>
-              <div className="flex flex-wrap gap-1">
+            <div className="mb-6 mt-2">
+              <h4 className="text-sm font-semibold text-gray-400 mb-3">SKILLS</h4>
+              <div className="flex flex-wrap gap-2">
                 {project.skills.map((skill) => (
-                  <span key={skill} className="px-2 py-0.5 bg-gray-800 text-gray-300 rounded-full text-xs">
+                  <span key={skill} className="px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-base">
                     {skill}
                   </span>
                 ))}
@@ -181,45 +184,48 @@ const MobileProjectCard = ({ project, categoryColor }: {
           )}
 
           {project.achieved && (
-            <div className="mb-3">
-              <h4 className="text-sm font-semibold text-gray-300 mb-1">Achieved:</h4>
-              <p className="text-gray-400 text-sm">{project.achieved}</p>
+            <div className="mb-4">
+              <h4 className="text-base font-semibold text-gray-300 mb-2">Achieved:</h4>
+              <p className="text-gray-400 text-base">{project.achieved}</p>
             </div>
           )}
 
           {project.how && (
-            <div className="mb-3">
-              <h4 className="text-sm font-semibold text-gray-300 mb-1">How:</h4>
-              <p className="text-gray-400 text-sm">{project.how}</p>
+            <div className="mb-4">
+              <h4 className="text-base font-semibold text-gray-300 mb-2">How:</h4>
+              <p className="text-gray-400 text-base">{project.how}</p>
             </div>
           )}
 
           {project.outcome && (
-            <div className="mb-3">
-              <h4 className="text-sm font-semibold text-gray-300 mb-1">Outcome:</h4>
-              <p className="text-gray-400 text-sm">{project.outcome}</p>
+            <div className="mb-4">
+              <h4 className="text-base font-semibold text-gray-300 mb-2">Outcome:</h4>
+              <p className="text-gray-400 text-base">{project.outcome}</p>
             </div>
           )}
 
           {project.images && project.images.length > 0 && (
-            <div className="grid grid-cols-2 gap-2 mb-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               {project.images.map((image, idx) => (
-                <Image
-                  key={idx}
-                  src={image}
-                  alt={`${project.title} - Image ${idx + 1}`}
-                  width={300}
-                  height={200}
-                  className="rounded-lg object-contain w-full h-auto"
-                />
+                <div key={idx} className="relative group">
+                  <Image
+                    src={image}
+                    alt={`${project.title} - Image ${idx + 1}`}
+                    width={600}
+                    height={450}
+                    className="rounded-lg object-contain w-full h-auto group-hover:shadow-lg transition-shadow"
+                  />
+                </div>
               ))}
             </div>
           )}
 
           {project.keyTakeaway && (
-            <div className="mb-3">
-              <h4 className="text-sm font-semibold text-gray-300 mb-1">Key Takeaway:</h4>
-              <p className="text-gray-400 text-sm italic">{project.keyTakeaway}</p>
+            <div className="mb-4">
+              <div className="flex items-center gap-3 mb-2">
+                <h4 className="text-base font-semibold text-gray-300">Key Takeaway:</h4>
+              </div>
+              <p className="text-gray-400 text-base italic leading-relaxed">{project.keyTakeaway}</p>
             </div>
           )}
 
@@ -228,7 +234,7 @@ const MobileProjectCard = ({ project, categoryColor }: {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-sm underline mt-2"
+              className="inline-block text-base underline mt-2 hover:opacity-80 transition-opacity"
               style={{ color: categoryColor.border }}
             >
               Learn more →
@@ -988,12 +994,12 @@ export default function Engineering() {
         </div>
 
         {/* Timeline Container - Desktop */}
-        <div className="hidden md:block relative pl-64" style={{ minHeight: `${actualTimelineHeight}px` }}>
+        <div className="hidden md:block relative pl-48 lg:pl-64" style={{ minHeight: `${actualTimelineHeight}px` }}>
           {/* White Central Vertical Line */}
           <div
             className="absolute top-0 w-1 bg-white shadow-lg shadow-white/30"
             style={{
-              left: '250px',
+              left: '180px',
               height: `${actualTimelineHeight}px`,
               zIndex: 5,
             }}
@@ -1001,7 +1007,7 @@ export default function Engineering() {
 
 
           {/* Project Cards with Duration Bars - stacked vertically */}
-          <div className="relative ml-24">
+          <div className="relative ml-16 lg:ml-24">
             {projectsWithOffsets.map((item, idx) => (
               <ProjectDropdown
                 key={idx}
