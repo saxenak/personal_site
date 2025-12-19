@@ -276,7 +276,7 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
         style={{
           height: `${durationMonths * 60}px`,
           top: `${absoluteTop}px`,
-          left: `${-300}px`,
+          left: `${-350}px`,
           backgroundColor: categoryColor.glow,
           zIndex: 3,
         }}
@@ -287,19 +287,18 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
         className="absolute w-4 h-4 rounded-full border-2 border-black shadow-lg"
         style={{
           top: `${cardTopPosition}px`,
-          left: `${-108}px`,
+          left: `-178px`,
           backgroundColor: categoryColor.border,
           boxShadow: `0 0 10px ${categoryColor.glow}`,
           zIndex: 10,
         }}
       />
       <div
-        className="absolute text-white text-lg font-semibold whitespace-nowrap text-right flex items-center"
+        className="absolute text-white text-lg font-semibold whitespace-nowrap flex items-center"
         style={{
-          top: `${cardTopPosition}px`,
-          left: `${-230}px`,
-          width: '110px',
-          height: '16px',
+          top: `${cardTopPosition - 2}px`,
+          right: `calc(100% + 190px)`,
+          height: '20px',
           zIndex: 10,
         }}
       >
