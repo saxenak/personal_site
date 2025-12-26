@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import ProjectHeader from '@/components/ProjectHeader';
 import ProjectNav from '@/components/ProjectNav';
-import { useState, Fragment } from 'react';
+import { useState, Fragment, useRef, useEffect, useCallback } from 'react';
 
 interface Project {
   title: string;
@@ -246,7 +246,7 @@ const MobileProjectCard = ({ project, categoryColor }: {
   );
 };
 
-const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opacity, cardIndex, absoluteTop, horizontalOffset, adjustedTop }: {
+const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opacity, cardIndex, absoluteTop, horizontalOffset, adjustedTop, isExpanded, onToggle, onHeightChange }: {
   project: Project;
   startMonth: number;
   durationMonths: number;
@@ -256,14 +256,34 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
   absoluteTop: number; // absolute top position in pixels
   horizontalOffset: number; // horizontal offset in pixels
   adjustedTop: number; // adjusted top position to prevent card overlap
+  isExpanded: boolean;
+  onToggle: () => void;
+  onHeightChange: (height: number) => void;
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Measure and report height changes
+  useEffect(() => {
+    const currentRef = cardRef.current;
+    if (currentRef) {
+      // Initial height measurement
+      onHeightChange(currentRef.offsetHeight);
+
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          onHeightChange(entry.contentRect.height);
+        }
+      });
+      resizeObserver.observe(currentRef);
+      return () => resizeObserver.disconnect();
+    }
+  }, [onHeightChange, isExpanded]);
 
   // Use the pre-calculated adjusted position for the card
   const cardTopPosition = adjustedTop - 8;
 
-  // Determine if this is an end-positioned category (for date label display)
-  const positionAtEnd = project.category === 'education' || project.category === 'current';
+  // Determine if this card should show end date in label (only education and current)
+  const showEndDate = project.category === 'education' || project.category === 'current';
 
   // Get category-specific colors (with fallback)
   const categoryColor = categoryColors[project.category || 'work'] || categoryColors.work;
@@ -302,14 +322,18 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
           zIndex: 10,
         }}
       >
-        {positionAtEnd ? project.endDate : project.startDate}
+        {showEndDate ? project.endDate : project.startDate}
       </div>
 
       {/* Card positioned based on card type */}
-      <div
+      <motion.div
+        ref={cardRef}
         className="absolute"
+        animate={{
+          top: cardTopPosition,
+        }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
         style={{
-          top: `${cardTopPosition}px`,
           left: `${50 + horizontalOffset}px`,
           width: '600px',
           zIndex: isExpanded ? 50 : 10,
@@ -337,7 +361,7 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
           transition={{ duration: 0.2 }}
         >
       <button
-        onClick={() => setIsExpanded(!isExpanded)}
+        onClick={onToggle}
         className="w-full p-6 text-left hover:bg-gray-800/70 hover:border-gray-600 transition-all duration-300 group relative"
       >
         <div className="flex justify-between items-center">
@@ -529,13 +553,38 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
         </motion.div>
       </motion.div>
       </motion.div>
-      </div>
+      </motion.div>
     </Fragment>
   );
 };
 
 export default function Engineering() {
   const timelineMonths = generateTimelineMonths();
+
+  // Track expanded states and heights for each card
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
+  const [cardHeights, setCardHeights] = useState<Record<number, number>>({});
+
+  const toggleCard = (index: number) => {
+    setExpandedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
+
+  const updateCardHeight = useCallback((index: number, height: number) => {
+    setCardHeights(prev => {
+      if (prev[index] !== height) {
+        return { ...prev, [index]: height };
+      }
+      return prev;
+    });
+  }, []);
 
   // All projects in a flat array with their dates
   const allProjects: Project[] = [
@@ -917,8 +966,8 @@ export default function Engineering() {
     const reversedStartMonth = timelineMonths.length - 1 - endMonth;
     const absoluteTop = reversedStartMonth * 60;
 
-    // For education and current cards, card position is at END (absoluteTop)
-    // For regular cards, card position is at START (absoluteTop + duration)
+    // For education and current cards, position at END (absoluteTop = top of timeline bar)
+    // For other cards (work, design-team, research, extracurricular), position at START (absoluteTop + duration = bottom of bar)
     const positionAtEnd = project.category === 'education' || project.category === 'current';
     const cardPosition = positionAtEnd ? absoluteTop : absoluteTop + (durationMonths * 60);
 
@@ -935,35 +984,45 @@ export default function Engineering() {
   });
 
   // Sort by card position and add vertical offset for overlapping cards
-  const CARD_HEIGHT = 200; // Approximate height of collapsed card
+  const DEFAULT_CARD_HEIGHT = 160; // Default collapsed card height
+  const CARD_GAP = 40; // Gap between cards
   const sortedByPosition = [...projectsWithPositioning].sort((a, b) => a.cardPosition - b.cardPosition);
 
-  // Track adjusted positions to prevent overlap
-  const adjustedPositions: { cardPosition: number; adjustedTop: number }[] = [];
+  // Track adjusted positions to prevent overlap, using actual heights when available
+  const adjustedPositions: { cardIndex: number; adjustedTop: number; height: number }[] = [];
 
-  type ProjectWithOffset = typeof projectsWithPositioning[0] & { horizontalOffset: number; adjustedTop: number };
-  const projectsWithOffsets: ProjectWithOffset[] = sortedByPosition.map((item) => {
+  type ProjectWithOffset = typeof projectsWithPositioning[0] & { horizontalOffset: number; adjustedTop: number; sortedIndex: number };
+  const projectsWithOffsets: ProjectWithOffset[] = sortedByPosition.map((item, sortedIdx) => {
+    // Get the actual height of this card, or use default
+    const actualHeight = cardHeights[item.cardIndex] || DEFAULT_CARD_HEIGHT;
+
     let adjustedTop = item.cardPosition;
 
     // Check if this card overlaps with any previous card
     for (const prev of adjustedPositions) {
-      if (Math.abs(adjustedTop - prev.adjustedTop) < CARD_HEIGHT) {
+      const prevHeight = cardHeights[prev.cardIndex] || DEFAULT_CARD_HEIGHT;
+      const minDistance = prevHeight + CARD_GAP;
+
+      if (adjustedTop < prev.adjustedTop + minDistance) {
         // Push this card down to avoid overlap
-        adjustedTop = prev.adjustedTop + CARD_HEIGHT;
+        adjustedTop = prev.adjustedTop + minDistance;
       }
     }
 
-    adjustedPositions.push({ cardPosition: item.cardPosition, adjustedTop });
+    adjustedPositions.push({ cardIndex: item.cardIndex, adjustedTop, height: actualHeight });
 
     return {
       ...item,
       horizontalOffset: 0,
       adjustedTop,
+      sortedIndex: sortedIdx,
     };
   });
 
-  // Calculate the actual height needed based on the last card's position
-  const maxCardPosition = Math.max(...projectsWithOffsets.map(p => p.adjustedTop)) + CARD_HEIGHT + 100;
+  // Calculate the actual height needed based on the last card's position and its height
+  const lastCard = projectsWithOffsets[projectsWithOffsets.length - 1];
+  const lastCardHeight = lastCard ? (cardHeights[lastCard.cardIndex] || DEFAULT_CARD_HEIGHT) : DEFAULT_CARD_HEIGHT;
+  const maxCardPosition = Math.max(...projectsWithOffsets.map(p => p.adjustedTop)) + lastCardHeight + 100;
   const actualTimelineHeight = Math.max(maxCardPosition, totalHeight);
 
   return (
@@ -1007,9 +1066,9 @@ export default function Engineering() {
 
           {/* Project Cards with Duration Bars - stacked vertically */}
           <div className="relative ml-16 lg:ml-24">
-            {projectsWithOffsets.map((item, idx) => (
+            {projectsWithOffsets.map((item) => (
               <ProjectDropdown
-                key={idx}
+                key={item.cardIndex}
                 project={item.project}
                 startMonth={item.startMonth}
                 durationMonths={item.durationMonths}
@@ -1019,6 +1078,9 @@ export default function Engineering() {
                 absoluteTop={item.absoluteTop}
                 horizontalOffset={item.horizontalOffset}
                 adjustedTop={item.adjustedTop}
+                isExpanded={expandedCards.has(item.cardIndex)}
+                onToggle={() => toggleCard(item.cardIndex)}
+                onHeightChange={(height) => updateCardHeight(item.cardIndex, height)}
               />
             ))}
           </div>
