@@ -115,16 +115,12 @@ const MobileProjectCard = ({ project, categoryColor }: {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <motion.div
+    <div
       className="border-2 rounded-lg bg-black"
       style={{
         borderColor: categoryColor.border,
         boxShadow: `0 0 15px ${categoryColor.glow}`,
       }}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
     >
       <button
         onClick={() => setIsExpanded(!isExpanded)}
@@ -141,13 +137,11 @@ const MobileProjectCard = ({ project, categoryColor }: {
             )}
           </div>
           <div className="flex flex-col items-center gap-1">
-            <motion.div
-              animate={{ rotate: isExpanded ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-gray-400 group-hover:text-gray-200 transition-colors duration-300 text-2xl"
+            <div
+              className={`text-gray-400 group-hover:text-gray-200 transition-all duration-300 text-2xl ${isExpanded ? 'rotate-180' : ''}`}
             >
               ↓
-            </motion.div>
+            </div>
             <span className="text-xs text-gray-500 group-hover:text-gray-400 transition-colors duration-300">
               {isExpanded ? 'Click to close' : 'Click to expand'}
             </span>
@@ -156,12 +150,7 @@ const MobileProjectCard = ({ project, categoryColor }: {
         <div className="absolute inset-0 border-2 border-transparent group-hover:border-gray-600/50 rounded-lg transition-all duration-300 pointer-events-none"></div>
       </button>
 
-      <motion.div
-        initial={false}
-        animate={{ height: isExpanded ? 'auto' : 0 }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden"
-      >
+      {isExpanded && (
         <div className="p-6 pt-4 border-t border-gray-800">
           {project.description && (
             <div className="mb-6 mt-2">
@@ -241,8 +230,8 @@ const MobileProjectCard = ({ project, categoryColor }: {
             </a>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+      )}
+    </div>
   );
 };
 
@@ -326,39 +315,26 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
       </div>
 
       {/* Card positioned based on card type */}
-      <motion.div
+      <div
         ref={cardRef}
         className="absolute"
-        animate={{
-          top: cardTopPosition,
-        }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
         style={{
+          top: `${cardTopPosition}px`,
           left: `${50 + horizontalOffset}px`,
           width: '600px',
           zIndex: isExpanded ? 50 : 10,
         }}
       >
-        <motion.div
+        <div
           className="relative flex items-start"
-          initial={{ opacity: 0.7, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-150px" }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
         >
         {/* Card content */}
-        <motion.div
-          className="border-2 rounded-lg transition-all duration-300 flex-1 bg-black"
+        <div
+          className="border-2 rounded-lg transition-all duration-300 flex-1 bg-black hover:shadow-lg"
           style={{
             borderColor: categoryColor.border,
             boxShadow: `0 0 15px ${categoryColor.glow}`,
           }}
-          initial={false}
-          whileHover={{
-            scale: 1.01,
-            boxShadow: `0 0 25px ${categoryColor.glow}`,
-          }}
-          transition={{ duration: 0.2 }}
         >
       <button
         onClick={onToggle}
@@ -382,13 +358,11 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
             )}
           </div>
           <div className="flex flex-col items-center gap-1">
-            <motion.div
-              animate={{ rotate: isExpanded ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-gray-400 group-hover:text-gray-200 transition-colors duration-300 text-2xl"
+            <div
+              className={`text-gray-400 group-hover:text-gray-200 transition-all duration-300 text-2xl ${isExpanded ? 'rotate-180' : ''}`}
             >
               ↓
-            </motion.div>
+            </div>
             <span className="text-xs text-gray-500 group-hover:text-gray-400 transition-colors duration-300">
               {isExpanded ? 'Click to close' : 'Click to expand'}
             </span>
@@ -399,12 +373,7 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
         <div className="absolute inset-0 border-2 border-transparent group-hover:border-gray-600/50 rounded-lg transition-all duration-300 pointer-events-none"></div>
       </button>
 
-      <motion.div
-        initial={false}
-        animate={{ height: isExpanded ? 'auto' : 0 }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden"
-      >
+      {isExpanded && (
         <div className="p-6 pt-4 border-t border-gray-800">
           {/* Education-specific fields */}
           {project.awards && project.awards.length > 0 && (
@@ -550,10 +519,10 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
             </div>
           )}
         </div>
-        </motion.div>
-      </motion.div>
-      </motion.div>
-      </motion.div>
+        )}
+      </div>
+      </div>
+      </div>
     </Fragment>
   );
 };
