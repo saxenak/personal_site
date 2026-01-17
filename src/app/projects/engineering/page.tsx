@@ -559,6 +559,24 @@ export default function Engineering() {
   // All projects in a flat array with their dates
   const allProjects: Project[] = [
     {
+      title: 'High School Diploma',
+      school: 'Philip Pocock Catholic Secondary School [2014 -- 2018]',
+      awards: [
+        'Ontario Scholar',
+        'Student Athletic Award',
+        'Academic Excellence Award'
+      ],
+      extracurriculars: [
+        'Varsity Wrestling Team Captain',
+        'Student Council',
+        'Peer Tutoring'
+      ],
+      images: [],
+      startDate: 'Sep 2014',
+      endDate: 'June 2018',
+      category: 'education'
+    },
+    {
       title: 'Bachelor of Applied Sciences in Engineering',
       school: 'University of Toronto [2018 -- 2025]',
       major: 'Mechanical Engineering',
@@ -912,8 +930,34 @@ export default function Engineering() {
       keyTakeaway: 'Even though I had to withdraw from the competition, I learned the importance of listening to my body and prioritizing long-term health over short-term goals. Recovery and rehabilitation are essential aspects of an athlete\'s journey.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
       link: 'https://www.utoronto.ca/news/it-s-ok-struggle-student-overcomes-injury-compete-wrestling-world-championships',
-      startDate: 'September 2022', 
+      startDate: 'September 2022',
       endDate: 'March 2023',
+      category: 'extracurricular'
+    },
+    {
+      title: 'U17 World Championships',
+      organization: 'United World Wrestling [2017 • Athens]',
+      description: 'Represented Canada at the U17 World Championships in Athens, Greece.',
+      skills: ['Discipline', 'Resilience', 'Strategy', 'International Competition', 'High Performance'],
+      achieved: 'Competed against the best junior wrestlers in the world, gaining invaluable international experience.',
+      images: [],
+      keyTakeaway: 'Competing on the world stage as a teenager taught me that age is just a number when you have dedication and the right mindset.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      startDate: 'July 2017',
+      endDate: 'July 2017',
+      category: 'extracurricular'
+    },
+    {
+      title: 'U17 World Championships',
+      organization: 'United World Wrestling [2016 • Tbilisi]',
+      description: 'First time representing Canada at the U17 World Championships in Tbilisi, Georgia.',
+      skills: ['Discipline', 'Resilience', 'Strategy', 'International Competition', 'Pressure Handling'],
+      achieved: 'Made Team Canada for the first time at age 15, competing at the highest level of junior wrestling.',
+      images: [],
+      keyTakeaway: 'My first world championships opened my eyes to what it takes to compete at the highest level. It sparked my drive to become the best I could be.',
+      keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
+      startDate: 'September 2016',
+      endDate: 'September 2016',
       category: 'extracurricular'
     },
   ];
