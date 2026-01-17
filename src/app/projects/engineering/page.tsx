@@ -769,7 +769,6 @@ export default function Engineering() {
       images: [],
       keyTakeaway: 'People think models are full of themselves but genuinely, for me, it is the most humbling experience. Imagine someone looking at you up and down and you not getting the job, purely based off of things you cannot really control. This experience taught me that even though I could be very successful and talented in some peoples eyes, in others I may not appear to be much. So I learned to be to be confident in myself and embrace rejection.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://www.kirtisaxena.com/projects/modelling',
       startDate: 'September 2020',
       endDate: 'Current',
       category: 'work'
@@ -784,7 +783,6 @@ export default function Engineering() {
       images: [],
       keyTakeaway: 'Although COVID hit Toronto really hard, it gave me the oppurtunity to explore my creative side. I always painted during highschool but never took it seriously. During the pandemic, I started selling my art pieces locally and it turned into a small business. This experience taught me that sometimes the best ideas come from unexpected places.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://www.kirtisaxena.com/projects/artistry',
       startDate: 'January 2021',
       endDate: 'Current',
       category: 'work'
