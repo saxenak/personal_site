@@ -1,146 +1,165 @@
 'use client';
 
 import ProjectNav from '@/components/ProjectNav';
-import ProjectHeader from '@/components/ProjectHeader';
 import WaiverCheckoutButton from '@/components/WaiverCheckoutButton';
 import { motion } from 'framer-motion';
 
 export default function Clinics() {
-  const trainingOptions = [
+  const offerings = [
     {
-      id: 'One on One',
-      name: 'Individual Training Session',
+      id: 'self-defence',
+      name: 'Self Defence',
+      category: 'Schools',
+      description: 'Empower students with practical self-defence skills and confidence. Learn situational awareness, de-escalation techniques, and physical defence fundamentals in an engaging, age-appropriate format.',
+      features: ['Situational awareness training', 'De-escalation techniques', 'Physical defence fundamentals', 'Confidence building exercises'],
+      price: null,
+      priceLabel: 'Contact for pricing',
+    },
+    {
+      id: 'mindset-talk',
+      name: 'High Performance Mindset',
+      category: 'Schools',
+      description: 'An inspiring talk on the mental frameworks that create champions. Drawing from Olympic experience, learn how to develop resilience, set goals, and perform under pressure.',
+      features: ['Goal setting frameworks', 'Dealing with pressure', 'Building resilience', 'Olympic journey insights'],
+      price: null,
+      priceLabel: 'Contact for pricing',
+    },
+    {
+      id: 'individual-elite',
+      name: 'Individual Elite Training',
+      category: 'Athletes',
+      description: 'One-on-one sessions designed for serious athletes. Personalized technical development, video analysis, competition preparation, and periodized training plans tailored to your goals.',
+      features: ['Technique analysis & correction', 'Video breakdown sessions', 'Competition preparation', 'Personalized training plans'],
       price: 120,
-      duration: '60 minutes',
-      description: 'Personalized one-on-one training session tailored to your specific goals and skill level.',
-      features: ['Technique analysis', 'Personalized training plan', 'Video feedback', 'Nutrition guidance']
+      priceLabel: '$120 / session',
     },
     {
-      id: 'group-session',
-      name: 'Group Training Session',
-      price: 150,
-      duration: '90 minutes',
-      description: 'Small group training (max 6 people) focusing on fundamentals and team building.',
-      features: ['Group dynamics', 'Fundamental techniques', 'Partner drills', 'Team building exercises']
+      id: 'team-training',
+      name: 'Team Training',
+      category: 'Athletes',
+      description: 'Elevate your entire team with group sessions focused on technical skills, team dynamics, and competitive drills. Perfect for clubs and competitive programs.',
+      features: ['Team-based drills', 'Technical skill development', 'Competition simulation', 'Team culture building'],
+      price: null,
+      priceLabel: 'Contact for pricing',
     },
-    {
-      id: 'elite-clinic',
-      name: 'Elite Training Clinic',
-      price: 300,
-      duration: 'Half day',
-      description: 'Intensive training clinic for advanced athletes preparing for competition.',
-      features: ['Advanced techniques', 'Competition preparation', 'Mental training', 'Recovery strategies']
-    },
-    {
-      id: 'analysis',
-      name: 'Video Analysis',
-      price: 20,
-      duration: '4 Matches',
-      description: 'kkk',
-      features: ['Skill assessment', 'Goal setting', 'Training plan creation', 'Resource recommendations']
-    }
   ];
 
   return (
-    <main className="min-h-screen bg-black text-white pb-20">
+    <main className="min-h-screen bg-black text-white">
       <ProjectNav title="CLINICS" />
 
-      <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-6xl mx-auto">
-        <ProjectHeader
-          title="CLINICS"
-          date="2024"
-          category="Training & Coaching"
-        />
-
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mt-20 mb-16 text-center"
-        >
-          <h2 className="text-3xl font-light mb-6">TRAIN WITH AN OLYMPIAN</h2>
-          <p className="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto mb-8">
-            Transform your athletic potential with personalized training from Olympic athlete Kirti Saxena.
-            Whether you&apos;re a beginner or elite competitor, I&apos;ll help you reach your next level.
-          </p>
-
-          <motion.a
-            href="/book-training"
-            className="inline-block bg-white text-black px-8 py-3 rounded-lg font-medium transition-all hover:bg-gray-200 mb-12"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+      {/* Hero Section */}
+      <section className="pt-32 md:pt-40 pb-20 px-6 md:px-12">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            Book Your Session
-          </motion.a>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center max-w-4xl mx-auto">
-            <div className="space-y-2">
-              <div className="text-2xl">🥇</div>
-              <p className="text-sm text-gray-400">Olympic Experience</p>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8">
+              CLINICS
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-400 max-w-3xl leading-relaxed mb-12">
+              Train with an Olympian. Whether you&apos;re a school looking to inspire students or an athlete chasing excellence, I bring world-class experience to every session.
+            </p>
+            <div className="flex flex-wrap gap-8 text-sm text-gray-500 uppercase tracking-wider">
+              <span>Olympic Experience</span>
+              <span>Team Canada</span>
+              <span>15+ Years</span>
             </div>
-            <div className="space-y-2">
-              <div className="text-2xl">🇨🇦</div>
-              <p className="text-sm text-gray-400">Team Canada</p>
-            </div>
-            <div className="space-y-2">
-              <div className="text-2xl">📈</div>
-              <p className="text-sm text-gray-400">15+ Years Experience</p>
-            </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
-        {/* Training Options */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-20"
-        >
-          <h2 className="text-2xl font-light mb-12 text-center">TRAINING PROGRAMS</h2>
+      {/* Offerings - Full Width Stacked */}
+      <section className="border-t border-white/10">
+        {offerings.map((offering, index) => (
+          <motion.div
+            key={offering.id}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className={`border-b border-white/10 ${index % 2 === 1 ? 'bg-zinc-950' : 'bg-black'}`}
+          >
+            <div className="max-w-5xl mx-auto px-6 md:px-12 py-16 md:py-24">
+              {/* Category Tag */}
+              <span className="text-xs uppercase tracking-widest text-gray-500 mb-4 block">
+                {offering.category}
+              </span>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {trainingOptions.map((option, index) => (
-              <motion.div
-                key={option.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-gray-900/30 p-8 rounded-lg border border-gray-800"
-              >
-                <div className="mb-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-light">{option.name}</h3>
-                    <span className="text-2xl font-light text-green-400">${option.price}</span>
-                  </div>
-                  <p className="text-gray-400 text-sm mb-4">{option.duration} • {option.description}</p>
+              {/* Main Content */}
+              <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+                {/* Left: Title & Description */}
+                <div>
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+                    {offering.name}
+                  </h2>
+                  <p className="text-gray-400 text-lg leading-relaxed">
+                    {offering.description}
+                  </p>
                 </div>
 
-                <div className="mb-6">
-                  <h4 className="text-sm font-medium mb-3 text-gray-300">INCLUDES:</h4>
-                  <ul className="space-y-1">
-                    {option.features.map((feature, idx) => (
-                      <li key={idx} className="text-sm text-gray-400 flex items-center gap-2">
-                        <div className="w-1 h-1 bg-white rounded-full"></div>
+                {/* Right: Features & CTA */}
+                <div>
+                  <ul className="space-y-3 mb-8">
+                    {offering.features.map((feature, idx) => (
+                      <li key={idx} className="text-gray-300 flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-white rounded-full mt-2 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
                   </ul>
-                </div>
 
-                <WaiverCheckoutButton
-                  productType="clinics"
-                  productId={option.id}
-                  price={option.price}
-                  className="w-full"
-                >
-                  Book Session - ${option.price}
-                </WaiverCheckoutButton>
-              </motion.div>
-            ))}
-          </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    {offering.price ? (
+                      <WaiverCheckoutButton
+                        productType="clinics"
+                        productId={offering.id}
+                        price={offering.price}
+                        className="px-8 py-4 bg-white text-black font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors text-center"
+                      >
+                        Book Now — {offering.priceLabel}
+                      </WaiverCheckoutButton>
+                    ) : (
+                      <a
+                        href="/#contact"
+                        className="px-8 py-4 border border-white/30 text-white font-medium uppercase tracking-wider hover:bg-white hover:text-black transition-colors text-center"
+                      >
+                        {offering.priceLabel}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-zinc-950">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">
+            Ready to Train?
+          </h2>
+          <p className="text-gray-400 text-lg mb-8">
+            Have questions or want to discuss custom training programs? Let&apos;s talk.
+          </p>
+          <a
+            href="/#contact"
+            className="inline-block px-8 py-4 bg-white text-black font-medium uppercase tracking-wider hover:bg-gray-200 transition-colors"
+          >
+            Get In Touch
+          </a>
         </motion.div>
-      </div>
+      </section>
     </main>
   );
 }

@@ -10,8 +10,8 @@ const afacadFlux = Afacad_Flux({
 });
 
 export const metadata: Metadata = {
-  title: "Creative Production Agency",
-  description: "A creative production agency crafting unique experiences",
+  title: "Kirti Saxena",
+  description: "Creative portfolio and projects by Kirti Saxena",
 };
 
 export default function RootLayout({

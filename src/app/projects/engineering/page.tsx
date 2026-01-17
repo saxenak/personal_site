@@ -317,6 +317,7 @@ const ProjectDropdown = ({ project, startMonth, durationMonths, barOffset, opaci
       {/* Card positioned based on card type */}
       <div
         ref={cardRef}
+        id={`card-${cardIndex}`}
         className="absolute"
         style={{
           top: `${cardTopPosition}px`,
@@ -613,7 +614,7 @@ export default function Engineering() {
       link: '/pdfs/engineering/HER2HER.pdf',
       startDate: 'January 2025',
       endDate: 'August 2025',
-      category: 'work'
+      category: 'current'
     },
    {
       title: 'R&D Engineering Intern',
@@ -1005,7 +1006,7 @@ export default function Engineering() {
         />
 
         {/* Blurb Section */}
-        <div className="mb-16 max-w-4xl mx-auto space-y-4">
+        <div className="mb-12 max-w-4xl mx-auto space-y-4">
           <p className="text-gray-300 text-lg leading-relaxed">
             My engineering journey is a <span style={{ color: '#FFD700' }}>unique</span> one.
           </p>
@@ -1016,8 +1017,277 @@ export default function Engineering() {
             From doing <span style={{ color: '#C77CBF' }}>extracurriculars</span> like being a frosh leader to being a dedicated <span style={{ color: '#024AA2' }}>athlete</span> and competing in World Championships all the way to working at multiple <span style={{ color: '#FD9635' }}>companies</span> like Tesla, taking on <span style={{ color: '#FD9635' }}>part time jobs</span> like being a signed model in the city to indulging in <span style={{ color: '#9F484F' }}>research</span> on coatings and materials to being the project manager of a <span style={{ color: '#C77CBF' }}>design team</span> that builds an autonomous rover.
           </p>
           <p className="text-gray-300 text-lg leading-relaxed">
-            <span style={{ color: '#FFD700' }}>Every single thing</span> ; very setback, every win, every mistake, every award, every learning experience and every person has shaped who I am today and my decision making. Although my pathway was not conventional or easy, <span style={{ color: '#FFD700' }}>I would never change it</span>.
+            <span style={{ color: '#FFD700' }}>Every single thing</span> ; every setback, every win, every mistake, every award, every learning experience and every person has shaped who I am today and my decision making. Although my pathway was not conventional or easy, <span style={{ color: '#FFD700' }}>I would never change it</span>.
           </p>
+        </div>
+
+        {/* Subtle separator line */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
+        </div>
+
+        {/* Overview Section */}
+        <div className="mb-16 max-w-6xl mx-auto">
+          <h2 className="text-2xl font-bold text-white mb-6">Overview</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Work Experience */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: '#FD9635' }}>
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#FD9635' }}></span>
+                Work Experience
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'Tesla', search: 'Tesla' },
+                  { name: 'Seaspan', search: 'Seaspan' },
+                  { name: 'Bombardier', search: 'Bombardier' },
+                  { name: 'PepsiCo', search: 'Pepsico' },
+                  { name: 'Model', search: 'Icon Model' },
+                  { name: 'Art Creator', search: 'Xena Designs' },
+                  { name: 'Wrestling Instructor', search: 'Akhara' },
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const idx = allProjects.findIndex(p => p.organization?.includes(item.search));
+                      if (idx !== -1) {
+                        setExpandedCards(prev => new Set(prev).add(idx));
+                        setTimeout(() => document.getElementById(`card-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                      }
+                    }}
+                    className="px-3 py-2 rounded-md text-sm transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: 'rgba(253, 150, 53, 0.1)',
+                      border: '1px solid #FD9635',
+                      color: '#FD9635'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(253, 150, 53, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(253, 150, 53, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(253, 150, 53, 0.1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Startups */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: '#FFD700' }}>
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#FFD700' }}></span>
+                Startups
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'AJNA Materials', search: 'AJNA Materials' },
+                  { name: 'HER2HER', search: 'HER2HER' }
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const idx = allProjects.findIndex(p => p.organization?.includes(item.search));
+                      if (idx !== -1) {
+                        setExpandedCards(prev => new Set(prev).add(idx));
+                        setTimeout(() => document.getElementById(`card-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                      }
+                    }}
+                    className="px-3 py-2 rounded-md text-sm transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                      border: '1px solid #FFD700',
+                      color: '#FFD700'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Research */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: '#9F484F' }}>
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#9F484F' }}></span>
+                Research
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'Pneumonia ML', search: 'Pneumonia' },
+                  { name: 'C.A.C.T Lab', search: 'C.A.C.T' },
+                  { name: 'D.R.E.A.M Lab', search: 'D.R.E.A.M' }
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const idx = allProjects.findIndex(p => p.organization?.includes(item.search) || p.title.includes(item.search));
+                      if (idx !== -1) {
+                        setExpandedCards(prev => new Set(prev).add(idx));
+                        setTimeout(() => document.getElementById(`card-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                      }
+                    }}
+                    className="px-3 py-2 rounded-md text-sm transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: 'rgba(159, 72, 79, 0.1)',
+                      border: '1px solid #9F484F',
+                      color: '#9F484F'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(159, 72, 79, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(159, 72, 79, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(159, 72, 79, 0.1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Education */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: '#EC4899' }}>
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#EC4899' }}></span>
+                Education
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => {
+                    const idx = allProjects.findIndex(p => p.school?.includes('University of Toronto'));
+                    if (idx !== -1) {
+                      setExpandedCards(prev => new Set(prev).add(idx));
+                      setTimeout(() => document.getElementById(`card-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                    }
+                  }}
+                  className="px-3 py-2 rounded-md text-sm transition-all duration-300 hover:scale-105"
+                  style={{
+                    backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                    border: '1px solid #EC4899',
+                    color: '#EC4899'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(236, 72, 153, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 0 20px rgba(236, 72, 153, 0.5)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(236, 72, 153, 0.1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  UofT Engineering
+                </button>
+              </div>
+            </div>
+
+            {/* Leadership Positions */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: '#C77CBF' }}>
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#C77CBF' }}></span>
+                Leadership Positions
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'UTRA ART', search: 'Robotics' },
+                  { name: 'Baja SAE', search: 'Baja' },
+                  { name: 'CUBE', search: 'CUBE' },
+                  { name: 'Frosh Leader', search: 'Frosh' }
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const idx = allProjects.findIndex(p => p.organization?.includes(item.search) || p.title?.includes(item.search));
+                      if (idx !== -1) {
+                        setExpandedCards(prev => new Set(prev).add(idx));
+                        setTimeout(() => document.getElementById(`card-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                      }
+                    }}
+                    className="px-3 py-2 rounded-md text-sm transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: 'rgba(199, 124, 191, 0.1)',
+                      border: '1px solid #C77CBF',
+                      color: '#C77CBF'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(199, 124, 191, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(199, 124, 191, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(199, 124, 191, 0.1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Athletics */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2" style={{ color: '#024AA2' }}>
+                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#024AA2' }}></span>
+                Athletics
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'Varsity Blues Team Captain', search: 'Varsity Blues' },
+                  { name: 'U23 Worlds 2022', search: 'U23 World' },
+                  { name: 'Olympic Trials 2020', search: 'Olympic Trials 2020' },
+                  { name: 'Olympic Trials 2024', search: 'Olympic Trials 2024' },
+                  { name: 'U SPORTS 2020', search: 'U SPORTS [September 2019' },
+                  { name: 'U SPORTS 2023', search: 'U SPORTS [September 2022' }
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const idx = allProjects.findIndex(p => p.organization?.includes(item.search) || p.title?.includes(item.search));
+                      if (idx !== -1) {
+                        setExpandedCards(prev => new Set(prev).add(idx));
+                        setTimeout(() => document.getElementById(`card-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                      }
+                    }}
+                    className="px-3 py-2 rounded-md text-sm transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: 'rgba(2, 74, 162, 0.1)',
+                      border: '1px solid #024AA2',
+                      color: '#024AA2'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(2, 74, 162, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(2, 74, 162, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(2, 74, 162, 0.1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Separator line between Overview and Timeline */}
+        <div className="max-w-6xl mx-auto mb-12">
+          <div className="h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
         </div>
 
         {/* Timeline Container - Desktop */}
@@ -1057,14 +1327,15 @@ export default function Engineering() {
 
         {/* Mobile Timeline - Simple stacked cards */}
         <div className="md:hidden space-y-4 px-4">
-          {projectsWithOffsets.map((item, idx) => {
+          {projectsWithOffsets.map((item) => {
             const categoryColor = categoryColors[item.project.category || 'work'] || categoryColors.work;
             return (
-              <MobileProjectCard
-                key={idx}
-                project={item.project}
-                categoryColor={categoryColor}
-              />
+              <div key={item.cardIndex} id={`card-${item.cardIndex}`}>
+                <MobileProjectCard
+                  project={item.project}
+                  categoryColor={categoryColor}
+                />
+              </div>
             );
           })}
         </div>
