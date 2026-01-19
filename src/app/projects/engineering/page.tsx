@@ -63,7 +63,7 @@ const categoryColors = {
   },
 };
 
-// Helper function to parse date to month index (0 = Jan 2018)
+// Helper function to parse date to month index (0 = Sep 2016)
 const parseDate = (dateStr: string): number => {
   if (!dateStr) return 0;
 
@@ -71,7 +71,7 @@ const parseDate = (dateStr: string): number => {
   const parts = dateStr.toLowerCase().split(' ');
 
   let month = 0;
-  let year = 2018;
+  let year = 2016;
 
   if (parts.length === 2) {
     // Format: "Jan 2018"
@@ -84,18 +84,21 @@ const parseDate = (dateStr: string): number => {
     month = parseInt(monthStr) - 1;
   }
 
-  const monthsSince2018 = (year - 2018) * 12 + month;
-  return monthsSince2018;
+  // Calculate months since September 2016 (month index 8)
+  const monthsSinceSep2016 = (year - 2016) * 12 + month - 8;
+  return Math.max(0, monthsSinceSep2016);
 };
 
-// Generate timeline months from Jan 2018 to Dec 2025
+// Generate timeline months from Sep 2016 to Dec 2025
 const generateTimelineMonths = () => {
   const months = [];
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-  for (let year = 2018; year <= 2025; year++) {
-    const endMonth = year === 2025 ? 12 : 12;
-    for (let month = 0; month < endMonth; month++) {
+  for (let year = 2016; year <= 2025; year++) {
+    // Start from September 2016 (first U17 World Championships)
+    const startMonth = year === 2016 ? 8 : 0; // 8 = September (0-indexed)
+    const endMonth = 12;
+    for (let month = startMonth; month < endMonth; month++) {
       months.push({
         label: `${monthNames[month]} ${year}`,
         year,
