@@ -1070,7 +1070,10 @@ export default function Engineering() {
 
         {/* Overview Section */}
         <div className="mb-16 max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold text-white mb-6">Overview</h2>
+          <div className="flex items-baseline gap-3 mb-6">
+            <h2 className="text-2xl font-bold text-white">Overview</h2>
+            <span className="text-sm text-white/40 italic">Click a button to jump to section</span>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Work Experience */}
@@ -1079,12 +1082,47 @@ export default function Engineering() {
                 <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#FD9635' }}></span>
                 Work Experience
               </h3>
+              {/* Engineering Internships */}
+              <p className="text-xs text-white/50 uppercase tracking-wide">Engineering</p>
               <div className="flex flex-wrap gap-2">
                 {[
                   { name: 'Tesla', search: 'Tesla' },
                   { name: 'Seaspan', search: 'Seaspan' },
                   { name: 'Bombardier', search: 'Bombardier' },
                   { name: 'PepsiCo', search: 'Pepsico' },
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const idx = allProjects.findIndex(p => p.organization?.includes(item.search));
+                      if (idx !== -1) {
+                        setExpandedCards(prev => new Set(prev).add(idx));
+                        setTimeout(() => document.getElementById(`card-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                      }
+                    }}
+                    className="px-3 py-2 rounded-md text-sm transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: 'rgba(253, 150, 53, 0.1)',
+                      border: '1px solid #FD9635',
+                      color: '#FD9635'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(253, 150, 53, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(253, 150, 53, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(253, 150, 53, 0.1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+              {/* Part-Time */}
+              <p className="text-xs text-white/50 uppercase tracking-wide mt-4">Part-Time</p>
+              <div className="flex flex-wrap gap-2">
+                {[
                   { name: 'Model', search: 'Icon Model' },
                   { name: 'Art Creator', search: 'Xena Designs' },
                   { name: 'Wrestling Instructor', search: 'Akhara' },
@@ -1125,9 +1163,42 @@ export default function Engineering() {
                 <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#FFD700' }}></span>
                 Startups
               </h3>
+              <p className="text-xs text-white/50 uppercase tracking-wide">Current</p>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { name: 'AJNA Materials', search: 'AJNA Materials' },
+                  { name: 'AjnaMaterials', search: 'AJNA Materials' }
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const idx = allProjects.findIndex(p => p.organization?.includes(item.search));
+                      if (idx !== -1) {
+                        setExpandedCards(prev => new Set(prev).add(idx));
+                        setTimeout(() => document.getElementById(`card-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                      }
+                    }}
+                    className="px-3 py-2 rounded-md text-sm transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                      border: '1px solid #FFD700',
+                      color: '#FFD700'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+              <p className="text-xs text-white/50 uppercase tracking-wide mt-4">Past</p>
+              <div className="flex flex-wrap gap-2">
+                {[
                   { name: 'HER2HER', search: 'HER2HER' }
                 ].map((item) => (
                   <button
@@ -1168,9 +1239,9 @@ export default function Engineering() {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { name: 'Pneumonia ML', search: 'Pneumonia' },
-                  { name: 'C.A.C.T Lab', search: 'C.A.C.T' },
-                  { name: 'D.R.E.A.M Lab', search: 'D.R.E.A.M' }
+                  { name: 'Pneumonia Detection', search: 'Pneumonia' },
+                  { name: 'Coating Tech', search: 'C.A.C.T' },
+                  { name: 'Recycled PET', search: 'D.R.E.A.M' }
                 ].map((item) => (
                   <button
                     key={item.name}
@@ -1232,7 +1303,7 @@ export default function Engineering() {
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  UofT Engineering
+                  BASc. Engineering
                 </button>
               </div>
             </div>
@@ -1243,12 +1314,46 @@ export default function Engineering() {
                 <span className="w-3 h-3 rounded-full" style={{ backgroundColor: '#C77CBF' }}></span>
                 Leadership Positions
               </h3>
+              <p className="text-xs text-white/50 uppercase tracking-wide">Design Teams</p>
               <div className="flex flex-wrap gap-2">
                 {[
                   { name: 'UTRA ART', search: 'Robotics' },
-                  { name: 'Baja SAE', search: 'Baja' },
+                  { name: 'Baja SAE', search: 'Baja' }
+                ].map((item) => (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      const idx = allProjects.findIndex(p => p.organization?.includes(item.search) || p.title?.includes(item.search));
+                      if (idx !== -1) {
+                        setExpandedCards(prev => new Set(prev).add(idx));
+                        setTimeout(() => document.getElementById(`card-${idx}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                      }
+                    }}
+                    className="px-3 py-2 rounded-md text-sm transition-all duration-300 hover:scale-105"
+                    style={{
+                      backgroundColor: 'rgba(199, 124, 191, 0.1)',
+                      border: '1px solid #C77CBF',
+                      color: '#C77CBF'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(199, 124, 191, 0.3)';
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(199, 124, 191, 0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(199, 124, 191, 0.1)';
+                      e.currentTarget.style.boxShadow = 'none';
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                ))}
+              </div>
+              <p className="text-xs text-white/50 uppercase tracking-wide mt-4">Student Boards</p>
+              <div className="flex flex-wrap gap-2">
+                {[
                   { name: 'CUBE', search: 'CUBE' },
-                  { name: 'Frosh Leader', search: 'Frosh' }
+                  { name: 'Frosh Leader', search: 'Frosh' },
+                  { name: 'Varsity Board', search: 'Varsity Blues' }
                 ].map((item) => (
                   <button
                     key={item.name}
