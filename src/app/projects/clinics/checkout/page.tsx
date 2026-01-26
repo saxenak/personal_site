@@ -303,8 +303,18 @@ function OrderSummary({
         )}
 
         <div className="flex justify-between text-xl font-bold pt-2 border-t border-white/10 text-white">
-          <span>Total</span>
+          <span>Total Cost</span>
           <span>${(pricing.total / 100).toFixed(2)} CAD</span>
+        </div>
+
+        <div className="flex justify-between text-yellow-400 font-semibold mt-3 pt-2 border-t border-yellow-400/30">
+          <span>50% Deposit Due Today</span>
+          <span>${((pricing.total / 2) / 100).toFixed(2)} CAD</span>
+        </div>
+
+        <div className="flex justify-between text-gray-400 text-sm">
+          <span>Remaining Balance (Due after program)</span>
+          <span>${((pricing.total / 2) / 100).toFixed(2)} CAD</span>
         </div>
       </div>
 
@@ -337,6 +347,38 @@ function OrderSummary({
         )}
       </div>
 
+      {/* Deposit Information */}
+      {selectedPrograms.length > 0 && (
+        <div className="mt-6 p-4 rounded-lg bg-yellow-400/10 border border-yellow-400/30">
+          <div className="flex items-start gap-3">
+            <svg className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zm-11-1a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h.01a1 1 0 100-2H10zm3 0a1 1 0 100 2h.01a1 1 0 100-2H13z" clipRule="evenodd" />
+            </svg>
+            <div className="text-sm">
+              <p className="font-semibold text-yellow-400 mb-2">50% Deposit Required</p>
+              <p className="text-white/80">
+                Pay <span className="font-bold text-yellow-300">${((pricing.total / 2) / 100).toFixed(2)} CAD</span> today to confirm your booking.
+              </p>
+              <p className="text-white/60 text-xs mt-2">
+                Remaining balance: <span className="font-semibold">${((pricing.total / 2) / 100).toFixed(2)} CAD</span> due before program delivery.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Consent Language */}
+      {selectedPrograms.length > 0 && (
+        <div className="mt-4 p-4 rounded-lg bg-white/5 border border-white/10">
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" className="mt-1" required />
+            <span className="text-xs text-white/70 leading-relaxed">
+              By completing this booking, I authorize Kirti Saxena to store my payment method and to charge the remaining balance to the same payment method if the final invoice remains unpaid after program delivery. I agree to ensure the payment method remains valid.
+            </span>
+          </label>
+        </div>
+      )}
+
       {/* Checkout Button */}
       <button
         onClick={onCheckout}
@@ -358,7 +400,10 @@ function OrderSummary({
             Processing...
           </span>
         ) : (
-          `Checkout - $${(pricing.total / 100).toFixed(2)} CAD`
+          <div>
+            <div className="text-sm font-medium">Pay 50% Deposit</div>
+            <div className="text-lg font-bold">${((pricing.total / 2) / 100).toFixed(2)} CAD</div>
+          </div>
         )}
       </button>
 
