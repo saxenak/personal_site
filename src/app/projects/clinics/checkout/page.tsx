@@ -288,14 +288,24 @@ function OrderSummary({
           <span>${(pricing.subtotal / 100).toFixed(2)}</span>
         </div>
 
-        {pricing.bundleDiscount > 0 && (
+        {/* Show combined discount if both bundle and promo applied */}
+        {pricing.bundleDiscount > 0 && pricing.schoolDiscount > 0 && promoDiscount && (
+          <div className="flex justify-between text-purple-400 font-semibold">
+            <span>Combined Discount (20% + {promoDiscount.percentOff}%)</span>
+            <span>-${((pricing.bundleDiscount + pricing.schoolDiscount) / 100).toFixed(2)}</span>
+          </div>
+        )}
+
+        {/* Show bundle discount only if no promo */}
+        {pricing.bundleDiscount > 0 && !promoDiscount && (
           <div className="flex justify-between text-green-400">
             <span>Bundle Discount (20% off)</span>
             <span>-${(pricing.bundleDiscount / 100).toFixed(2)}</span>
           </div>
         )}
 
-        {pricing.schoolDiscount > 0 && promoDiscount && (
+        {/* Show school discount only if no bundle */}
+        {pricing.bundleDiscount === 0 && pricing.schoolDiscount > 0 && promoDiscount && (
           <div className="flex justify-between text-blue-400">
             <span>{promoDiscount.name || 'School Discount'} ({promoDiscount.percentOff}% off)</span>
             <span>-${(pricing.schoolDiscount / 100).toFixed(2)}</span>
