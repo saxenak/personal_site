@@ -122,7 +122,7 @@ export async function POST(req: NextRequest) {
       line_items: lineItems,
       mode: 'payment',
       discounts: discounts.length > 0 ? discounts : undefined,
-      allow_promotion_codes: !promoCode, // Allow manual entry if no code pre-applied
+      allow_promotion_codes: true,
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/projects/clinics/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/projects/clinics/checkout`,
       customer_creation: 'always',
