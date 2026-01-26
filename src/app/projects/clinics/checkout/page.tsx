@@ -320,13 +320,13 @@ function OrderSummary({
 
       {/* Promo Code Input */}
       <div className="mt-6">
-        <label className="text-sm text-gray-400 block mb-2">School Discount Code</label>
+        <label className="text-sm text-gray-400 block mb-2">Discount Code</label>
         <div className="flex gap-2">
           <input
             type="text"
             value={promoCode}
             onChange={(e) => onPromoCodeChange(e.target.value.toUpperCase())}
-            placeholder="Enter code (e.g., SKULE)"
+            placeholder="Enter code"
             className="flex-1 p-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white/40"
           />
           <button
@@ -360,7 +360,7 @@ function OrderSummary({
                 Pay <span className="font-bold text-yellow-300">${((pricing.total / 2) / 100).toFixed(2)} CAD</span> today to confirm your booking.
               </p>
               <p className="text-white/60 text-xs mt-2">
-                Remaining balance: <span className="font-semibold">${((pricing.total / 2) / 100).toFixed(2)} CAD</span> due before program delivery.
+                Remaining balance: <span className="font-semibold">${((pricing.total / 2) / 100).toFixed(2)} CAD</span> due within 14 days after delivery of program.
               </p>
             </div>
           </div>
@@ -617,7 +617,7 @@ function CheckoutContent() {
                 <svg className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                After payment, I will put your transaction on hold for 48 Hours and follow up via email about scheduling, next steps and any special inquiries. Any additional costs that may be associated with travel if outside the Greater Toronto Area will be disclosed within email as well.
+                After payment, I will put your transaction on hold for 48 Hours and follow up via email about scheduling, next steps and any special inquiries. Any additional costs that may be associated with travel if outside the Greater Toronto Area will be disclosed within email and added onto the final invoice.
               </p>
               <p className="mt-3 flex items-start gap-2">
                 <svg className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

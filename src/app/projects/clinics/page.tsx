@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import ProjectNav from '@/components/ProjectNav';
 import ProjectHeader from '@/components/ProjectHeader';
+import InquiryPopup from '@/components/InquiryPopup';
 import Link from 'next/link';
 
 interface PricingTier {
@@ -176,6 +178,8 @@ const programs: Program[] = [
 ];
 
 export default function Clinics() {
+  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  
   const ProgramCard = ({ program, isLarge = false }: { program: Program; isLarge?: boolean }) => {
     return (
       <div
@@ -971,7 +975,27 @@ export default function Clinics() {
             </div>
           </div>
         </div>
+
+        {/* Inquiry Section */}
+        <div className="max-w-2xl mx-auto mt-20 text-center">
+          <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-12"></div>
+          <h2 className="text-2xl font-bold text-white mb-2">Have a Question?</h2>
+          <p className="text-sm text-white/60 mb-8">Send us an inquiry and we'll get back to you as soon as possible</p>
+          <button
+            onClick={() => setIsInquiryOpen(true)}
+            className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-[1.05] active:scale-[0.95]"
+            style={{
+              background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+              color: '#000',
+            }}
+          >
+            Send an Inquiry
+          </button>
+        </div>
       </div>
+
+      {/* Inquiry Popup */}
+      <InquiryPopup isOpen={isInquiryOpen} onClose={() => setIsInquiryOpen(false)} />
     </main>
   );
 }
