@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Afacad_Flux } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/context/CartContext";
 
 const afacadFlux = Afacad_Flux({
   subsets: ["latin"],
@@ -25,7 +26,9 @@ export default function RootLayout({
         className={`${afacadFlux.variable} font-sans font-light antialiased text-crisp`}
         style={{ fontFamily: 'var(--font-afacad-flux)' }}
       >
-        {children}
+        <CartProvider>
+          {children}
+        </CartProvider>
       </body>
     </html>
   );

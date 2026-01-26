@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import CartIcon from './CartIcon';
 
 export default function ProjectNav({ onMenuToggle }: { title?: string; onMenuToggle?: (isOpen: boolean) => void }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,17 +37,20 @@ export default function ProjectNav({ onMenuToggle }: { title?: string; onMenuTog
           />
         </Link>
 
-        {/* Menu Button on Right */}
-        <button
-          onClick={() => {
-            const newState = !isMenuOpen;
-            setIsMenuOpen(newState);
-            onMenuToggle?.(newState);
-          }}
-          className="text-xl font-light hover:text-gray-400 transition-colors"
-        >
-          MENU
-        </button>
+        {/* Right side: Cart + Menu */}
+        <div className="flex items-center gap-4">
+          <CartIcon />
+          <button
+            onClick={() => {
+              const newState = !isMenuOpen;
+              setIsMenuOpen(newState);
+              onMenuToggle?.(newState);
+            }}
+            className="text-xl font-light hover:text-gray-400 transition-colors"
+          >
+            MENU
+          </button>
+        </div>
       </div>
 
       {/* Dropdown Menu */}

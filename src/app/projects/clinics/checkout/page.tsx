@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -22,7 +22,7 @@ function ProgramCard({
   selected: SelectedProgram | undefined;
   onToggle: (programId: ProgramId, tier: TierType | null, participantCount?: number) => void;
 }) {
-  const [participantCount, setParticipantCount] = useState(
+  const [participantCount, setParticipantCount] = useState<number>(
     'minParticipants' in program ? program.minParticipants : 16
   );
   const requiresParticipants = 'requiresParticipantCount' in program && program.requiresParticipantCount;
@@ -165,7 +165,7 @@ function ProgramCard({
                   <button
                     key={idx}
                     onClick={() => {
-                      setParticipantCount(count);
+                      setParticipantCount(Math.max(16, count));
                       onToggle(programId, selected.tier, count);
                     }}
                     className={`p-3 rounded-lg transition-all text-center text-sm ${
@@ -194,13 +194,13 @@ function ProgramCard({
               <input
                 type="number"
                 min={minParticipants}
-                max={'maxParticipants' in program ? program.maxParticipants : undefined}
+                max={('maxParticipants' in program ? program.maxParticipants : undefined) as any}
                 value={participantCount}
                 onChange={(e) => {
                   const count = Math.max(
                     minParticipants,
                     'maxParticipants' in program
-                      ? Math.min(program.maxParticipants, parseInt(e.target.value) || minParticipants)
+                      ? Math.min((program.maxParticipants as any) || minParticipants, parseInt(e.target.value) || minParticipants)
                       : parseInt(e.target.value) || minParticipants
                   );
                   setParticipantCount(count);
@@ -376,6 +376,14 @@ function OrderSummary({
 }
 
 export default function ClinicsCheckout() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black text-white flex items-center justify-center"><p>Loading...</p></div>}>
+      <CheckoutContent />
+    </Suspense>
+  );
+}
+
+function CheckoutContent() {
   const searchParams = useSearchParams();
   const [selectedPrograms, setSelectedPrograms] = useState<SelectedProgram[]>([]);
   const [promoCode, setPromoCode] = useState('');
@@ -552,7 +560,7 @@ export default function ClinicsCheckout() {
                   key={programId}
                   programId={programId}
                   program={CLINIC_PROGRAMS[programId]}
-                  selected={selectedPrograms.find((p) => p.programId === programId)}
+                  selected={selectedPrograms.find((p: any) => p.programId === programId)}
                   onToggle={handleToggle}
                 />
               ))}
