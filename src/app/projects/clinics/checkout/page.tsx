@@ -289,7 +289,7 @@ function OrderSummary({
         </div>
 
         {/* Show combined discount if both bundle and promo applied */}
-        {pricing.bundleDiscount > 0 && pricing.schoolDiscount > 0 && promoDiscount && (
+        {pricing.bundleDiscount > 0 && pricing.schoolDiscount > 0 && promoDiscount?.percentOff && (
           <div className="flex justify-between text-purple-400 font-semibold">
             <span>Combined Discount (20% + {promoDiscount.percentOff}%)</span>
             <span>-${((pricing.bundleDiscount + pricing.schoolDiscount) / 100).toFixed(2)}</span>
@@ -297,7 +297,7 @@ function OrderSummary({
         )}
 
         {/* Show bundle discount only if no promo */}
-        {pricing.bundleDiscount > 0 && !promoDiscount && (
+        {pricing.bundleDiscount > 0 && !promoDiscount?.percentOff && (
           <div className="flex justify-between text-green-400">
             <span>Bundle Discount (20% off)</span>
             <span>-${(pricing.bundleDiscount / 100).toFixed(2)}</span>
@@ -305,7 +305,7 @@ function OrderSummary({
         )}
 
         {/* Show school discount only if no bundle */}
-        {pricing.bundleDiscount === 0 && pricing.schoolDiscount > 0 && promoDiscount && (
+        {pricing.bundleDiscount === 0 && pricing.schoolDiscount > 0 && promoDiscount?.percentOff && (
           <div className="flex justify-between text-blue-400">
             <span>{promoDiscount.name || 'School Discount'} ({promoDiscount.percentOff}% off)</span>
             <span>-${(pricing.schoolDiscount / 100).toFixed(2)}</span>
@@ -501,9 +501,10 @@ function CheckoutContent() {
 
     // School discount from promo code - applied after bundle
     const afterBundle = subtotal - bundleDiscount;
+    const discountPercent = promoDiscount?.percentOff || 0;
     const schoolDiscount =
-      promoCodeValid && promoDiscount?.percentOff
-        ? Math.round(afterBundle * (promoDiscount.percentOff / 100))
+      promoCodeValid && discountPercent > 0
+        ? Math.round(afterBundle * (discountPercent / 100))
         : 0;
 
     const total = subtotal - bundleDiscount - schoolDiscount;
