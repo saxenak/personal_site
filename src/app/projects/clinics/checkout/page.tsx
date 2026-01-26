@@ -617,8 +617,8 @@ function CheckoutContent() {
                 <svg className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                After payment, I will put your transaction on hold for 48 Hours and follow up via email about scheduling, next steps and any special inquiries. Any additional costs that may be associated with travel if outside the Greater Toronto Area will be disclosed within email and added onto the final invoice.
-              </p>
+                
+              </p>After payment, I will put your transaction on hold for 48 Hours and follow up via email about confirmation of location, timings & any special inquiries. Any additional costs that may be associated with travel if outside the Greater Toronto Area will be disclosed within email and added onto the final invoice. If no response is recieved, the deposit will be returned and the booking will be cancelled.
               <p className="mt-3 flex items-start gap-2">
                 <svg className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

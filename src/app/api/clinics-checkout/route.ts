@@ -81,21 +81,32 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No valid programs to checkout' }, { status: 400 });
     }
 
+    // Calculate subtotal
+    let subtotal = 0;
+    for (const selected of selectedPrograms) {
+      const program = CLINIC_PROGRAMS[selected.programId as keyof typeof CLINIC_PROGRAMS];
+      if (!program) continue;
+
+      const tier = program.tiers[selected.tier];
+      if ('pricePerPerson' in tier && selected.participantCount) {
+        subtotal += tier.pricePerPerson * selected.participantCount;
+      } else if ('price' in tier) {
+        subtotal += tier.price;
+      }
+    }
+
     // Handle discounts
     const discounts: Stripe.Checkout.SessionCreateParams.Discount[] = [];
+    let combinedDiscountPercent = 0;
 
     // Bundle discount: 20% off when 2+ programs selected
     if (selectedPrograms.length >= DISCOUNT_CONFIG.bundleThreshold) {
       console.log('🎁 Applying bundle discount (20%)');
-      const bundleCoupon = await stripe.coupons.create({
-        percent_off: DISCOUNT_CONFIG.bundleDiscountPercent,
-        duration: 'once',
-        name: 'Bundle Discount (2+ Programs)',
-      });
-      discounts.push({ coupon: bundleCoupon.id });
+      combinedDiscountPercent += DISCOUNT_CONFIG.bundleDiscountPercent;
     }
 
     // School discount via promo code
+    let schoolDiscountPercent = 0;
     if (promoCode) {
       try {
         console.log('🔍 Looking up promo code:', promoCode);
@@ -106,14 +117,32 @@ export async function POST(req: NextRequest) {
 
         if (promotionCodes.data.length > 0) {
           console.log('✅ Valid promo code found');
-          discounts.push({ promotion_code: promotionCodes.data[0].id });
+          const promotionCode = promotionCodes.data[0] as any;
+          const percentOff = promotionCode.coupon?.percent_off;
+          if (percentOff) {
+            schoolDiscountPercent = percentOff;
+            combinedDiscountPercent += schoolDiscountPercent;
+            console.log(`📊 Combined discount: ${combinedDiscountPercent}%`);
+          }
         } else {
           console.log('⚠️ Promo code not found or inactive');
         }
       } catch (err) {
         console.error('⚠️ Promo code lookup failed:', err);
-        // Continue without promo code
       }
+    }
+
+    // Apply combined discount as a single coupon
+    if (combinedDiscountPercent > 0) {
+      // Cap discount at 100%
+      const finalDiscountPercent = Math.min(combinedDiscountPercent, 100);
+      const discountCoupon = await stripe.coupons.create({
+        percent_off: finalDiscountPercent,
+        duration: 'once',
+        name: `Discount (${finalDiscountPercent}%)`,
+      });
+      discounts.push({ coupon: discountCoupon.id });
+      console.log(`✅ Applied combined discount: ${finalDiscountPercent}%`);
     }
 
     // Create checkout session
@@ -122,7 +151,7 @@ export async function POST(req: NextRequest) {
       line_items: lineItems,
       mode: 'payment',
       discounts: discounts.length > 0 ? discounts : undefined,
-      allow_promotion_codes: true,
+      allow_promotion_codes: false, // Disable manual promo entry since we're handling it
       success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/projects/clinics/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/projects/clinics/checkout`,
       customer_creation: 'always',
@@ -133,6 +162,7 @@ export async function POST(req: NextRequest) {
         programCount: selectedPrograms.length.toString(),
         hasBundle: (selectedPrograms.length >= DISCOUNT_CONFIG.bundleThreshold).toString(),
         hasPromoCode: (!!promoCode).toString(),
+        discountPercent: combinedDiscountPercent.toString(),
         personalInfo: JSON.stringify(personalInfo),
       },
       payment_intent_data: {
