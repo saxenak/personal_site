@@ -902,7 +902,7 @@ export default function Clinics() {
                   }}
                 >
                   <img
-                    src="/images/clinics/review-1.jpg"
+                    src="/images/clinics/mantej.png"
                     alt="Mantej C."
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -944,7 +944,7 @@ export default function Clinics() {
                   }}
                 >
                   <img
-                    src="/images/clinics/review-2.jpg"
+                    src="/images/clinics/rahul.png"
                     alt="Rahul G."
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -986,7 +986,7 @@ export default function Clinics() {
                   }}
                 >
                   <img
-                    src="/images/clinics/review-3.jpg"
+                    src="/images/clinics/prabhleen.png"
                     alt="Prabhleen Randhawa"
                     className="w-full h-full object-cover"
                     onError={(e) => {
