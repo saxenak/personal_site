@@ -903,16 +903,16 @@ export default function Clinics() {
                 >
                   <img
                     src="/images/clinics/review-1.jpg"
-                    alt="Alex M."
+                    alt="Mantej C."
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23FFD700" width="100" height="100"/%3E%3Ctext x="50" y="55" font-size="50" fill="white" text-anchor="middle" dominant-baseline="middle" font-weight="bold"%3EAM%3C/text%3E%3C/svg%3E';
+                      e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23FFD700" width="100" height="100"/%3E%3Ctext x="50" y="55" font-size="50" fill="white" text-anchor="middle" dominant-baseline="middle" font-weight="bold"%3EMC%3C/text%3E%3C/svg%3E';
                     }}
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-white text-lg">Alex M.</p>
-                  <p className="text-sm text-white/70">Fitness Coach</p>
+                  <p className="font-semibold text-white text-lg">Mantej C.</p>
+                  <p className="text-sm text-white/70">Student</p>
                 </div>
               </div>
               <div className="flex items-center gap-1 mb-4">
@@ -945,15 +945,15 @@ export default function Clinics() {
                 >
                   <img
                     src="/images/clinics/review-2.jpg"
-                    alt="Jordan K."
+                    alt="Rahul G."
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%2310B981" width="100" height="100"/%3E%3Ctext x="50" y="55" font-size="50" fill="white" text-anchor="middle" dominant-baseline="middle" font-weight="bold"%3EJK%3C/text%3E%3C/svg%3E';
+                      e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%2310B981" width="100" height="100"/%3E%3Ctext x="50" y="55" font-size="50" fill="white" text-anchor="middle" dominant-baseline="middle" font-weight="bold"%3ERG%3C/text%3E%3C/svg%3E';
                     }}
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-white text-lg">Jordan K.</p>
+                  <p className="font-semibold text-white text-lg">Rahul G.</p>
                   <p className="text-sm text-white/70">Corporate Team Leader</p>
                 </div>
               </div>
@@ -987,15 +987,15 @@ export default function Clinics() {
                 >
                   <img
                     src="/images/clinics/review-3.jpg"
-                    alt="Morgan T."
+                    alt="Prabhleen Randhawa"
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23F97316" width="100" height="100"/%3E%3Ctext x="50" y="55" font-size="50" fill="white" text-anchor="middle" dominant-baseline="middle" font-weight="bold"%3EMT%3C/text%3E%3C/svg%3E';
+                      e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23F97316" width="100" height="100"/%3E%3Ctext x="50" y="55" font-size="50" fill="white" text-anchor="middle" dominant-baseline="middle" font-weight="bold"%3EPR%3C/text%3E%3C/svg%3E';
                     }}
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-white text-lg">Morgan T.</p>
+                  <p className="font-semibold text-white text-lg">Prabhleen Randhawa</p>
                   <p className="text-sm text-white/70">Competitive Wrestler</p>
                 </div>
               </div>
