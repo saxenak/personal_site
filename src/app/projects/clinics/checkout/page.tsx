@@ -339,7 +339,7 @@ function OrderSummary({
 
         return (
           <div className="mt-6 p-4 bg-green-400/10 border border-green-400/30 rounded-lg">
-            <p className="text-green-400 font-semibold mb-3">See Your Potential Savings</p>
+            <p className="text-green-400 font-semibold mb-3">Your Potential Savings:</p>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between text-white/80">
                 <span>With <span className="font-bold text-green-300">BUNDLE</span> (15% off):</span>
@@ -359,15 +359,25 @@ function OrderSummary({
                 <span>(schools only)</span>
               </div>
             </div>
-            <p className="text-s text-white/50 mt-3">Enter promo code at Stripe checkout to Apply</p>
+            <p className="text-s text-white/50 mt-3">Enter promo codesat STRIPE checkout to apply</p>
           </div>
         );
       })()}
 
-      {/* Promo Code Note */}
-      {selectedPrograms.length < 2 && (
+      {/* Bundle Prompt - show when exactly 1 program selected */}
+      {selectedPrograms.length === 1 && (
+        <div className="mt-6 p-3 bg-green-400/10 border border-green-400/30 rounded-lg text-center">
+          <p className="text-green-300 text-sm">
+            <span className="font-bold">Add one more program</span> to see your potential savings<br />
+            with bundle discounts!
+          </p>
+        </div>
+      )}
+
+      {/* Promo Code Note - show when no programs selected */}
+      {selectedPrograms.length === 0 && (
         <div className="mt-6 p-3 bg-yellow-400/10 border border-yellow-400/30 rounded-lg">
-          <p className="text-yellow-300 text-sm">Qualify for a promo code? Enter it on the Stripe checkout page.</p>
+          <p className="text-yellow-300 text-sm">Qualify for a promo code? Enter it on the Stripe checkout.</p>
         </div>
       )}
 
@@ -921,9 +931,15 @@ function CheckoutContent() {
               </label>
             </div>
 
-            <p className="text-xs text-gray-500 mb-4">
-              You will be redirected to Stripe to complete payment.
-            </p>
+            {/* Promo Codes Card */}
+            <div className="bg-green-400/10 border border-green-400/30 rounded-lg p-3 mb-4">
+              <p className="font-semibold text-green-400 text-sm mb-2">Promo Codes</p>
+              <p className="text-white/80 text-xs mb-2">Enter at Stripe checkout:</p>
+              <ul className="text-white/70 text-xs space-y-1">
+                <li><span className="font-bold text-green-300">BUNDLE</span> — 15% off 2+ programs</li>
+                <li><span className="font-bold text-green-300">SKULE2</span> — 35% off 2+ programs (Schools Only)</li>
+              </ul>
+            </div>
 
             <div className="flex gap-3">
               <button
@@ -933,14 +949,19 @@ function CheckoutContent() {
                 Go Back
               </button>
               <button
-                onClick={handleConfirmedCheckout}
-                disabled={!consentChecked}
-                className="flex-1 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02]"
+                onClick={() => {
+                  if (!consentChecked) {
+                    alert('Please check the box to accept the payment authorization terms before proceeding.');
+                    return;
+                  }
+                  handleConfirmedCheckout();
+                }}
+                className="flex-1 py-3 rounded-lg font-semibold transition-all hover:scale-[1.02]"
                 style={{
                   background: consentChecked
                     ? 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)'
-                    : 'rgba(255,255,255,0.1)',
-                  color: consentChecked ? '#000' : '#666',
+                    : 'rgba(255,255,255,0.2)',
+                  color: consentChecked ? '#000' : '#999',
                 }}
               >
                 Proceed to Payment
