@@ -16,13 +16,22 @@ export async function POST(req: NextRequest) {
       expand: ['line_items'],
     });
 
-    const personalInfoJson = session.metadata?.personalInfo;
-    const personalInfo = personalInfoJson ? JSON.parse(personalInfoJson) : null;
+    // Extract personal info from individual metadata fields
+    const personalInfo = {
+      firstName: session.metadata?.contactName?.split(' ')[0] || '',
+      lastName: session.metadata?.contactName?.split(' ').slice(1).join(' ') || '',
+      email: session.metadata?.contactEmail || session.customer_details?.email || '',
+      phone: session.metadata?.contactPhone || session.customer_details?.phone || '',
+      organization: session.metadata?.organization || '',
+      role: session.metadata?.contactRole || '',
+      preferredDates: session.metadata?.preferredDates || '',
+    };
+
     const selectedProgramsJson = session.metadata?.programs;
     const selectedPrograms: SelectedProgram[] = selectedProgramsJson ? JSON.parse(selectedProgramsJson) : [];
 
-    if (!personalInfo) {
-      return NextResponse.json({ error: 'No personal info found' }, { status: 400 });
+    if (!personalInfo.email) {
+      return NextResponse.json({ error: 'No contact email found' }, { status: 400 });
     }
 
     const transporter = nodemailer.createTransport({
