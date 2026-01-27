@@ -63,13 +63,68 @@ export async function POST(req: NextRequest) {
         </div>
       `;
       textContent = `Thank you for your art purchase! I will contact you within 24 hours to arrange delivery. Order: ${session.payment_intent}`;
+    } else if (productType === 'clinics-bundle' || session.metadata?.type === 'clinics-bundle') {
+      // Clinic booking - PENDING confirmation
+      subject = '📋 Booking Request Received - Kirti Saxena Clinics';
+      htmlContent = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #f5f5f5; padding: 20px;">
+          <div style="background-color: white; padding: 30px; border-radius: 8px;">
+            <div style="background-color: #FFF3CD; border: 1px solid #FFD700; border-radius: 8px; padding: 20px; margin-bottom: 25px; text-align: center;">
+              <h2 style="color: #856404; margin: 0;">Thank you for your booking request!</h2>
+            </div>
+
+            <p style="color: #333; line-height: 1.6;">Hi ${customerName},</p>
+            <p style="color: #333; line-height: 1.6;">We've received your request and deposit. Please note that <strong>your booking is not yet confirmed</strong>. Our team will review the details and follow up within 1–2 business days to finalize everything.</p>
+
+            <h3 style="color: #333; margin-top: 25px; border-bottom: 2px solid #FFD700; padding-bottom: 8px;">What happens next:</h3>
+            <ol style="color: #333; line-height: 1.8;">
+              <li><strong>Review</strong> – We'll verify your requested dates, location, and selected program.</li>
+              <li><strong>Confirmation</strong> – We'll confirm audience size, timing, and any special requirements.</li>
+              <li><strong>Finalize</strong> – Once confirmed, you'll receive official confirmation, any program materials, and participant waiver forms (required for clinics only).</li>
+            </ol>
+
+            <p style="color: #666; font-size: 14px; font-style: italic; margin-top: 15px;">If we do not receive a response within 48 hours of our follow-up email, the booking request may be released and the deposit refunded.</p>
+
+            <h3 style="color: #333; margin-top: 25px; border-bottom: 2px solid #FFD700; padding-bottom: 8px;">Deposit & Payment Details</h3>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+              <tr style="background-color: #f9f9f9;">
+                <td style="padding: 12px; border: 1px solid #ddd;"><strong>Deposit Amount:</strong></td>
+                <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold; color: #28a745;">$${(session.amount_total! / 100).toFixed(2)} CAD</td>
+              </tr>
+              <tr>
+                <td style="padding: 12px; border: 1px solid #ddd;"><strong>Payment Reference:</strong></td>
+                <td style="padding: 12px; border: 1px solid #ddd;"><code>${session.payment_intent}</code></td>
+              </tr>
+            </table>
+
+            <h3 style="color: #333; margin-top: 25px; border-bottom: 2px solid #FFD700; padding-bottom: 8px;">Deposit & Authorization Policy</h3>
+            <div style="background-color: #f8f9fa; border-left: 4px solid #FFD700; padding: 15px; margin: 15px 0;">
+              <p style="margin: 0 0 10px 0; font-size: 14px; color: #333;">As acknowledged at checkout, your card information has been securely stored to process the remaining balance only after booking details are confirmed.</p>
+              <p style="margin: 0; font-size: 14px; color: #333;">Your deposit is <strong>fully refundable until confirmation is sent via email</strong>. Once confirmation is issued, the deposit becomes non-refundable and will be applied toward the final invoice.</p>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid #ddd; margin: 25px 0;">
+
+            <p style="color: #333;">If you have any questions or need to update your request, please contact us at<br><a href="mailto:clinics@kirtisaxena.com" style="color: #d4a500; font-weight: bold;">clinics@kirtisaxena.com</a></p>
+
+            <p style="color: #333; margin-top: 20px;">We look forward to working with you.</p>
+
+            <p style="color: #333; margin-top: 25px;">
+              Warm regards,<br>
+              <strong>Kirti Saxena</strong><br>
+              <span style="color: #666; font-size: 14px;">Olympic Athlete | Speaker | Founder</span>
+            </p>
+          </div>
+        </div>
+      `;
+      textContent = `Thank you for your booking request! We've received your deposit of $${(session.amount_total! / 100).toFixed(2)} CAD. Your booking is not yet confirmed - our team will review and follow up within 1-2 business days. Reference: ${session.payment_intent}. Questions? Contact clinics@kirtisaxena.com`;
     } else {
       // Training booking confirmation
       const bookingDate = session.metadata?.bookingDate;
       const bookingTime = session.metadata?.bookingTime;
       const bookingLocation = session.metadata?.bookingLocation;
       const bookingNotes = session.metadata?.bookingNotes;
-      
+
       subject = '🥋 Your Training Session Booking - Kirti Saxena';
       htmlContent = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">

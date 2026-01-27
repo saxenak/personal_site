@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import ProjectNav from '@/components/ProjectNav';
 import ProjectHeader from '@/components/ProjectHeader';
-import InquiryPopup from '@/components/InquiryPopup';
 import Link from 'next/link';
 
 interface PricingTier {
@@ -178,7 +177,45 @@ const programs: Program[] = [
 ];
 
 export default function Clinics() {
-  const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [inquiryForm, setInquiryForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+  });
+  const [inquiryStatus, setInquiryStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+
+  const handleInquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inquiryForm.name || !inquiryForm.email || !inquiryForm.message) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    setInquiryStatus('sending');
+    try {
+      const res = await fetch('/api/send-inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: inquiryForm.name,
+          email: inquiryForm.email,
+          phone: inquiryForm.phone,
+          subject: 'Clinics Inquiry',
+          message: inquiryForm.message,
+        }),
+      });
+
+      if (res.ok) {
+        setInquiryStatus('sent');
+        setInquiryForm({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setInquiryStatus('error');
+      }
+    } catch {
+      setInquiryStatus('error');
+    }
+  };
   
   const ProgramCard = ({ program, isLarge = false }: { program: Program; isLarge?: boolean }) => {
     return (
@@ -592,7 +629,7 @@ export default function Clinics() {
                 <span className="text-2xl font-black text-black">SAVE 15%</span>
               </div>
               <p className="text-white/80 text-base mb-4">
-                Book 2 or more programs together for a custom package!
+                Book 2 or more programs together and use BUNDLE at checkout
               </p>
               <div className="flex flex-col items-center gap-2 text-m text-white/60">
               </div>
@@ -653,7 +690,7 @@ export default function Clinics() {
                 <span className="text-2xl font-black text-white">SAVE 35%</span>
               </div>
               <p className="text-white/80 text-base mb-4">
-                When you bundle two or more programs!
+                When you bundle two or more programs use SKULE2 at checkout
               </p>
               <div className="flex flex-col items-center gap-2 text-m text-white/60">
               </div>
@@ -977,25 +1014,82 @@ export default function Clinics() {
         </div>
 
         {/* Inquiry Section */}
-        <div className="max-w-2xl mx-auto mt-20 text-center">
+        <div id="inquiry" className="max-w-2xl mx-auto mt-20 scroll-mt-24">
           <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-12"></div>
-          <h2 className="text-2xl font-bold text-white mb-2">Have a Question?</h2>
-          <p className="text-sm text-white/60 mb-8">Send us an inquiry and we'll get back to you as soon as possible</p>
-          <button
-            onClick={() => setIsInquiryOpen(true)}
-            className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-[1.05] active:scale-[0.95]"
-            style={{
-              background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-              color: '#000',
-            }}
-          >
-            Send an Inquiry
-          </button>
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-white mb-2">Have a Question?</h2>
+            <p className="text-sm text-white/60">Send us an inquiry and we&apos;ll get back to you as soon as possible</p>
+          </div>
+
+          {inquiryStatus === 'sent' ? (
+            <div className="bg-green-500/10 border border-green-500/30 rounded-xl p-8 text-center">
+              <svg className="w-12 h-12 text-green-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <h3 className="text-xl font-bold text-white mb-2">Message Sent!</h3>
+              <p className="text-white/60">We&apos;ll get back to you within 24-48 hours.</p>
+              <button
+                onClick={() => setInquiryStatus('idle')}
+                className="mt-4 text-yellow-400 hover:text-yellow-300 text-sm"
+              >
+                Send another message
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleInquirySubmit} className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <div className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    placeholder="Your Name *"
+                    value={inquiryForm.name}
+                    onChange={(e) => setInquiryForm({ ...inquiryForm, name: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors"
+                    required
+                  />
+                  <input
+                    type="email"
+                    placeholder="Your Email *"
+                    value={inquiryForm.email}
+                    onChange={(e) => setInquiryForm({ ...inquiryForm, email: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors"
+                    required
+                  />
+                </div>
+                <input
+                  type="tel"
+                  placeholder="Phone Number (optional)"
+                  value={inquiryForm.phone}
+                  onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors"
+                />
+                <textarea
+                  placeholder="Your Message *"
+                  value={inquiryForm.message}
+                  onChange={(e) => setInquiryForm({ ...inquiryForm, message: e.target.value })}
+                  rows={4}
+                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors resize-none"
+                  required
+                />
+                {inquiryStatus === 'error' && (
+                  <p className="text-red-400 text-sm">Failed to send message. Please try again.</p>
+                )}
+                <button
+                  type="submit"
+                  disabled={inquiryStatus === 'sending'}
+                  className="w-full py-4 rounded-lg font-semibold transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
+                  style={{
+                    background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+                    color: '#000',
+                  }}
+                >
+                  {inquiryStatus === 'sending' ? 'Sending...' : 'Send Message'}
+                </button>
+              </div>
+            </form>
+          )}
         </div>
       </div>
-
-      {/* Inquiry Popup */}
-      <InquiryPopup isOpen={isInquiryOpen} onClose={() => setIsInquiryOpen(false)} />
     </main>
   );
 }

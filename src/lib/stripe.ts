@@ -237,4 +237,5 @@ export interface SelectedProgram {
   programId: ProgramId;
   tier: TierType;
   participantCount?: number;
+  quantity?: number;
 }

@@ -51,9 +51,9 @@ function SuccessContent() {
             </svg>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Booking Confirmed!</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Booking Request Received!</h1>
           <p className="text-xl text-gray-400 mb-8">
-            Thank you for booking your program(s). You will receive a confirmation email shortly.
+            Thank you for your deposit. We&apos;ll confirm your program details within 1–2 business days.
           </p>
 
           {sessionId && (
@@ -67,19 +67,19 @@ function SuccessContent() {
             <h3 className="font-semibold text-lg mb-4 text-center">What&apos;s Next?</h3>
             <ul className="space-y-4 text-gray-300">
               <li className="flex items-start gap-4">
-                <span className="w-8 h-8 bg-green-600/20 rounded-full flex items-center justify-center flex-shrink-0 text-green-400 font-bold">
+                <span className="w-8 h-8 bg-yellow-600/20 rounded-full flex items-center justify-center flex-shrink-0 text-yellow-400 font-bold">
                   1
                 </span>
                 <span>
-                  You&apos;ll receive a confirmation email with your booking details and receipt.
+                  <strong>Pending Review:</strong> I will verify your booking details and reach out within 1–2 business days.
                 </span>
               </li>
               <li className="flex items-start gap-4">
-                <span className="w-8 h-8 bg-green-600/20 rounded-full flex items-center justify-center flex-shrink-0 text-green-400 font-bold">
+                <span className="w-8 h-8 bg-yellow-600/20 rounded-full flex items-center justify-center flex-shrink-0 text-yellow-400 font-bold">
                   2
                 </span>
                 <span>
-                  I will reach out within 48 hours to confirm dates, times, and logistics.
+                  <strong>Confirmation:</strong> We&apos;ll confirm dates, audience size, location, and any special requirements.
                 </span>
               </li>
               <li className="flex items-start gap-4">
@@ -87,10 +87,17 @@ function SuccessContent() {
                   3
                 </span>
                 <span>
-                  Participants will receive any necessary waiver forms before the session.
+                  <strong>Booking Confirmed:</strong> Once confirmed, your deposit becomes non-refundable and participants will receive waiver forms.
                 </span>
               </li>
             </ul>
+          </div>
+
+          {/* Deposit Policy */}
+          <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-4 mb-8">
+            <p className="text-yellow-200 text-sm">
+              <strong>Deposit Policy:</strong> Deposits are refundable until booking details are confirmed. Once confirmed, deposits are non-refundable.
+            </p>
           </div>
 
           {/* Contact Info */}

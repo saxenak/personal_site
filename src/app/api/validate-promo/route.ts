@@ -15,10 +15,11 @@ export async function POST(req: NextRequest) {
 
     console.log('🔍 Validating promo code:', code);
 
-    // Look up promotion code in Stripe
+    // Look up promotion code in Stripe (expand coupon to get discount details)
     const promotionCodes = await stripe.promotionCodes.list({
       code: code.toUpperCase(),
       active: true,
+      expand: ['data.coupon'],
     });
 
     if (promotionCodes.data.length === 0) {
@@ -27,22 +28,58 @@ export async function POST(req: NextRequest) {
     }
 
     const promoCode = promotionCodes.data[0];
-    const couponData = (promoCode as any).coupon || promoCode;
+
+    // Log the FULL raw response to see structure
+    console.log('📦 RAW Stripe promo code object:', JSON.stringify(promoCode, null, 2));
+    console.log('📦 Object keys:', Object.keys(promoCode));
+
+    // Try to get coupon - it might be expanded or just an ID
+    let coupon = (promoCode as any).coupon;
+
+    // If coupon is a string (ID), fetch the full coupon
+    if (typeof coupon === 'string') {
+      console.log('🔄 Coupon is ID, fetching full coupon:', coupon);
+      coupon = await stripe.coupons.retrieve(coupon);
+    }
 
     console.log('✅ Valid promo code found:', {
       code: promoCode.code,
-      percentOff: couponData?.percent_off,
-      amountOff: couponData?.amount_off,
+      coupon: coupon,
+      couponType: typeof coupon,
+      percentOff: coupon?.percent_off,
+      amountOff: coupon?.amount_off,
+      couponId: coupon?.id,
+      couponName: coupon?.name,
     });
 
-    return NextResponse.json({
+    // Get percent_off - handle both number and potential string conversion
+    const rawPercentOff = coupon?.percent_off;
+    const percentOff = typeof rawPercentOff === 'number'
+      ? rawPercentOff
+      : typeof rawPercentOff === 'string'
+        ? parseFloat(rawPercentOff)
+        : null;
+
+    const rawAmountOff = coupon?.amount_off;
+    const amountOff = typeof rawAmountOff === 'number'
+      ? rawAmountOff
+      : typeof rawAmountOff === 'string'
+        ? parseFloat(rawAmountOff)
+        : null;
+
+    console.log('🎯 Coupon details:', { rawPercentOff, percentOff, rawAmountOff, amountOff, coupon });
+
+    const responseData = {
       valid: true,
       discount: {
-        percentOff: couponData?.percent_off,
-        amountOff: couponData?.amount_off,
-        name: couponData?.name || 'Discount',
+        percentOff: percentOff && !isNaN(percentOff) ? percentOff : null,
+        amountOff: amountOff && !isNaN(amountOff) ? amountOff : null,
+        name: coupon?.name || 'Discount',
       },
-    });
+    };
+
+    console.log('📤 Returning response:', responseData);
+    return NextResponse.json(responseData);
   } catch (error) {
     console.error('❌ Promo validation error:', error);
     return NextResponse.json({ valid: false, error: 'Validation failed' });
