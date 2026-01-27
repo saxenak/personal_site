@@ -223,24 +223,16 @@ function ProgramCard({
 function OrderSummary({
   selectedPrograms,
   pricing,
-  promoCode,
-  promoCodeValid,
-  promoCodeLoading,
-  promoDiscount,
-  onPromoCodeChange,
-  onValidatePromo,
   onCheckout,
+  onRemoveProgram,
+  onUpdateQuantity,
   isCheckingOut,
 }: {
   selectedPrograms: SelectedProgram[];
-  pricing: { subtotal: number; bundleDiscount: number; schoolDiscount: number; total: number };
-  promoCode: string;
-  promoCodeValid: boolean | null;
-  promoCodeLoading: boolean;
-  promoDiscount: { percentOff?: number; name?: string } | null;
-  onPromoCodeChange: (code: string) => void;
-  onValidatePromo: () => void;
+  pricing: { subtotal: number; bundleDiscount: number; total: number };
   onCheckout: () => void;
+  onRemoveProgram: (programId: ProgramId) => void;
+  onUpdateQuantity: (programId: ProgramId, quantity: number) => void;
   isCheckingOut: boolean;
 }) {
   const calculateItemPrice = (selected: SelectedProgram) => {
@@ -263,18 +255,56 @@ function OrderSummary({
         <ul className="space-y-4 mb-6">
           {selectedPrograms.map((selected) => {
             const program = CLINIC_PROGRAMS[selected.programId];
+            const quantity = selected.quantity || 1;
+            const unitPrice = calculateItemPrice(selected);
+            const totalPrice = unitPrice * quantity;
+
             return (
-              <li key={selected.programId} className="flex justify-between items-start">
-                <div>
-                  <span className="font-medium text-white">{program.name}</span>
-                  <span className="text-sm text-gray-400 ml-2 capitalize">({selected.tier})</span>
-                  {selected.participantCount && (
-                    <span className="text-xs text-gray-500 block">
-                      {selected.participantCount} participants
-                    </span>
-                  )}
+              <li key={selected.programId} className="border-b border-white/10 pb-4">
+                <div className="flex justify-between items-start mb-2">
+                  <div className="flex-1">
+                    <span className="font-medium text-white">{program.name}</span>
+                    <span className="text-sm text-gray-400 ml-2 capitalize">({selected.tier})</span>
+                  </div>
+                  <button
+                    onClick={() => onRemoveProgram(selected.programId)}
+                    className="text-gray-500 hover:text-red-400 transition-colors ml-2"
+                    title="Remove"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
-                <span className="text-white">${(calculateItemPrice(selected) / 100).toFixed(2)}</span>
+
+                {selected.participantCount && (
+                  <p className="text-xs text-gray-500 mb-2">{selected.participantCount} participants</p>
+                )}
+
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-gray-400">Qty:</span>
+                    <button
+                      onClick={() => onUpdateQuantity(selected.programId, Math.max(1, quantity - 1))}
+                      className="w-6 h-6 rounded bg-white/10 text-white hover:bg-white/20 flex items-center justify-center text-sm"
+                    >
+                      -
+                    </button>
+                    <span className="text-white text-sm w-6 text-center">{quantity}</span>
+                    <button
+                      onClick={() => onUpdateQuantity(selected.programId, quantity + 1)}
+                      className="w-6 h-6 rounded bg-white/10 text-white hover:bg-white/20 flex items-center justify-center text-sm"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <div className="text-right">
+                    {quantity > 1 && (
+                      <span className="text-xs text-gray-500 block">${(unitPrice / 100).toFixed(2)} each</span>
+                    )}
+                    <span className="text-white font-medium">${(totalPrice / 100).toFixed(2)}</span>
+                  </div>
+                </div>
               </li>
             );
           })}
@@ -283,111 +313,65 @@ function OrderSummary({
 
       {/* Pricing Breakdown */}
       <div className="border-t border-white/10 pt-4 space-y-2">
-        <div className="flex justify-between text-gray-400">
-          <span>Subtotal</span>
-          <span>${(pricing.subtotal / 100).toFixed(2)}</span>
-        </div>
-
-        {/* Show combined discount if both bundle and promo applied */}
-        {pricing.bundleDiscount > 0 && pricing.schoolDiscount > 0 && promoDiscount?.percentOff && (
-          <div className="flex justify-between text-purple-400 font-semibold">
-            <span>Combined Discount (20% + {promoDiscount.percentOff}%)</span>
-            <span>-${((pricing.bundleDiscount + pricing.schoolDiscount) / 100).toFixed(2)}</span>
-          </div>
-        )}
-
-        {/* Show bundle discount only if no promo */}
-        {pricing.bundleDiscount > 0 && !promoDiscount?.percentOff && (
-          <div className="flex justify-between text-green-400">
-            <span>Bundle Discount (20% off)</span>
-            <span>-${(pricing.bundleDiscount / 100).toFixed(2)}</span>
-          </div>
-        )}
-
-        {/* Show school discount only if no bundle */}
-        {pricing.bundleDiscount === 0 && pricing.schoolDiscount > 0 && promoDiscount?.percentOff && (
-          <div className="flex justify-between text-blue-400">
-            <span>{promoDiscount.name || 'School Discount'} ({promoDiscount.percentOff}% off)</span>
-            <span>-${(pricing.schoolDiscount / 100).toFixed(2)}</span>
-          </div>
-        )}
-
-        <div className="flex justify-between text-xl font-bold pt-2 border-t border-white/10 text-white">
+        <div className="flex justify-between text-xl font-bold text-white">
           <span>Total Cost</span>
-          <span>${(pricing.total / 100).toFixed(2)} CAD</span>
+          <span>${(pricing.subtotal / 100).toFixed(2)} CAD</span>
         </div>
 
         <div className="flex justify-between text-yellow-400 font-semibold mt-3 pt-2 border-t border-yellow-400/30">
           <span>50% Deposit Due Today</span>
-          <span>${((pricing.total / 2) / 100).toFixed(2)} CAD</span>
+          <span>${((pricing.subtotal / 2) / 100).toFixed(2)} CAD</span>
         </div>
 
         <div className="flex justify-between text-gray-400 text-sm">
           <span>Remaining Balance (Due after program)</span>
-          <span>${((pricing.total / 2) / 100).toFixed(2)} CAD</span>
+          <span>${((pricing.subtotal / 2) / 100).toFixed(2)} CAD</span>
         </div>
       </div>
 
-      {/* Promo Code Input */}
-      <div className="mt-6">
-        <label className="text-sm text-gray-400 block mb-2">Discount Code</label>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={promoCode}
-            onChange={(e) => onPromoCodeChange(e.target.value.toUpperCase())}
-            placeholder="Enter code"
-            className="flex-1 p-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white/40"
-          />
-          <button
-            onClick={onValidatePromo}
-            disabled={!promoCode || promoCodeLoading}
-            className="px-4 py-3 bg-white/10 rounded-lg hover:bg-white/20 disabled:opacity-50 text-white transition-colors"
-          >
-            {promoCodeLoading ? '...' : 'Apply'}
-          </button>
-        </div>
-        {promoCodeValid === true && (
-          <p className="text-green-400 text-sm mt-2">
-            {promoDiscount?.percentOff}% discount applied!
-          </p>
-        )}
-        {promoCodeValid === false && (
-          <p className="text-red-400 text-sm mt-2">Invalid promo code</p>
-        )}
-      </div>
+      {/* Savings Preview */}
+      {selectedPrograms.length >= 2 && (() => {
+        const totalParticipants = selectedPrograms.reduce((sum, p) => sum + (p.participantCount || 1), 0);
+        const bundleTotal = pricing.subtotal * 0.85;
+        const schoolTotal = pricing.subtotal * 0.65;
+        const perPersonBundle = totalParticipants > 0 ? bundleTotal / totalParticipants : bundleTotal;
+        const perPersonSchool = totalParticipants > 0 ? schoolTotal / totalParticipants : schoolTotal;
 
-      {/* Deposit Information */}
-      {selectedPrograms.length > 0 && (
-        <div className="mt-6 p-4 rounded-lg bg-yellow-400/10 border border-yellow-400/30">
-          <div className="flex items-start gap-3">
-            <svg className="w-5 h-5 text-yellow-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zm-11-1a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h.01a1 1 0 100-2H10zm3 0a1 1 0 100 2h.01a1 1 0 100-2H13z" clipRule="evenodd" />
-            </svg>
-            <div className="text-sm">
-              <p className="font-semibold text-yellow-400 mb-2">50% Deposit Required</p>
-              <p className="text-white/80">
-                Pay <span className="font-bold text-yellow-300">${((pricing.total / 2) / 100).toFixed(2)} CAD</span> today to confirm your booking.
-              </p>
-              <p className="text-white/60 text-xs mt-2">
-                Remaining balance: <span className="font-semibold">${((pricing.total / 2) / 100).toFixed(2)} CAD</span> due within 14 days after delivery of program.
-              </p>
+        return (
+          <div className="mt-6 p-4 bg-green-400/10 border border-green-400/30 rounded-lg">
+            <p className="text-green-400 font-semibold mb-3">See Your Potential Savings</p>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between text-white/80">
+                <span>With <span className="font-bold text-green-300">BUNDLE</span> (15% off):</span>
+                <span className="text-green-300">Save ${(pricing.subtotal * 0.15 / 100).toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-white/60 text-xs">
+                <span>~${(perPersonBundle / 100).toFixed(0)}/person</span>
+                <span>({totalParticipants} participants)</span>
+              </div>
+              <div className="border-t border-green-400/20 my-2"></div>
+              <div className="flex justify-between text-white/80">
+                <span>With <span className="font-bold text-green-300">SKULE2</span> (35% off):</span>
+                <span className="text-green-300">Save ${(pricing.subtotal * 0.35 / 100).toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between text-white/60 text-xs">
+                <span>~${(perPersonSchool / 100).toFixed(0)}/person</span>
+                <span>(schools only)</span>
+              </div>
             </div>
+            <p className="text-s text-white/50 mt-3">Enter promo code at Stripe checkout to Apply</p>
           </div>
+        );
+      })()}
+
+      {/* Promo Code Note */}
+      {selectedPrograms.length < 2 && (
+        <div className="mt-6 p-3 bg-yellow-400/10 border border-yellow-400/30 rounded-lg">
+          <p className="text-yellow-300 text-sm">Qualify for a promo code? Enter it on the Stripe checkout page.</p>
         </div>
       )}
 
-      {/* Consent Language */}
-      {selectedPrograms.length > 0 && (
-        <div className="mt-4 p-4 rounded-lg bg-white/5 border border-white/10">
-          <label className="flex items-start gap-3 cursor-pointer">
-            <input type="checkbox" className="mt-1" required />
-            <span className="text-xs text-white/70 leading-relaxed">
-              By completing this booking, I authorize Kirti Saxena to store my payment method and to charge the remaining balance to the same payment method if the final invoice remains unpaid after program delivery. I agree to ensure the payment method remains valid.
-            </span>
-          </label>
-        </div>
-      )}
+
 
       {/* Checkout Button */}
       <button
@@ -412,16 +396,11 @@ function OrderSummary({
         ) : (
           <div>
             <div className="text-sm font-medium">Pay 50% Deposit</div>
-            <div className="text-lg font-bold">${((pricing.total / 2) / 100).toFixed(2)} CAD</div>
+            <div className="text-lg font-bold">${((pricing.subtotal / 2) / 100).toFixed(2)} CAD</div>
           </div>
         )}
       </button>
 
-      {selectedPrograms.length >= 2 && (
-        <p className="text-center text-sm text-green-400 mt-4">
-          Bundle discount applied!
-        </p>
-      )}
 
       <p className="text-center text-xs text-gray-500 mt-4">
         Secure checkout powered by Stripe
@@ -441,17 +420,17 @@ export default function ClinicsCheckout() {
 function CheckoutContent() {
   const searchParams = useSearchParams();
   const [selectedPrograms, setSelectedPrograms] = useState<SelectedProgram[]>([]);
-  const [promoCode, setPromoCode] = useState('');
-  const [promoCodeValid, setPromoCodeValid] = useState<boolean | null>(null);
-  const [promoCodeLoading, setPromoCodeLoading] = useState(false);
-  const [promoDiscount, setPromoDiscount] = useState<{ percentOff?: number; name?: string } | null>(null);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [consentChecked, setConsentChecked] = useState(false);
   const [personalInfo, setPersonalInfo] = useState({
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
     organization: '',
+    role: '',
+    preferredDates: '',
   });
 
   // Pre-select program from URL query
@@ -461,6 +440,7 @@ function CheckoutContent() {
       setSelectedPrograms([{ programId: programParam as ProgramId, tier: 'mini' }]);
     }
   }, [searchParams]);
+
 
   // Handle program toggle
   const handleToggle = (programId: ProgramId, tier: TierType | null, participantCount?: number) => {
@@ -480,74 +460,63 @@ function CheckoutContent() {
     });
   };
 
+  // Remove program from order
+  const handleRemoveProgram = (programId: ProgramId) => {
+    setSelectedPrograms((prev) => prev.filter((p) => p.programId !== programId));
+  };
+
+  // Update package quantity
+  const handleUpdateQuantity = (programId: ProgramId, quantity: number) => {
+    setSelectedPrograms((prev) =>
+      prev.map((p) =>
+        p.programId === programId ? { ...p, quantity } : p
+      )
+    );
+  };
+
   // Calculate pricing
   const pricing = useMemo(() => {
     let subtotal = 0;
     selectedPrograms.forEach((selected) => {
       const program = CLINIC_PROGRAMS[selected.programId];
       const tier = program.tiers[selected.tier];
+      const quantity = selected.quantity || 1;
+      let itemPrice = 0;
+
       if ('pricePerPerson' in tier && selected.participantCount) {
-        subtotal += tier.pricePerPerson * selected.participantCount;
+        itemPrice = tier.pricePerPerson * selected.participantCount;
       } else if ('price' in tier) {
-        subtotal += tier.price;
+        itemPrice = tier.price;
       }
+
+      subtotal += itemPrice * quantity;
     });
 
-    // Bundle discount (20% off when 2+ programs)
+    // Bundle discount (15% off when 2+ programs)
     const bundleDiscount =
       selectedPrograms.length >= DISCOUNT_CONFIG.bundleThreshold
         ? Math.round(subtotal * (DISCOUNT_CONFIG.bundleDiscountPercent / 100))
         : 0;
 
-    // School discount from promo code - applied after bundle
-    const afterBundle = subtotal - bundleDiscount;
-    const discountPercent = promoDiscount?.percentOff || 0;
-    const schoolDiscount =
-      promoCodeValid && discountPercent > 0
-        ? Math.round(afterBundle * (discountPercent / 100))
-        : 0;
+    const total = subtotal - bundleDiscount;
 
-    const total = subtotal - bundleDiscount - schoolDiscount;
+    return { subtotal, bundleDiscount, total };
+  }, [selectedPrograms]);
 
-    return { subtotal, bundleDiscount, schoolDiscount, total };
-  }, [selectedPrograms, promoCodeValid, promoDiscount]);
-
-  // Validate promo code
-  const handleValidatePromo = async () => {
-    if (!promoCode) return;
-
-    setPromoCodeLoading(true);
-    try {
-      const res = await fetch('/api/validate-promo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: promoCode }),
-      });
-      const data = await res.json();
-
-      if (data.valid) {
-        setPromoCodeValid(true);
-        setPromoDiscount(data.discount);
-      } else {
-        setPromoCodeValid(false);
-        setPromoDiscount(null);
-      }
-    } catch {
-      setPromoCodeValid(false);
-      setPromoDiscount(null);
-    } finally {
-      setPromoCodeLoading(false);
-    }
-  };
-
-  // Handle checkout
-  const handleCheckout = async () => {
+  // Show confirmation before checkout
+  const handleCheckoutClick = () => {
     if (selectedPrograms.length === 0) return;
-    if (!personalInfo.firstName || !personalInfo.lastName || !personalInfo.email || !personalInfo.phone) {
-      alert('Please fill in all required fields');
+    if (!personalInfo.firstName || !personalInfo.lastName || !personalInfo.email || !personalInfo.phone || !personalInfo.role || !personalInfo.preferredDates) {
+      alert('Please fill in all required fields including your role and preferred dates');
       return;
     }
+    setConsentChecked(false); // Reset consent for the modal
+    setShowConfirmation(true);
+  };
 
+  // Proceed to payment after confirmation
+  const handleConfirmedCheckout = async () => {
+    setShowConfirmation(false);
     setIsCheckingOut(true);
     try {
       const res = await fetch('/api/clinics-checkout', {
@@ -555,7 +524,6 @@ function CheckoutContent() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           selectedPrograms,
-          promoCode: promoCodeValid ? promoCode : undefined,
           personalInfo,
         }),
       });
@@ -603,7 +571,7 @@ function CheckoutContent() {
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold">Build Your Package</h1>
           <p className="text-gray-400 mt-2">
-            Get <span className="font-bold text-yellow-400">15% off</span> when you bundle 2 or more programs! If you are a school you automatically qualify for <span className="font-bold text-yellow-400">35% off</span> with a bundle.
+            Bundle 2+ programs and use code <span className="font-bold text-yellow-400">BUNDLE</span> for 15% off. Schools get 35% off bundles with <span className="font-bold text-yellow-400">SKULE2</span>.
           </p>
         </div>
 
@@ -622,25 +590,19 @@ function CheckoutContent() {
               ))}
             </div>
 
-            {/* Info Note */}
+            {/* Contact Note */}
             <div className="bg-white/5 rounded-lg p-4 text-sm text-gray-400">
-              <p className="flex items-start gap-2">
-                <svg className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                
-              </p>After payment, I will put your transaction on hold for 48 Hours and follow up via email about confirmation of location, timings & any special inquiries. Any additional costs that may be associated with travel if outside the Greater Toronto Area will be disclosed within email and added onto the final invoice. If no response is recieved, the deposit will be returned and the booking will be cancelled.
-              <p className="mt-3 flex items-start gap-2">
-                <svg className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <p className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                Have questions? Reach out to<a href="mailto:clinics@kirtisaxena.com" className="text-yellow-400 hover:text-yellow-300 font-semibold">clinics@kirtisaxena.com</a>
+                Have questions? <Link href="/projects/clinics#inquiry" className="text-yellow-400 hover:text-yellow-300 font-semibold ml-1">Send us an inquiry</Link>
               </p>
             </div>
 
             {/* Personal Information Form */}
             <div className="bg-white/5 rounded-lg p-6 border border-white/10">
-              <h3 className="text-xl font-bold text-white mb-6">Your Information</h3>
+              <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
               <div className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <input
@@ -659,12 +621,22 @@ function CheckoutContent() {
                   />
                 </div>
                 <input
-                  type="email"
-                  placeholder="Email *"
-                  value={personalInfo.email}
-                  onChange={(e) => setPersonalInfo({ ...personalInfo, email: e.target.value })}
+                  type="text"
+                  placeholder="Your Role *"
+                  value={personalInfo.role}
+                  onChange={(e) => setPersonalInfo({ ...personalInfo, role: e.target.value })}
                   className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors"
                 />
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Work Email *"
+                    value={personalInfo.email}
+                    onChange={(e) => setPersonalInfo({ ...personalInfo, email: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">School/organization email preferred (e.g. @schoolboard.ca)</p>
+                </div>
                 <input
                   type="tel"
                   placeholder="Phone Number *"
@@ -674,11 +646,21 @@ function CheckoutContent() {
                 />
                 <input
                   type="text"
-                  placeholder="Organization / School (if applicable)"
+                  placeholder="School / Organization Name (if applicable)"
                   value={personalInfo.organization}
                   onChange={(e) => setPersonalInfo({ ...personalInfo, organization: e.target.value })}
                   className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors"
                 />
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Preferred Program Date(s) *"
+                    value={personalInfo.preferredDates}
+                    onChange={(e) => setPersonalInfo({ ...personalInfo, preferredDates: e.target.value })}
+                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-yellow-400 transition-colors"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">e.g. &quot;March 15-20&quot; or &quot;Any Tuesday in April&quot;</p>
+                </div>
               </div>
               <p className="text-xs text-gray-500 mt-4">* Required fields</p>
             </div>
@@ -868,22 +850,105 @@ function CheckoutContent() {
             <OrderSummary
               selectedPrograms={selectedPrograms}
               pricing={pricing}
-              promoCode={promoCode}
-              promoCodeValid={promoCodeValid}
-              promoCodeLoading={promoCodeLoading}
-              promoDiscount={promoDiscount}
-              onPromoCodeChange={(code) => {
-                setPromoCode(code);
-                setPromoCodeValid(null);
-                setPromoDiscount(null);
-              }}
-              onValidatePromo={handleValidatePromo}
-              onCheckout={handleCheckout}
+              onCheckout={handleCheckoutClick}
+              onRemoveProgram={handleRemoveProgram}
+              onUpdateQuantity={handleUpdateQuantity}
               isCheckingOut={isCheckingOut}
             />
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4 overflow-y-auto">
+          <div className="bg-zinc-900 rounded-xl p-6 max-w-md w-full border border-white/10 my-8">
+            <h3 className="text-xl font-bold text-white mb-4">Review Your Order</h3>
+
+            <div className="space-y-3 mb-4">
+              <div className="bg-white/5 rounded-lg p-4">
+                <p className="text-sm text-gray-400 mb-2">Programs Selected:</p>
+                <ul className="space-y-1">
+                  {selectedPrograms.map((selected) => {
+                    const program = CLINIC_PROGRAMS[selected.programId];
+                    const qty = selected.quantity || 1;
+                    return (
+                      <li key={selected.programId} className="text-white text-sm">
+                        • {qty > 1 && `${qty}x `}{program.name} ({selected.tier})
+                        {selected.participantCount && ` - ${selected.participantCount} participants`}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              <div className="flex justify-between text-sm">
+                <span className="text-gray-400">Total:</span>
+                <span className="text-white font-bold">${(pricing.subtotal / 100).toFixed(2)} CAD</span>
+              </div>
+              <div className="flex justify-between text-sm">
+                <span className="text-yellow-400">Deposit Due Now:</span>
+                <span className="text-yellow-400 font-bold">${((pricing.subtotal / 2) / 100).toFixed(2)} CAD</span>
+              </div>
+            </div>
+
+            {/* Deposit Information */}
+            <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-3 mb-4">
+              <p className="font-semibold text-yellow-400 text-sm mb-2">50% Deposit Required</p>
+              <p className="text-white/80 text-xs">
+                Pay <span className="font-bold text-yellow-300">${((pricing.subtotal / 2) / 100).toFixed(2)} CAD</span> today to hold your booking spot.
+              </p>
+              <p className="text-white/60 text-xs mt-1">
+                Remaining balance: ${((pricing.subtotal / 2) / 100).toFixed(2)} CAD due within 14 days after delivery.
+              </p>
+              <p className="text-white/50 text-xs mt-2 pt-2 border-t border-yellow-400/20">
+                Bookings are held for 1-2 business days while details are confirmed via email. Deposits are refundable until confirmed. Additional travel costs outside the GTA will be added to the final invoice.
+              </p>
+            </div>
+
+            {/* Consent Checkbox */}
+            <div className={`p-3 rounded-lg border mb-4 ${consentChecked ? 'bg-green-400/10 border-green-400/30' : 'bg-white/5 border-white/10'}`}>
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="mt-1 w-4 h-4 accent-yellow-400"
+                  checked={consentChecked}
+                  onChange={(e) => setConsentChecked(e.target.checked)}
+                />
+                <span className="text-xs text-white/70 leading-relaxed">
+                  By completing this booking, I authorize Kirti Saxena to store my payment method and to charge the remaining balance to the same payment method if the final invoice remains unpaid after program delivery. I agree to ensure the payment method remains valid.
+                </span>
+              </label>
+            </div>
+
+            <p className="text-xs text-gray-500 mb-4">
+              You will be redirected to Stripe to complete payment.
+            </p>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowConfirmation(false)}
+                className="flex-1 py-3 rounded-lg border border-white/20 text-white hover:bg-white/10 transition-colors"
+              >
+                Go Back
+              </button>
+              <button
+                onClick={handleConfirmedCheckout}
+                disabled={!consentChecked}
+                className="flex-1 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02]"
+                style={{
+                  background: consentChecked
+                    ? 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)'
+                    : 'rgba(255,255,255,0.1)',
+                  color: consentChecked ? '#000' : '#666',
+                }}
+              >
+                Proceed to Payment
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
