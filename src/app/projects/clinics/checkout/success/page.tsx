@@ -13,14 +13,22 @@ function SuccessContent() {
 
   useEffect(() => {
     if (sessionId && !emailSent) {
-      // Send confirmation email
+      // Send confirmation email to customer
       fetch('/api/send-confirmation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sessionId }),
       })
-        .then(() => setEmailSent(true))
         .catch((err) => console.error('Failed to send confirmation:', err));
+
+      // Send booking notification to clinics@kirtisaxena.com
+      fetch('/api/send-clinics-booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sessionId }),
+      })
+        .then(() => setEmailSent(true))
+        .catch((err) => console.error('Failed to send clinics booking notification:', err));
     }
   }, [sessionId, emailSent]);
 
@@ -57,9 +65,10 @@ function SuccessContent() {
           </p>
 
           {sessionId && (
-            <p className="text-sm text-gray-500 mb-8">
-              Order ID: {sessionId.substring(0, 20)}...
-            </p>
+            <div className="bg-white/10 border border-white/20 rounded-lg p-4 mb-8 inline-block">
+              <p className="text-xs text-gray-400 mb-1">Order ID</p>
+              <p className="text-lg font-mono font-bold text-yellow-400">{sessionId.substring(0, 24)}...</p>
+            </div>
           )}
 
           {/* What's Next */}
@@ -91,13 +100,6 @@ function SuccessContent() {
                 </span>
               </li>
             </ul>
-          </div>
-
-          {/* Deposit Policy */}
-          <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-lg p-4 mb-8">
-            <p className="text-yellow-200 text-sm">
-              <strong>Deposit Policy:</strong> Deposits are refundable until booking details are confirmed. Once confirmed, deposits are non-refundable.
-            </p>
           </div>
 
           {/* Contact Info */}
