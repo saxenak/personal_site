@@ -148,7 +148,7 @@ export const CLINIC_PROGRAMS = {
       series: {
         id: 'mindset-series',
         name: 'High-Performance Series Talk',
-        price: 200000, // $2,000.00
+        price: 180000, // $1,800.00
         description: '3 × 60 minutes',
         format: '3 × 60 min',
         participants: '30-80 people',
@@ -214,7 +214,7 @@ export const CLINIC_PROGRAMS = {
       series: {
         id: 'founder-series',
         name: 'Innovate for a Purpose Series Talk',
-        price: 200000, // $2,000.00
+        price: 180000, // $1,800.00
         description: '3 × 60 minutes',
         format: '3 × 60 min',
         participants: '30-80 people',

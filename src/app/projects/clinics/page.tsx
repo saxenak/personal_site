@@ -76,7 +76,7 @@ const programs: Program[] = [
         name: 'Mini Talk',
         format: '1 × 60 minutes',
         participants: '30-60 people',
-        price: '$500 flat',
+        price: '$750 flat',
         perPersonCost: 'Single session for smaller groups',
       },
       {
@@ -148,7 +148,7 @@ const programs: Program[] = [
         name: 'Mini Talk',
         format: '1 × 60 minutes',
         participants: '30-60 people',
-        price: '$500 flat',
+        price: '$750 flat',
         perPersonCost: 'Single session for smaller groups',
       },
       {
