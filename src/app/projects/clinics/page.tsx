@@ -242,14 +242,10 @@ export default function Clinics() {
             {program.id === 'mindset' || program.id === 'founder' ? 'Talk' : 'Clinic'}
           </div>
           <h3
-                className={`${isLarge ? 'text-5xl' : 'text-3xl'} font-black text-white mb-2 tracking-wider uppercase`}
+                className={`${isLarge ? 'text-5xl' : 'text-3xl'} font-black mb-2 tracking-wider uppercase`}
                 style={{
-                  textShadow: isLarge
-                    ? `0 0 10px ${program.color}, 0 0 20px ${program.color}, 0 0 40px ${program.color}, 0 0 80px ${program.color}80`
-                    : `0 0 8px ${program.color}, 0 0 15px ${program.color}, 0 0 30px ${program.color}80`,
                   color: program.color,
                   letterSpacing: isLarge ? '0.15em' : '0.1em',
-                  WebkitTextStroke: isLarge ? `1px ${program.color}` : `0.5px ${program.color}`,
                 }}
               >{program.title}</h3>
           <p className={`${isLarge ? 'text-base' : 'text-base'} tracking-wide mb-3`} style={{ color: program.color }}>
@@ -298,13 +294,12 @@ export default function Clinics() {
 
                 {/* Photos between Focus and Requirements - for self-defense and privates */}
                 {program.id === 'self-defense' && (
-                  <div className="my-6 flex gap-4 items-center">
+                  <div className="my-6 flex gap-4 items-center overflow-hidden">
                     <img
                       src="/images/clinics/271A0332.jpg"
                       alt="Self Defense Clinic"
-                      className="rounded-lg object-cover"
+                      className="rounded-lg object-cover w-full md:w-[180px] flex-shrink-0"
                       style={{
-                        width: '180px',
                         height: '280px',
                         border: `2px solid ${program.color}40`,
                         boxShadow: `0 0 20px ${program.color}15`,
@@ -313,7 +308,7 @@ export default function Clinics() {
                     <img
                       src="/images/clinics/271A0141.jpg"
                       alt="Self Defense Clinic"
-                      className="flex-1 rounded-lg object-cover"
+                      className="hidden md:block flex-1 rounded-lg object-cover"
                       style={{
                         height: '280px',
                         border: `2px solid ${program.color}40`,
@@ -323,7 +318,7 @@ export default function Clinics() {
                     <img
                       src="/images/clinics/271A0435.jpg"
                       alt="Self Defense Clinic"
-                      className="rounded-lg object-cover"
+                      className="hidden md:block rounded-lg object-cover"
                       style={{
                         width: '180px',
                         height: '280px',
@@ -334,13 +329,12 @@ export default function Clinics() {
                   </div>
                 )}
                 {program.id === 'privates' && (
-                  <div className="my-6 flex gap-4 items-center">
+                  <div className="my-6 flex gap-4 items-center overflow-hidden">
                     <img
                       src="/images/clinics/271A0484.jpg"
                       alt="Wrestling Private Training"
-                      className="rounded-lg object-cover"
+                      className="rounded-lg object-cover w-full md:w-[180px] flex-shrink-0"
                       style={{
-                        width: '180px',
                         height: '280px',
                         border: `2px solid ${program.color}40`,
                         boxShadow: `0 0 20px ${program.color}15`,
@@ -349,7 +343,7 @@ export default function Clinics() {
                     <img
                       src="/images/clinics/271A1120.jpg"
                       alt="Wrestling Private Training"
-                      className="flex-1 rounded-lg object-cover"
+                      className="hidden md:block flex-1 rounded-lg object-cover"
                       style={{
                         height: '280px',
                         border: `2px solid ${program.color}40`,
@@ -359,7 +353,7 @@ export default function Clinics() {
                     <img
                       src="/images/clinics/271A0133.jpg"
                       alt="Wrestling Private Training"
-                      className="rounded-lg object-cover"
+                      className="hidden md:block rounded-lg object-cover"
                       style={{
                         width: '180px',
                         height: '280px',
