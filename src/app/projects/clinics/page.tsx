@@ -142,7 +142,7 @@ const programs: Program[] = [
     id: 'founder',
     title: 'INNOVATE FOR A PURPOSE',
     subtitle: 'Innovation · AI · Sustainability',
-    tagline: 'An honest conversation about building a solution for the United Nations Sustainable Development Goals.',
+    tagline: 'An honest, interactive conversation about building a solution for the United Nations Sustainable Development Goals.',
     tiers: [
       {
         name: 'Mini Talk',
@@ -356,6 +356,20 @@ export default function Clinics() {
                       className="hidden md:block rounded-lg object-cover"
                       style={{
                         width: '180px',
+                        height: '280px',
+                        border: `2px solid ${program.color}40`,
+                        boxShadow: `0 0 20px ${program.color}15`,
+                      }}
+                    />
+                  </div>
+                )}
+                {program.id === 'founder' && (
+                  <div className="my-6 flex gap-4 items-center overflow-hidden">
+                    <img
+                      src="/images/clinics/founder-talk.png"
+                      alt="Innovate for a Purpose Talk"
+                      className="rounded-lg object-cover w-full flex-shrink-0"
+                      style={{
                         height: '280px',
                         border: `2px solid ${program.color}40`,
                         boxShadow: `0 0 20px ${program.color}15`,
