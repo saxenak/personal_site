@@ -54,7 +54,7 @@ const galleryImages: GalleryImage[] = [
   // Digitals
   { id: 'dig-1', src: '/images/modelling/digitals1.jpg', alt: 'Digitals comp', category: 'Digitals', height: 'medium' },
   { id: 'dig-2', src: '/images/modelling/digitals2.jpg', alt: 'Digitals headshot', category: 'Digitals', height: 'tall' },
-  { id: 'dig-3', src: '/images/modelling/digitals3.png', alt: 'Digitals studio', category: 'Digitals', height: 'medium' },
+  { id: 'dig-3', src: '/images/modelling/digitals3.jpg', alt: 'Digitals studio', category: 'Digitals', height: 'medium' },
   { id: 'dig-4', src: '/images/modelling/digitals4.jpg', alt: 'Digitals full body', category: 'Digitals', height: 'tall' },
   { id: 'dig-5', src: '/images/modelling/digitals5.jpg', alt: 'Digitals portrait', category: 'Digitals', height: 'medium' },
   // Editorial
@@ -62,10 +62,10 @@ const galleryImages: GalleryImage[] = [
   { id: 'edit-2', src: '/images/modelling/editorial2.jpg', alt: 'Editorial portrait', category: 'Editorial', height: 'medium' },
   { id: 'edit-3', src: '/images/modelling/editorial3.jpg', alt: 'Editorial concept', category: 'Editorial', height: 'tall' },
   { id: 'edit-4', src: '/images/modelling/editorial4.jpg', alt: 'Editorial styling', category: 'Editorial', height: 'medium' },
-  { id: 'edit-5', src: '/images/modelling/editorial5.png', alt: 'Editorial outdoor', category: 'Editorial', height: 'tall' },
+  { id: 'edit-5', src: '/images/modelling/editorial5.jpg', alt: 'Editorial outdoor', category: 'Editorial', height: 'tall' },
   { id: 'edit-6', src: '/images/modelling/editorial6.jpg', alt: 'Editorial studio', category: 'Editorial', height: 'medium' },
   { id: 'edit-7', src: '/images/modelling/editorial7.jpg', alt: 'Editorial creative', category: 'Editorial', height: 'tall' },
-  { id: 'edit-8', src: '/images/modelling/editorial8.png', alt: 'Editorial artistic', category: 'Editorial', height: 'medium' },
+  { id: 'edit-8', src: '/images/modelling/editorial8.jpg', alt: 'Editorial artistic', category: 'Editorial', height: 'medium' },
   // Beauty
   { id: 'beau-1', src: '/images/modelling/beauty1.jpeg', alt: 'Beauty closeup', category: 'Beauty', height: 'medium' },
   { id: 'beau-2', src: '/images/modelling/beauty2.jpeg', alt: 'Beauty glam', category: 'Beauty', height: 'tall' },
@@ -78,7 +78,7 @@ const galleryImages: GalleryImage[] = [
   { id: 'cult-2', src: '/images/modelling/cultural2.jpg', alt: 'Cultural portrait', category: 'Cultural', height: 'medium' },
   { id: 'cult-3', src: '/images/modelling/cultural3.jpg', alt: 'Cultural editorial', category: 'Cultural', height: 'tall' },
   { id: 'cult-4', src: '/images/modelling/cultural4.jpg', alt: 'Cultural creative', category: 'Cultural', height: 'medium' },
-  { id: 'cult-5', src: '/images/modelling/cultural5.png', alt: 'Cultural artistic', category: 'Cultural', height: 'tall' },
+  { id: 'cult-5', src: '/images/modelling/cultural5.jpg', alt: 'Cultural artistic', category: 'Cultural', height: 'tall' },
   { id: 'cult-6', src: '/images/modelling/cultural6.jpg', alt: 'Cultural lifestyle', category: 'Cultural', height: 'medium' },
   // Publications
   { id: 'pub-1', src: '/images/modelling/publications1.jpeg', alt: 'Magazine publication', category: 'Publications', height: 'medium' },
@@ -89,12 +89,12 @@ const galleryImages: GalleryImage[] = [
   { id: 'swim-4', src: '/images/modelling/swimwear4.jpg', alt: 'Swimsuit lifestyle', category: 'Swimsuit', height: 'medium' },
   // Film
   { id: 'film-1', src: '/images/modelling/film1.jpg', alt: 'Film portrait', category: 'Film', height: 'tall' },
-  { id: 'film-2', src: '/images/modelling/film2.png', alt: 'Film still', category: 'Film', height: 'medium' },
-  { id: 'film-3', src: '/images/modelling/film3.png', alt: 'Film scene', category: 'Film', height: 'tall' },
+  { id: 'film-2', src: '/images/modelling/film2.jpg', alt: 'Film still', category: 'Film', height: 'medium' },
+  { id: 'film-3', src: '/images/modelling/film3.jpg', alt: 'Film scene', category: 'Film', height: 'tall' },
   { id: 'film-4', src: '/images/modelling/film4.jpg', alt: 'Film creative', category: 'Film', height: 'medium' },
   { id: 'film-5', src: '/images/modelling/film5.jpg', alt: 'Film cinematic', category: 'Film', height: 'tall' },
   // Intimate
-  { id: 'intm-1', src: '/images/modelling/intimate1.png', alt: 'Intimate shoot', category: 'Intimate', height: 'tall' },
+  { id: 'intm-1', src: '/images/modelling/intimate1.jpg', alt: 'Intimate shoot', category: 'Intimate', height: 'tall' },
   { id: 'intm-2', src: '/images/modelling/intimate2.jpg', alt: 'Intimate portrait', category: 'Intimate', height: 'medium' },
   { id: 'intm-3', src: '/images/modelling/intimate3.jpg', alt: 'Intimate studio', category: 'Intimate', height: 'tall' },
   { id: 'intm-5', src: '/images/modelling/intimate5.jpg', alt: 'Intimate editorial', category: 'Intimate', height: 'tall' },
@@ -103,7 +103,7 @@ const galleryImages: GalleryImage[] = [
   // Portraits
   { id: 'port-1', src: '/images/modelling/portraits1.jpg', alt: 'Portrait shoot', category: 'Portraits', height: 'tall' },
   { id: 'port-2', src: '/images/modelling/portraits2.jpg', alt: 'Portrait studio', category: 'Portraits', height: 'medium' },
-  { id: 'port-3', src: '/images/modelling/portraits3.png', alt: 'Portrait creative', category: 'Portraits', height: 'tall' },
+  { id: 'port-3', src: '/images/modelling/portraits3.jpg', alt: 'Portrait creative', category: 'Portraits', height: 'tall' },
   { id: 'port-4', src: '/images/modelling/portraits4.jpg', alt: 'Portrait closeup', category: 'Portraits', height: 'medium' },
   { id: 'port-5', src: '/images/modelling/portraits5.jpg', alt: 'Portrait artistic', category: 'Portraits', height: 'tall' },
   { id: 'port-6', src: '/images/modelling/portraits6.jpg', alt: 'Portrait lifestyle', category: 'Portraits', height: 'medium' },
