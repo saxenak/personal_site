@@ -20,13 +20,19 @@ interface GalleryImage {
   alt: string;
   category: Category;
   tags?: Category[];
+  styleFilters?: StyleFilter[];
   height: 'short' | 'medium' | 'tall';
   border?: 'white' | 'black';
+  objectPosition?: string;
+  scale?: number;
   credits?: Credits;
 }
 
-const FILTER_TABS = ['All', 'Fitness', 'Commercial', 'Cultural', 'Beauty', 'Editorial', 'Publications', 'Digitals', 'Swimsuit', 'Intimate', 'Film', 'Portraits'] as const;
-type FilterTab = (typeof FILTER_TABS)[number];
+const CATEGORY_TABS = ['All', 'Digitals', 'Editorial', 'Swimwear', 'Commercial', 'Cultural', 'Fitness', 'Beauty', 'Intimate'] as const;
+type CategoryTab = (typeof CATEGORY_TABS)[number];
+
+type StyleFilter = 'Film' | 'Portraits' | 'B&W' | 'Publications' | 'Fashion' | 'Makeup & Hair' | 'Accessories' | 'Full Body';
+const STYLE_FILTERS: StyleFilter[] = ['Film', 'Portraits', 'B&W', 'Publications', 'Fashion', 'Makeup & Hair', 'Accessories', 'Full Body'];
 
 const heightClasses: Record<GalleryImage['height'], string> = {
   short: 'h-[200px] md:h-[250px]',
@@ -34,7 +40,7 @@ const heightClasses: Record<GalleryImage['height'], string> = {
   tall: 'h-[360px] md:h-[450px]',
 };
 
-const CATEGORIES: Category[] = ['Digitals', 'Editorial', 'Fitness', 'Commercial', 'Cultural', 'Beauty', 'Publications', 'Swimsuit', 'Intimate', 'Film', 'Portraits'];
+const CATEGORIES: Category[] = ['Digitals', 'Editorial', 'Commercial', 'Swimsuit', 'Beauty', 'Intimate', 'Cultural'];
 
 const categoryNumbers: Record<Category, string> = {
   Fitness: '01',
@@ -52,27 +58,56 @@ const categoryNumbers: Record<Category, string> = {
 
 const galleryImages: GalleryImage[] = [
   // Digitals
-  { id: 'dig-1', src: '/images/modelling/digitals1.jpg', alt: 'Digitals comp', category: 'Digitals', height: 'medium' },
-  { id: 'dig-2', src: '/images/modelling/digitals2.jpg', alt: 'Digitals headshot', category: 'Digitals', height: 'tall' },
-  { id: 'dig-3', src: '/images/modelling/digitals3.jpg', alt: 'Digitals studio', category: 'Digitals', height: 'medium' },
-  { id: 'dig-4', src: '/images/modelling/digitals4.jpg', alt: 'Digitals full body', category: 'Digitals', height: 'tall' },
-  { id: 'dig-5', src: '/images/modelling/digitals5.jpg', alt: 'Digitals portrait', category: 'Digitals', height: 'medium' },
-  // Editorial
-  { id: 'edit-1', src: '/images/modelling/editorial1.jpg', alt: 'Editorial shoot', category: 'Editorial', height: 'tall' },
-  { id: 'edit-2', src: '/images/modelling/editorial2.jpg', alt: 'Editorial portrait', category: 'Editorial', height: 'medium' },
-  { id: 'edit-3', src: '/images/modelling/editorial3.jpg', alt: 'Editorial concept', category: 'Editorial', height: 'tall' },
-  { id: 'edit-4', src: '/images/modelling/editorial4.jpg', alt: 'Editorial styling', category: 'Editorial', height: 'medium' },
-  { id: 'edit-5', src: '/images/modelling/editorial5.jpg', alt: 'Editorial outdoor', category: 'Editorial', height: 'tall' },
-  { id: 'edit-6', src: '/images/modelling/editorial6.jpg', alt: 'Editorial studio', category: 'Editorial', height: 'medium' },
-  { id: 'edit-7', src: '/images/modelling/editorial7.jpg', alt: 'Editorial creative', category: 'Editorial', height: 'tall' },
-  { id: 'edit-8', src: '/images/modelling/editorial8.jpg', alt: 'Editorial artistic', category: 'Editorial', height: 'medium' },
-  // Beauty
-  { id: 'beau-1', src: '/images/modelling/beauty1.jpeg', alt: 'Beauty closeup', category: 'Beauty', height: 'medium' },
-  { id: 'beau-2', src: '/images/modelling/beauty2.jpeg', alt: 'Beauty glam', category: 'Beauty', height: 'tall' },
-  { id: 'beau-3', src: '/images/modelling/beauty3.jpg', alt: 'Beauty editorial', category: 'Beauty', height: 'medium' },
-  // Commercial
-  { id: 'comm-1', src: '/images/modelling/commercial1.jpg', alt: 'Commercial shoot', category: 'Commercial', height: 'tall' },
-  { id: 'comm-2', src: '/images/modelling/commercial2.jpg', alt: 'Commercial campaign', category: 'Commercial', height: 'medium' },
+  { id: 'dig-1', src: '/images/modelling/digitals1.jpg', alt: 'Digitals comp', category: 'Digitals', styleFilters: ['Film', 'Fashion'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' },   height: 'medium' },
+  { id: 'dig-2', src: '/images/modelling/digitals2.jpg', alt: 'Digitals headshot', category: 'Digitals',styleFilters: ['Film', 'Fashion'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' },  height: 'tall' },
+  { id: 'dig-3', src: '/images/modelling/digitals3.jpg', alt: 'Digitals studio', category: 'Digitals', height: 'medium', styleFilters: ['Portraits', 'Accessories'], credits: {photographer: 'Christian Z.'}},
+  { id: 'dig-4', src: '/images/modelling/digitals4.jpg', alt: 'Digitals full body', category: 'Digitals', styleFilters: ['Portraits', 'Accessories'], credits: {photographer: 'Kirti S.'}, height: 'tall' },
+  // Editorial — Row 1: Color (2,3,4,5)
+  { id: 'edit-2', src: '/images/modelling/editorial2.jpg', alt: 'Editorial portrait', category: 'Editorial', styleFilters: ['Makeup & Hair', 'Fashion', 'Full Body'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'edit-3', src: '/images/modelling/editorial3.jpg', alt: 'Editorial concept', category: 'Editorial', styleFilters: ['Makeup & Hair', 'Fashion', 'Full Body'], credits: { photographer: 'Julie M.', mua: 'Angelina L.', hair: 'Crystal M.' }, height: 'tall' },
+  { id: 'edit-4', src: '/images/modelling/editorial4.jpg', alt: 'Editorial styling', category: 'Editorial', styleFilters: ['Film', 'Fashion', 'Full Body'], credits: { photographer: 'Amara A.', mua: 'Angelina L.', hair: 'Crystal M.' }, height: 'tall' },
+  { id: 'edit-5', src: '/images/modelling/editorial5.jpg', alt: 'Editorial outdoor', category: 'Editorial', styleFilters: ['Accessories', 'Fashion', 'Full Body'], credits: { photographer: 'Hooman Z.', mua: 'Sandhya S.', hair: 'Crystal M.', stylist: 'Shiraz K.' }, height: 'tall' },
+  // Editorial — Row 2: B&W (1,6,7,8)
+  { id: 'edit-1', src: '/images/modelling/editorial1.jpg', alt: 'Editorial shoot', category: 'Editorial', styleFilters: ['Accessories', 'Fashion', 'B&W'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'edit-6', src: '/images/modelling/editorial6.jpg', alt: 'Editorial studio', category: 'Editorial', styleFilters: ['Full Body', 'Fashion', 'B&W'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
+  { id: 'edit-7', src: '/images/modelling/editorial7.jpg', alt: 'Editorial creative', category: 'Editorial', styleFilters: ['Accessories', 'Fashion', 'B&W'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
+  { id: 'edit-8', src: '/images/modelling/editorial8.jpg', alt: 'Editorial artistic', category: 'Editorial', styleFilters: ['Full Body', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  // Editorial — Row 3: 11,9,16,14
+  { id: 'edit-11', src: '/images/modelling/editorial11.jpg', alt: 'Editorial film', category: 'Editorial', styleFilters: ['Film', 'Fashion', 'Accessories'], credits: { photographer: 'Aamer S.'},  height: 'tall' },
+  { id: 'edit-9', src: '/images/modelling/editorial9.JPG', alt: 'Editorial fashion', category: 'Editorial', styleFilters: ['Fashion', 'Makeup & Hair', 'Accessories'], credits: { photographer: 'Maxwell G. ', mua: 'Angelina L', hair: 'Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'edit-16', src: '/images/modelling/editorial16.PNG', alt: 'Editorial artistic', category: 'Editorial', styleFilters: ['Full Body', 'Makeup & Hair', 'Film'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'edit-14', src: '/images/modelling/editorial14.jpg', alt: 'Editorial cinematic', category: 'Editorial', styleFilters: ['Accessories', 'Makeup & Hair', 'Publications' ], credits: { photographer: 'Amara A.', mua: 'Angelina L.', hair: 'Crystal M.', stylist: 'Maryam S.' }, height: 'tall' },
+  // Editorial — Row 4: 13,15,12
+  { id: 'edit-13', src: '/images/modelling/editorial13.jpg', alt: 'Editorial scene', category: 'Editorial', styleFilters: ['Film', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
+  { id: 'edit-15', src: '/images/modelling/editorial15.jpg', alt: 'Editorial natural', category: 'Editorial', styleFilters: ['Fashion', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
+  { id: 'edit-12', src: '/images/modelling/editorial12.jpg', alt: 'Editorial still', category: 'Editorial', styleFilters: ['Film', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
+  { id: 'edit-10', src: '/images/modelling/editorial10.JPG', alt: 'Editorial lifestyle', category: 'Editorial', styleFilters: ['Makeup & Hair', 'Fashion', 'Full Body'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
+   // Commercial
+  { id: 'comm-1', src: '/images/modelling/commercial1.jpg', alt: 'Commercial shoot', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.', stylist: 'Roxsana B' }, height: 'tall' },
+  { id: 'comm-2', src: '/images/modelling/commercial2.jpg', alt: 'Commercial campaign', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Full Body'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.'}, height: 'medium' },
+  { id: 'comm-3', src: '/images/modelling/commercial3.jpg', alt: 'Commercial lifestyle', category: 'Commercial', styleFilters: ['Full Body', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
+  { id: 'comm-4', src: '/images/modelling/commercial4.jpg', alt: 'Commercial brand', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'medium' },
+  { id: 'comm-5', src: '/images/modelling/commercial5.jpg', alt: 'Commercial product', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
+  { id: 'comm-6', src: '/images/modelling/commercial6.jpg', alt: 'Commercial editorial', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
+  { id: 'comm-7', src: '/images/modelling/commercial7.jpg', alt: 'Commercial creative', category: 'Commercial', styleFilters: ['Full Body', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
+  { id: 'comm-8', src: '/images/modelling/commercial8.JPG', alt: 'Commercial lifestyle', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.'}, height: 'medium' },
+  // Swimsuit
+  { id: 'swim-1', src: '/images/modelling/swimwear1.jpg', alt: 'Swimsuit shoot', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion', 'Portraits'], credits: { photographer: 'Luis Q.'}, height: 'tall' },
+  { id: 'swim-2', src: '/images/modelling/swimwear2.jpg', alt: 'Swimsuit editorial', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion'], credits: { photographer: 'Luis Q.'}, height: 'medium', objectPosition: '20% center' },
+  { id: 'swim-3', src: '/images/modelling/swimwear3.jpg', alt: 'Swimsuit campaign', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion'], credits: { photographer: 'Luis Q.'}, height: 'medium', objectPosition: '20% center' },
+  { id: 'swim-4', src: '/images/modelling/swimwear4.jpg', alt: 'Swimsuit lifestyle', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion'], credits: { photographer: 'Luis Q.'}, height: 'tall'},
+  // Beauty - Row 1 - 1,2,3,4
+  { id: 'beau-1', src: '/images/modelling/beauty1.jpeg', alt: 'Beauty closeup', category: 'Beauty', styleFilters: ['Accessories', 'Makeup & Hair', 'Portraits'], credits: { photographer: 'Josephine M.', mua: 'Angelina L.', hair: 'Crystal M.'}, height: 'medium'},
+  { id: 'beau-2', src: '/images/modelling/beauty2.jpg', alt: 'Beauty glam', category: 'Beauty', styleFilters: ['Accessories', 'Makeup & Hair'], credits: { photographer: 'Amara A.', mua: 'Angelina L.', hair: 'Crystal M.', stylist: 'Maryam S.'}, height: 'medium'},
+  { id: 'beau-3', src: '/images/modelling/beauty3.jpg', alt: 'Beauty editorial', category: 'Beauty', styleFilters: ['Accessories', 'Portraits'], credits: { photographer: 'Aamer S.'}, height: 'medium'},
+  { id: 'beau-4', src: '/images/modelling/beauty4.jpg', alt: 'Beauty portrait', category: 'Beauty', styleFilters: ['Accessories', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Naga', mua: 'Angelina L. & Khushi C.', hair: 'Crystal M. & Liah W.', stylist: 'Shanice W.' }, height: 'tall' },
+  // Row 2 - Beauty: 5,6,7,8
+  { id: 'beau-5', src: '/images/modelling/beauty5.JPG', alt: 'Beauty artistic', category: 'Beauty', styleFilters: [ 'Makeup & Hair', 'Portraits'], credits: { photographer: 'Justin A.', mua: 'Khadija O.'}, height: 'tall'},
+  { id: 'beau-6', src: '/images/modelling/beauty6.jpg', alt: 'Beauty creative', category: 'Beauty',styleFilters: ['Film', 'Makeup & Hair', 'Accessories'], credits: { photographer: 'Robert', mua: 'Birgitta W.', hair: 'Liah W. & Holly H.'}, height: 'medium', objectPosition: '85% center' },
+  { id: 'beau-7', src: '/images/modelling/beauty7.jpg', alt: 'Beauty glam', category: 'Beauty', styleFilters: ['Accessories', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'beau-10', src: '/images/modelling/beauty10.jpg', alt: 'Beauty editorial', category: 'Beauty', styleFilters: ['Makeup & Hair', 'Full Body', 'Accessories'], credits: { photographer: 'Julie M.', mua: 'Angelina L.', hair: 'Crystal M.' }, height: 'tall' },
+  { id: 'beau-11', src: '/images/modelling/beauty11.jpg', alt: 'Beauty lifestyle', category: 'Beauty', height: 'medium' },
+  { id: 'beau-12', src: '/images/modelling/beauty12.PNG', alt: 'Beauty portrait', category: 'Beauty', height: 'tall' },
   // Cultural
   { id: 'cult-1', src: '/images/modelling/cultural1.jpg', alt: 'Cultural shoot', category: 'Cultural', height: 'tall' },
   { id: 'cult-2', src: '/images/modelling/cultural2.jpg', alt: 'Cultural portrait', category: 'Cultural', height: 'medium' },
@@ -80,40 +115,21 @@ const galleryImages: GalleryImage[] = [
   { id: 'cult-4', src: '/images/modelling/cultural4.jpg', alt: 'Cultural creative', category: 'Cultural', height: 'medium' },
   { id: 'cult-5', src: '/images/modelling/cultural5.jpg', alt: 'Cultural artistic', category: 'Cultural', height: 'tall' },
   { id: 'cult-6', src: '/images/modelling/cultural6.jpg', alt: 'Cultural lifestyle', category: 'Cultural', height: 'medium' },
-  // Publications
-  { id: 'pub-1', src: '/images/modelling/publications1.jpeg', alt: 'Magazine publication', category: 'Publications', height: 'medium' },
-  // Swimsuit
-  { id: 'swim-1', src: '/images/modelling/swimwear1.jpg', alt: 'Swimsuit shoot', category: 'Swimsuit', height: 'tall' },
-  { id: 'swim-2', src: '/images/modelling/swimwear2.jpg', alt: 'Swimsuit editorial', category: 'Swimsuit', height: 'medium' },
-  { id: 'swim-3', src: '/images/modelling/swimwear3.jpg', alt: 'Swimsuit campaign', category: 'Swimsuit', height: 'tall' },
-  { id: 'swim-4', src: '/images/modelling/swimwear4.jpg', alt: 'Swimsuit lifestyle', category: 'Swimsuit', height: 'medium' },
-  // Film
-  { id: 'film-1', src: '/images/modelling/film1.jpg', alt: 'Film portrait', category: 'Film', height: 'tall' },
-  { id: 'film-2', src: '/images/modelling/film2.jpg', alt: 'Film still', category: 'Film', height: 'medium' },
-  { id: 'film-3', src: '/images/modelling/film3.jpg', alt: 'Film scene', category: 'Film', height: 'tall' },
-  { id: 'film-4', src: '/images/modelling/film4.jpg', alt: 'Film creative', category: 'Film', height: 'medium' },
-  { id: 'film-5', src: '/images/modelling/film5.jpg', alt: 'Film cinematic', category: 'Film', height: 'tall' },
+  { id: 'cult-7', src: '/images/modelling/cultural7.JPG', alt: 'Cultural heritage', category: 'Cultural', height: 'tall' },
+  { id: 'cult-8', src: '/images/modelling/cultural8.jpg', alt: 'Cultural traditional', category: 'Cultural', height: 'medium' },
   // Intimate
   { id: 'intm-1', src: '/images/modelling/intimate1.jpg', alt: 'Intimate shoot', category: 'Intimate', height: 'tall' },
   { id: 'intm-2', src: '/images/modelling/intimate2.jpg', alt: 'Intimate portrait', category: 'Intimate', height: 'medium' },
   { id: 'intm-3', src: '/images/modelling/intimate3.jpg', alt: 'Intimate studio', category: 'Intimate', height: 'tall' },
-  { id: 'intm-5', src: '/images/modelling/intimate5.jpg', alt: 'Intimate editorial', category: 'Intimate', height: 'tall' },
+  { id: 'intm-4', src: '/images/modelling/intimate4.jpg', alt: 'Intimate creative', category: 'Intimate', height: 'medium' },
   { id: 'intm-6', src: '/images/modelling/intimate6.jpg', alt: 'Intimate artistic', category: 'Intimate', height: 'medium' },
   { id: 'intm-7', src: '/images/modelling/intimate7.jpg', alt: 'Intimate lifestyle', category: 'Intimate', height: 'tall' },
-  // Portraits
-  { id: 'port-1', src: '/images/modelling/portraits1.jpg', alt: 'Portrait shoot', category: 'Portraits', height: 'tall' },
-  { id: 'port-2', src: '/images/modelling/portraits2.jpg', alt: 'Portrait studio', category: 'Portraits', height: 'medium' },
-  { id: 'port-3', src: '/images/modelling/portraits3.jpg', alt: 'Portrait creative', category: 'Portraits', height: 'tall' },
-  { id: 'port-4', src: '/images/modelling/portraits4.jpg', alt: 'Portrait closeup', category: 'Portraits', height: 'medium' },
-  { id: 'port-5', src: '/images/modelling/portraits5.jpg', alt: 'Portrait artistic', category: 'Portraits', height: 'tall' },
-  { id: 'port-6', src: '/images/modelling/portraits6.jpg', alt: 'Portrait lifestyle', category: 'Portraits', height: 'medium' },
-  { id: 'port-7', src: '/images/modelling/portraits7.jpg', alt: 'Portrait natural', category: 'Portraits', height: 'tall' },
-  { id: 'port-8', src: '/images/modelling/portraits8.jpg', alt: 'Portrait editorial', category: 'Portraits', height: 'medium' },
+  { id: 'intm-8', src: '/images/modelling/intimate8.jpg', alt: 'Intimate editorial', category: 'Intimate', height: 'medium' },
+  { id: 'intm-9', src: '/images/modelling/intimate9.JPG', alt: 'Intimate artistic', category: 'Intimate', height: 'tall' },
+  // Fitness
+  { id: 'fit-1', src: '/images/modelling/fitness1.jpg', alt: 'Fitness shoot', category: 'Fitness', height: 'tall' },
+  { id: 'fit-2', src: '/images/modelling/fitness2.jpg', alt: 'Fitness athletic', category: 'Fitness', height: 'medium' },
 ];
-
-type GalleryItem =
-  | { type: 'header'; category: Category; id: string }
-  | { type: 'image'; image: GalleryImage };
 
 function getBorderClass(border?: 'white' | 'black') {
   if (border === 'white') return 'p-2 bg-white';
@@ -121,32 +137,32 @@ function getBorderClass(border?: 'white' | 'black') {
   return '';
 }
 
-function buildGalleryItems(images: GalleryImage[], filter: FilterTab): GalleryItem[] {
-  const items: GalleryItem[] = [];
-  const cats = filter === 'All' ? CATEGORIES : [filter as Category];
-
-  for (const cat of cats) {
-    const catImages = images.filter(img => img.category === cat);
-    if (catImages.length === 0) continue;
-    items.push({ type: 'header', category: cat, id: `header-${cat}` });
-    for (const img of catImages) {
-      items.push({ type: 'image', image: img });
-    }
-  }
-  return items;
-}
-
 export default function Modelling() {
-  const [activeFilter, setActiveFilter] = useState<FilterTab>('All');
+  const [activeCategory, setActiveCategory] = useState<CategoryTab>('All');
+  const [activeStyles, setActiveStyles] = useState<StyleFilter[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
 
-  const filteredImages = useMemo(() => {
-    if (activeFilter === 'All') return galleryImages;
-    return galleryImages.filter(img =>
-      img.category === activeFilter || (img.tags && img.tags.includes(activeFilter as Category))
+  const toggleStyle = (style: StyleFilter) => {
+    setActiveStyles(prev =>
+      prev.includes(style) ? prev.filter(s => s !== style) : [...prev, style]
     );
-  }, [activeFilter]);
+  };
+
+  const filteredImages = useMemo(() => {
+    let imgs = galleryImages;
+    if (activeCategory !== 'All') {
+      imgs = imgs.filter(img =>
+        img.category === activeCategory || (img.tags && img.tags.includes(activeCategory as Category))
+      );
+    }
+    if (activeStyles.length > 0) {
+      imgs = imgs.filter(img =>
+        img.styleFilters && activeStyles.some(s => img.styleFilters!.includes(s))
+      );
+    }
+    return imgs;
+  }, [activeCategory, activeStyles]);
 
   return (
     <main className="min-h-screen bg-black text-white">
@@ -249,43 +265,124 @@ export default function Modelling() {
               After being scouted on an airplane after wrestling a world championship when I was 16,
               <br />I got signed in Toronto, Canada at age 19.
             </p>
+
+            {/* Video */}
+            <div className="mt-10 max-w-3xl mx-auto">
+              <p className="text-xs text-gray-500 mb-2 text-center">unmute to hear audio</p>
+              <video
+                autoPlay
+                muted
+                controls
+                loop
+                playsInline
+                className="w-full"
+              >
+                <source src="/images/modelling/Kirti_video.MP4" type="video/mp4" />
+              </video>
+            </div>
+          </motion.div>
+
+          {/* Dimensions */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mb-14"
+          >
+            <div className="flex flex-wrap justify-center gap-x-12 gap-y-5">
+              {[
+                { label: 'Height', value: '5\'9"' },
+                { label: 'Weight', value: '130 lbs' },
+                { label: 'Waist', value: '24"' },
+                { label: 'Eyes', value: 'Brown' },
+                { label: 'Hair', value: 'Dark Brown' },
+                { label: 'Shoe Size', value: '8.5' },
+                { label: 'Bust', value: '34 C' },
+                { label: 'Leg Length', value: '40"' },
+              ].map((dim) => (
+                <div key={dim.label} className="flex flex-col items-center">
+                  <span className="text-xs text-[#FD9635] uppercase tracking-[0.2em] font-bold">{dim.label}</span>
+                  <span className="text-base text-white mt-1.5">{dim.value}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           {/* Filter Tabs */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex justify-center mb-12"
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mb-12"
           >
-            <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-              {FILTER_TABS.map((tab) => (
-                <motion.button
-                  key={tab}
-                  onClick={() => setActiveFilter(tab)}
-                  className={`px-4 py-2 text-sm font-light border transition-all duration-300 ${
-                    activeFilter === tab
-                      ? 'bg-[#FD9635] border-[#FD9635] text-black'
-                      : 'border-white/20 text-gray-400 hover:border-[#FD9635] hover:text-[#FD9635]'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {tab}
-                </motion.button>
-              ))}
+            {/* Categories */}
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="text-sm text-[#FD9635] uppercase tracking-widest mr-3 font-bold">Categories</span>
+              <div className="flex flex-wrap justify-center gap-2">
+                {CATEGORY_TABS.map((tab) => (
+                  <motion.button
+                    key={tab}
+                    onClick={() => setActiveCategory(tab)}
+                    className={`px-4 py-2 text-sm font-light border transition-all duration-300 ${
+                      activeCategory === tab
+                        ? 'bg-[#FD9635] border-[#FD9635] text-black'
+                        : 'border-white/20 text-gray-400 hover:border-[#FD9635] hover:text-[#FD9635]'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {tab}
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+
+            {/* Style Filters */}
+            <div className="flex items-center justify-center gap-3">
+              <span className="text-sm text-[#FD9635] uppercase tracking-widest mr-3 font-bold">Filters</span>
+              <div className="flex flex-wrap justify-center gap-2">
+                {STYLE_FILTERS.map((filter) => (
+                  <motion.button
+                    key={filter}
+                    onClick={() => toggleStyle(filter)}
+                    className={`px-4 py-2 text-sm font-light border transition-all duration-300 ${
+                      activeStyles.includes(filter)
+                        ? 'bg-white border-white text-black'
+                        : 'border-white/20 text-gray-400 hover:border-white hover:text-white'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {filter}
+                  </motion.button>
+                ))}
+              </div>
             </div>
           </motion.div>
 
           {/* Category Sections */}
-          {(activeFilter === 'All' ? CATEGORIES : [activeFilter as Category]).map((cat) => {
-            const catImages = galleryImages.filter(img =>
+          {(activeCategory === 'All' ? CATEGORIES : [activeCategory as Category]).map((cat) => {
+            let catImages = galleryImages.filter(img =>
               img.category === cat || (img.tags && img.tags.includes(cat))
             );
+            if (activeStyles.length > 0) {
+              catImages = catImages.filter(img =>
+                img.styleFilters && activeStyles.some(s => img.styleFilters!.includes(s))
+              );
+            }
             if (catImages.length === 0) return null;
             return (
-              <div key={cat} className="mb-8">
-                <div className="columns-2 md:columns-3 lg:columns-4 gap-4">
+              <div key={cat} className="mb-12 flex">
+                {/* Vertical category label on the left */}
+                <div className="hidden md:flex items-center justify-center w-10 mr-4 flex-shrink-0">
+                  <span
+                    className="text-lg tracking-[0.3em] text-[#FD9635] uppercase font-bold whitespace-nowrap"
+                    style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
+                  >
+                    {cat}
+                  </span>
+                </div>
+                <div className="flex-1 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {catImages.map((image, index) => (
                     <motion.div
                       key={image.id}
@@ -299,50 +396,46 @@ export default function Modelling() {
                         stiffness: 200,
                         damping: 25,
                       }}
-                      className="break-inside-avoid mb-4"
+                      className="aspect-[3/4]"
                     >
                       <div
-                        className={`group ${getBorderClass(image.border)} relative cursor-pointer`}
+                        className={`group ${getBorderClass(image.border)} relative cursor-pointer h-full`}
                         onClick={() => setLightboxImage(image)}
                       >
-                        <div className="relative w-full overflow-hidden bg-gray-900">
+                        <div className="relative w-full h-full overflow-hidden bg-gray-900">
                           <Image
                             src={image.src}
                             alt={image.alt}
-                            width={0}
-                            height={0}
+                            fill
                             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                            className="w-full h-auto"
+                            className="object-cover"
+                            style={{
+                              ...(image.objectPosition && { objectPosition: image.objectPosition }),
+                              ...(image.scale && { transform: `scale(${image.scale})` }),
+                            }}
                           />
+                          {/* Hover overlay — category + style filters */}
                           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 py-3">
-                            <span className="text-[10px] tracking-[0.2em] text-[#FD9635] uppercase font-bold">
-                              {[image.category, ...(image.tags || [])].filter((v, i, a) => a.indexOf(v) === i).join(' · ')}
-                            </span>
-                            {image.credits && (
-                              <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-0.5">
-                                {image.credits.photographer && (
-                                  <span className="text-[9px] text-gray-300">
-                                    <span className="text-gray-500">PH</span> {image.credits.photographer}
-                                  </span>
-                                )}
-                                {image.credits.mua && (
-                                  <span className="text-[9px] text-gray-300">
-                                    <span className="text-gray-500">MUA</span> {image.credits.mua}
-                                  </span>
-                                )}
-                                {image.credits.hair && (
-                                  <span className="text-[9px] text-gray-300">
-                                    <span className="text-gray-500">HAIR</span> {image.credits.hair}
-                                  </span>
-                                )}
-                                {image.credits.stylist && (
-                                  <span className="text-[9px] text-gray-300">
-                                    <span className="text-gray-500">STYLE</span> {image.credits.stylist}
-                                  </span>
-                                )}
-                              </div>
-                            )}
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] tracking-[0.2em] text-[#FD9635] uppercase font-bold">
+                                {image.category}
+                              </span>
+                              {image.styleFilters && image.styleFilters.length > 0 && (
+                                <span className="text-[9px] tracking-[0.15em] text-white/70 uppercase">
+                                  | {image.styleFilters.join(' · ')}
+                                </span>
+                              )}
+                            </div>
                           </div>
+                          {/* Expand icon — top right */}
+                          <button
+                            className="absolute top-2 right-2 text-white/70 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            onClick={(e) => { e.stopPropagation(); setLightboxImage(image); }}
+                          >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5" />
+                            </svg>
+                          </button>
                         </div>
                       </div>
                     </motion.div>
@@ -376,22 +469,30 @@ export default function Modelling() {
 
             {/* Category + Credits */}
             <div className="absolute bottom-6 left-6 z-10">
-              <span className="text-sm tracking-[0.2em] text-[#FD9635] uppercase font-bold">
+              <span className="text-base tracking-[0.2em] text-[#FD9635] uppercase font-bold">
                 {[lightboxImage.category, ...(lightboxImage.tags || [])].filter((v, i, a) => a.indexOf(v) === i).join(' · ')}
               </span>
               {lightboxImage.credits && (
-                <div className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+                <div className="mt-3 flex flex-col gap-1.5">
                   {lightboxImage.credits.photographer && (
-                    <span className="text-xs text-gray-400"><span className="text-gray-600">PH</span> {lightboxImage.credits.photographer}</span>
+                    <span className="text-sm text-white">
+                      <span className="text-[#FD9635] font-medium">PH:</span> {lightboxImage.credits.photographer}
+                    </span>
                   )}
                   {lightboxImage.credits.mua && (
-                    <span className="text-xs text-gray-400"><span className="text-gray-600">MUA</span> {lightboxImage.credits.mua}</span>
+                    <span className="text-sm text-white">
+                      <span className="text-[#FD9635] font-medium">MUA:</span> {lightboxImage.credits.mua}
+                    </span>
                   )}
                   {lightboxImage.credits.hair && (
-                    <span className="text-xs text-gray-400"><span className="text-gray-600">HAIR</span> {lightboxImage.credits.hair}</span>
+                    <span className="text-sm text-white">
+                      <span className="text-[#FD9635] font-medium">HS:</span> {lightboxImage.credits.hair}
+                    </span>
                   )}
                   {lightboxImage.credits.stylist && (
-                    <span className="text-xs text-gray-400"><span className="text-gray-600">STYLE</span> {lightboxImage.credits.stylist}</span>
+                    <span className="text-sm text-white">
+                      <span className="text-[#FD9635] font-medium">FS:</span> {lightboxImage.credits.stylist}
+                    </span>
                   )}
                 </div>
               )}
