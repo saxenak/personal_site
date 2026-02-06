@@ -9,6 +9,7 @@ type Category = 'Fitness' | 'Commercial' | 'Cultural' | 'Beauty' | 'Editorial' |
 
 interface Credits {
   photographer?: string;
+  photographerLink?: string;
   mua?: string;
   hair?: string;
   stylist?: string;
@@ -71,16 +72,16 @@ const galleryImages: GalleryImage[] = [
   { id: 'edit-1', src: '/images/modelling/editorial1.jpg', alt: 'Editorial shoot', category: 'Editorial', styleFilters: ['Accessories', 'Fashion', 'B&W'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
   { id: 'edit-6', src: '/images/modelling/editorial6.jpg', alt: 'Editorial studio', category: 'Editorial', styleFilters: ['Full Body', 'Fashion', 'B&W'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
   { id: 'edit-7', src: '/images/modelling/editorial7.jpg', alt: 'Editorial creative', category: 'Editorial', styleFilters: ['Accessories', 'Fashion', 'B&W'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
-  { id: 'edit-8', src: '/images/modelling/editorial8.jpg', alt: 'Editorial artistic', category: 'Editorial', styleFilters: ['Full Body', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'edit-8', src: '/images/modelling/editorial8.jpg', alt: 'Editorial artistic', category: 'Editorial', styleFilters: ['Full Body', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieau St.Cyr', photographerLink: 'https://www.manikkrealm.com', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
   // Editorial — Row 3: 11,9,16,14
   { id: 'edit-11', src: '/images/modelling/editorial11.jpg', alt: 'Editorial film', category: 'Editorial', styleFilters: ['Film', 'Fashion', 'Accessories'], credits: { photographer: 'Aamer S.'},  height: 'tall' },
   { id: 'edit-9', src: '/images/modelling/editorial9.JPG', alt: 'Editorial fashion', category: 'Editorial', styleFilters: ['Fashion', 'Makeup & Hair', 'Accessories'], credits: { photographer: 'Maxwell G. ', mua: 'Angelina L', hair: 'Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
-  { id: 'edit-16', src: '/images/modelling/editorial16.jpg', alt: 'Editorial artistic', category: 'Editorial', styleFilters: ['Full Body', 'Makeup & Hair', 'Film'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'edit-16', src: '/images/modelling/editorial16.jpg', alt: 'Editorial artistic', category: 'Editorial', styleFilters: ['Full Body', 'Makeup & Hair', 'Film'], credits: { photographer: 'Mattieau St.Cyr', photographerLink: 'https://www.manikkrealm.com', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
   { id: 'edit-14', src: '/images/modelling/editorial14.jpg', alt: 'Editorial cinematic', category: 'Editorial', styleFilters: ['Accessories', 'Makeup & Hair', 'Publications' ], credits: { photographer: 'Amara A.', mua: 'Angelina L.', hair: 'Crystal M.', stylist: 'Maryam S.' }, height: 'tall' },
   // Editorial — Row 4: 13,15,12
-  { id: 'edit-13', src: '/images/modelling/editorial13.jpg', alt: 'Editorial scene', category: 'Editorial', styleFilters: ['Film', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
+  { id: 'edit-13', src: '/images/modelling/editorial13.jpg', alt: 'Editorial scene', category: 'Editorial', styleFilters: ['Film', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieau St.Cyr', photographerLink: 'https://www.manikkrealm.com', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
   { id: 'edit-15', src: '/images/modelling/editorial15.jpg', alt: 'Editorial natural', category: 'Editorial', styleFilters: ['Portraits', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
-  { id: 'edit-12', src: '/images/modelling/editorial12.jpg', alt: 'Editorial still', category: 'Editorial', styleFilters: ['Film', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
+  { id: 'edit-12', src: '/images/modelling/editorial12.jpg', alt: 'Editorial still', category: 'Editorial', styleFilters: ['Film', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieau St.Cyr', photographerLink: 'https://www.manikkrealm.com', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
   { id: 'edit-10', src: '/images/modelling/editorial10.JPG', alt: 'Editorial lifestyle', category: 'Editorial', styleFilters: ['Makeup & Hair', 'Fashion', 'Full Body'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
    // Commercial
   { id: 'comm-1', src: '/images/modelling/commercial1.jpg', alt: 'Commercial shoot', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.', stylist: 'Roxsana B' }, height: 'tall' },
@@ -105,15 +106,15 @@ const galleryImages: GalleryImage[] = [
   // Row 2 - Beauty: 5,6,7,8
   { id: 'beau-5', src: '/images/modelling/beauty5.JPG', alt: 'Beauty artistic', category: 'Beauty', styleFilters: [ 'Makeup & Hair', 'Portraits'], credits: { photographer: 'Justin A.', mua: 'Khadija O.'}, height: 'tall'},
   { id: 'beau-6', src: '/images/modelling/beauty6.jpg', alt: 'Beauty creative', category: 'Beauty',styleFilters: ['Film', 'Makeup & Hair', 'Accessories'], credits: { photographer: 'Robert', mua: 'Birgitta W.', hair: 'Liah W. & Holly H.'}, height: 'medium', objectPosition: '85% center' },
-  { id: 'beau-7', src: '/images/modelling/beauty7.jpg', alt: 'Beauty glam', category: 'Beauty', styleFilters: ['Accessories', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'beau-7', src: '/images/modelling/beauty7.jpg', alt: 'Beauty glam', category: 'Beauty', styleFilters: ['Accessories', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Mattieau St.Cyr', photographerLink: 'https://www.manikkrealm.com', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
   { id: 'beau-10', src: '/images/modelling/beauty10.jpg', alt: 'Beauty editorial', category: 'Beauty', styleFilters: ['Makeup & Hair', 'Full Body', 'Accessories'], credits: { photographer: 'Julie M.', mua: 'Angelina L.', hair: 'Crystal M. & Liah W.', stylist: 'Shanice W.'}, height: 'tall' },
   // Row 3 - Beauty: 9,10,11,12
   { id: 'beau-11', src: '/images/modelling/beauty11.jpg', alt: 'Beauty lifestyle', category: 'Beauty', styleFilters: ['Makeup & Hair', 'Portraits', 'B&W'], credits: { photographer: 'Dakksh N.', mua: 'Khushi C.', hair: 'Crystal M.' }, height: 'tall' },
-  { id: 'beau-12', src: '/images/modelling/beauty12.jpg', alt: 'Beauty portrait', category: 'Beauty', styleFilters: ['B&W', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'beau-12', src: '/images/modelling/beauty12.jpg', alt: 'Beauty portrait', category: 'Beauty', styleFilters: ['B&W', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Mattieau St.Cyr', photographerLink: 'https://www.manikkrealm.com', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
   { id: 'beau-13', src: '/images/modelling/beauty13.jpg', alt: 'Beauty portrait', category: 'Beauty', styleFilters: ['B&W', 'Full Body', 'Fashion'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
   { id: 'beau-14', src: '/images/modelling/beauty14.jpg', alt: 'Beauty portrait', category: 'Beauty', styleFilters: ['B&W', 'Portraits', 'Fashion'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
   // Intimate - Row 1 - 1,2,3,4
-  { id: 'intm-1', src: '/images/modelling/intimate1.jpg', alt: 'Intimate shoot', category: 'Intimate', styleFilters: ['Makeup & Hair'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'intm-1', src: '/images/modelling/intimate1.jpg', alt: 'Intimate shoot', category: 'Intimate', styleFilters: ['Makeup & Hair'], credits: { photographer: 'Mattieau St.Cyr', photographerLink: 'https://www.manikkrealm.com', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
   { id: 'intm-2', src: '/images/modelling/intimate2.jpg', alt: 'Intimate portrait', category: 'Intimate', styleFilters: ['Film', 'Fashion', 'Full Body'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.', stylist: 'Samantha C.' }, height: 'medium' },
   { id: 'intm-3', src: '/images/modelling/intimate3.jpg', alt: 'Intimate studio', category: 'Intimate', styleFilters: ['Film', 'Fashion', 'Full Body'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.', stylist: 'Samantha C.' }, height: 'tall' },
   { id: 'intm-4', src: '/images/modelling/intimate4.jpg', alt: 'Intimate creative', category: 'Intimate', styleFilters: ['Portraits'], credits: { photographer: 'Aamer S.'},  height: 'tall' },
@@ -483,7 +484,20 @@ export default function Modelling() {
                 <div className="mt-3 flex flex-col gap-1.5">
                   {lightboxImage.credits.photographer && (
                     <span className="text-sm text-white">
-                      <span className="text-[#FD9635] font-medium">PH:</span> {lightboxImage.credits.photographer}
+                      <span className="text-[#FD9635] font-medium">PH:</span>{' '}
+                      {lightboxImage.credits.photographerLink ? (
+                        <a
+                          href={lightboxImage.credits.photographerLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-[#FD9635] transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {lightboxImage.credits.photographer}
+                        </a>
+                      ) : (
+                        lightboxImage.credits.photographer
+                      )}
                     </span>
                   )}
                   {lightboxImage.credits.mua && (
