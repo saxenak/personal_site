@@ -179,15 +179,15 @@ export default function Modelling() {
         {!isMenuOpen && (
           <motion.div
             key="social-media"
-            className="w-full pt-32"
+            className="w-full pt-24 md:pt-32"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="max-w-7xl mx-auto px-8 flex justify-center">
+            <div className="max-w-7xl mx-auto px-4 md:px-8 flex justify-center">
               <div className="flex flex-col items-center">
-                <div className="flex items-center gap-8">
+                <div className="flex items-center gap-5 md:gap-8">
                   <motion.div className="flex flex-col items-center gap-1" whileHover={{ scale: 1.1, y: -3 }} whileTap={{ scale: 0.9 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                     <motion.a href="https://instagram.com/kirti.sxena" target="_blank" rel="noopener noreferrer" className="group">
                       <svg className="w-6 h-6 text-gray-400 group-hover:text-pink-400 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
@@ -231,21 +231,21 @@ export default function Modelling() {
                 </div>
 
                 {/* Engagement Stats */}
-                <div className="mt-5 pt-4 border-t border-white/10 flex items-center gap-8">
+                <div className="mt-5 pt-4 border-t border-white/10 flex flex-col md:flex-row items-center gap-4 md:gap-8">
                   <div className="flex flex-col items-center">
                     <div className="flex items-center gap-2">
-                      <span className="text-base text-gray-300 tracking-wide font-medium">IG @kirti.sxena</span>
-                      <span className="text-sm text-gray-500">≈ 2K</span>
-                      <span className="text-sm text-[#FD9635] font-semibold">10.5%</span>
+                      <span className="text-sm md:text-base text-gray-300 tracking-wide font-medium">IG @kirti.sxena</span>
+                      <span className="text-xs md:text-sm text-gray-500">≈ 2K</span>
+                      <span className="text-xs md:text-sm text-[#FD9635] font-semibold">10.5%</span>
                     </div>
                     <span className="text-xs text-gray-500 mt-1">195 avg likes · 15 comments/post</span>
                   </div>
-                  <div className="w-px h-8 bg-white/10"></div>
+                  <div className="hidden md:block w-px h-8 bg-white/10"></div>
                   <div className="flex flex-col items-center">
                     <div className="flex items-center gap-2">
-                      <span className="text-base text-gray-300 tracking-wide font-medium">TT @kirtisxena</span>
-                      <span className="text-sm text-gray-500">≈ 1.2K</span>
-                      <span className="text-sm text-[#FD9635] font-semibold">5.5%</span>
+                      <span className="text-sm md:text-base text-gray-300 tracking-wide font-medium">TT @kirtisxena</span>
+                      <span className="text-xs md:text-sm text-gray-500">≈ 1.2K</span>
+                      <span className="text-xs md:text-sm text-[#FD9635] font-semibold">5.5%</span>
                     </div>
                     <span className="text-xs text-gray-500 mt-1">905 avg likes · 6 comments/post</span>
                   </div>
@@ -266,15 +266,15 @@ export default function Modelling() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-center mb-16"
           >
-            <h1 className="text-5xl font-light mb-6">MODEL</h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-light mb-4 md:mb-6">MODEL</h1>
+            <p className="text-base md:text-xl text-gray-400 max-w-2xl mx-auto px-2">
               After being scouted on an airplane after wrestling a world championship when I was 16,
-              <br />I got signed in Toronto, Canada at age 19.
+              I got signed in Toronto, Canada at age 19.
             </p>
 
             {/* Video */}
-            <div className="mt-10 max-w-3xl mx-auto">
-              <p className="text-xs text-gray-500 mb-2 text-center">unmute to hear audio</p>
+            <div className="mt-6 md:mt-10 max-w-3xl mx-auto px-2">
+              <p className="text-[10px] md:text-xs text-gray-500 mb-2 text-center">unmute to hear audio</p>
               <video
                 autoPlay
                 muted
@@ -295,7 +295,7 @@ export default function Modelling() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="mb-14"
           >
-            <div className="flex flex-wrap justify-center gap-x-12 gap-y-5">
+            <div className="flex flex-wrap justify-center gap-x-6 md:gap-x-12 gap-y-4 md:gap-y-5">
               {[
                 { label: 'Height', value: '5\'9"' },
                 { label: 'Weight', value: '130 lbs' },
@@ -304,11 +304,11 @@ export default function Modelling() {
                 { label: 'Hair', value: 'Dark Brown' },
                 { label: 'Shoe Size', value: '8.5' },
                 { label: 'Bust', value: '34 C' },
-                { label: 'Leg Length', value: '40"' },
+                { label: 'Leg Length', value: '39"' },
               ].map((dim) => (
-                <div key={dim.label} className="flex flex-col items-center">
-                  <span className="text-xs text-[#FD9635] uppercase tracking-[0.2em] font-bold">{dim.label}</span>
-                  <span className="text-base text-white mt-1.5">{dim.value}</span>
+                <div key={dim.label} className="flex flex-col items-center min-w-[70px]">
+                  <span className="text-[10px] md:text-xs text-[#FD9635] uppercase tracking-[0.15em] md:tracking-[0.2em] font-bold">{dim.label}</span>
+                  <span className="text-sm md:text-base text-white mt-1">{dim.value}</span>
                 </div>
               ))}
             </div>
@@ -322,14 +322,14 @@ export default function Modelling() {
             className="mb-12"
           >
             {/* Categories */}
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <span className="text-sm text-[#FD9635] uppercase tracking-widest mr-3 font-bold">Categories</span>
-              <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-col items-center gap-2 mb-4">
+              <span className="text-xs md:text-sm text-[#FD9635] uppercase tracking-widest font-bold">Categories</span>
+              <div className="flex flex-wrap justify-center gap-1.5 md:gap-2">
                 {CATEGORY_TABS.map((tab) => (
                   <motion.button
                     key={tab}
                     onClick={() => setActiveCategory(tab)}
-                    className={`px-4 py-2 text-sm font-light border transition-all duration-300 ${
+                    className={`px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-light border transition-all duration-300 ${
                       activeCategory === tab
                         ? 'bg-[#FD9635] border-[#FD9635] text-black'
                         : 'border-white/20 text-gray-400 hover:border-[#FD9635] hover:text-[#FD9635]'
@@ -344,14 +344,14 @@ export default function Modelling() {
             </div>
 
             {/* Style Filters */}
-            <div className="flex items-center justify-center gap-3">
-              <span className="text-sm text-[#FD9635] uppercase tracking-widest mr-3 font-bold">Filters</span>
-              <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-xs md:text-sm text-[#FD9635] uppercase tracking-widest font-bold">Filters</span>
+              <div className="flex flex-wrap justify-center gap-1.5 md:gap-2">
                 {STYLE_FILTERS.map((filter) => (
                   <motion.button
                     key={filter}
                     onClick={() => toggleStyle(filter)}
-                    className={`px-4 py-2 text-sm font-light border transition-all duration-300 ${
+                    className={`px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-light border transition-all duration-300 ${
                       activeStyles.includes(filter)
                         ? 'bg-white border-white text-black'
                         : 'border-white/20 text-gray-400 hover:border-white hover:text-white'
