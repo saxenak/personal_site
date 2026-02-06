@@ -40,7 +40,7 @@ const heightClasses: Record<GalleryImage['height'], string> = {
   tall: 'h-[360px] md:h-[450px]',
 };
 
-const CATEGORIES: Category[] = ['Digitals', 'Editorial', 'Commercial', 'Swimsuit', 'Beauty', 'Intimate', 'Cultural'];
+const CATEGORIES: Category[] = ['Digitals', 'Editorial', 'Commercial', 'Swimsuit', 'Beauty', 'Intimate', 'Cultural', 'Fitness'];
 
 const categoryNumbers: Record<Category, string> = {
   Fitness: '01',
@@ -58,8 +58,8 @@ const categoryNumbers: Record<Category, string> = {
 
 const galleryImages: GalleryImage[] = [
   // Digitals
-  { id: 'dig-1', src: '/images/modelling/digitals1.jpg', alt: 'Digitals comp', category: 'Digitals', styleFilters: ['Film', 'Fashion'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' },   height: 'medium' },
-  { id: 'dig-2', src: '/images/modelling/digitals2.jpg', alt: 'Digitals headshot', category: 'Digitals',styleFilters: ['Film', 'Fashion'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' },  height: 'tall' },
+  { id: 'dig-1', src: '/images/modelling/digitals1.jpg', alt: 'Digitals comp', category: 'Digitals', styleFilters: ['Film', 'Fashion', 'Portraits'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' },   height: 'medium' },
+  { id: 'dig-2', src: '/images/modelling/digitals2.jpg', alt: 'Digitals headshot', category: 'Digitals',styleFilters: ['Film', 'Fashion', 'Full Body'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' },  height: 'tall' },
   { id: 'dig-3', src: '/images/modelling/digitals3.jpg', alt: 'Digitals studio', category: 'Digitals', height: 'medium', styleFilters: ['Portraits', 'Accessories'], credits: {photographer: 'Christian Z.'}},
   { id: 'dig-4', src: '/images/modelling/digitals4.jpg', alt: 'Digitals full body', category: 'Digitals', styleFilters: ['Portraits', 'Accessories'], credits: {photographer: 'Kirti S.'}, height: 'tall' },
   // Editorial — Row 1: Color (2,3,4,5)
@@ -75,11 +75,11 @@ const galleryImages: GalleryImage[] = [
   // Editorial — Row 3: 11,9,16,14
   { id: 'edit-11', src: '/images/modelling/editorial11.jpg', alt: 'Editorial film', category: 'Editorial', styleFilters: ['Film', 'Fashion', 'Accessories'], credits: { photographer: 'Aamer S.'},  height: 'tall' },
   { id: 'edit-9', src: '/images/modelling/editorial9.JPG', alt: 'Editorial fashion', category: 'Editorial', styleFilters: ['Fashion', 'Makeup & Hair', 'Accessories'], credits: { photographer: 'Maxwell G. ', mua: 'Angelina L', hair: 'Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
-  { id: 'edit-16', src: '/images/modelling/editorial16.PNG', alt: 'Editorial artistic', category: 'Editorial', styleFilters: ['Full Body', 'Makeup & Hair', 'Film'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'edit-16', src: '/images/modelling/editorial16.jpg', alt: 'Editorial artistic', category: 'Editorial', styleFilters: ['Full Body', 'Makeup & Hair', 'Film'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
   { id: 'edit-14', src: '/images/modelling/editorial14.jpg', alt: 'Editorial cinematic', category: 'Editorial', styleFilters: ['Accessories', 'Makeup & Hair', 'Publications' ], credits: { photographer: 'Amara A.', mua: 'Angelina L.', hair: 'Crystal M.', stylist: 'Maryam S.' }, height: 'tall' },
   // Editorial — Row 4: 13,15,12
   { id: 'edit-13', src: '/images/modelling/editorial13.jpg', alt: 'Editorial scene', category: 'Editorial', styleFilters: ['Film', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
-  { id: 'edit-15', src: '/images/modelling/editorial15.jpg', alt: 'Editorial natural', category: 'Editorial', styleFilters: ['Fashion', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
+  { id: 'edit-15', src: '/images/modelling/editorial15.jpg', alt: 'Editorial natural', category: 'Editorial', styleFilters: ['Portraits', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
   { id: 'edit-12', src: '/images/modelling/editorial12.jpg', alt: 'Editorial still', category: 'Editorial', styleFilters: ['Film', 'Makeup & Hair', 'B&W'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
   { id: 'edit-10', src: '/images/modelling/editorial10.JPG', alt: 'Editorial lifestyle', category: 'Editorial', styleFilters: ['Makeup & Hair', 'Fashion', 'Full Body'], credits: { photographer: 'Kabir O.', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'medium' },
    // Commercial
@@ -87,48 +87,54 @@ const galleryImages: GalleryImage[] = [
   { id: 'comm-2', src: '/images/modelling/commercial2.jpg', alt: 'Commercial campaign', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Full Body'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.'}, height: 'medium' },
   { id: 'comm-3', src: '/images/modelling/commercial3.jpg', alt: 'Commercial lifestyle', category: 'Commercial', styleFilters: ['Full Body', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
   { id: 'comm-4', src: '/images/modelling/commercial4.jpg', alt: 'Commercial brand', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'medium' },
-  { id: 'comm-5', src: '/images/modelling/commercial5.jpg', alt: 'Commercial product', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
-  { id: 'comm-6', src: '/images/modelling/commercial6.jpg', alt: 'Commercial editorial', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
+  // Row 2 - Commercial: 5,6,7,8
+  { id: 'comm-5', src: '/images/modelling/commercial5.jpg', alt: 'Commercial product', category: 'Commercial', styleFilters: ['Accessories', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
+  { id: 'comm-6', src: '/images/modelling/commercial6.jpg', alt: 'Commercial editorial', category: 'Commercial', styleFilters: ['Accessories', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
   { id: 'comm-7', src: '/images/modelling/commercial7.jpg', alt: 'Commercial creative', category: 'Commercial', styleFilters: ['Full Body', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q.', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
   { id: 'comm-8', src: '/images/modelling/commercial8.JPG', alt: 'Commercial lifestyle', category: 'Commercial', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.'}, height: 'medium' },
   // Swimsuit
   { id: 'swim-1', src: '/images/modelling/swimwear1.jpg', alt: 'Swimsuit shoot', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion', 'Portraits'], credits: { photographer: 'Luis Q.'}, height: 'tall' },
-  { id: 'swim-2', src: '/images/modelling/swimwear2.jpg', alt: 'Swimsuit editorial', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion'], credits: { photographer: 'Luis Q.'}, height: 'medium', objectPosition: '20% center' },
-  { id: 'swim-3', src: '/images/modelling/swimwear3.jpg', alt: 'Swimsuit campaign', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion'], credits: { photographer: 'Luis Q.'}, height: 'medium', objectPosition: '20% center' },
-  { id: 'swim-4', src: '/images/modelling/swimwear4.jpg', alt: 'Swimsuit lifestyle', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion'], credits: { photographer: 'Luis Q.'}, height: 'tall'},
+  { id: 'swim-2', src: '/images/modelling/swimwear2.jpg', alt: 'Swimsuit editorial', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion', 'Full Body'], credits: { photographer: 'Luis Q.'}, height: 'medium', objectPosition: '20% center' },
+  { id: 'swim-3', src: '/images/modelling/swimwear3.jpg', alt: 'Swimsuit campaign', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion', 'Full Body'], credits: { photographer: 'Luis Q.'}, height: 'medium', objectPosition: '20% center' },
+  { id: 'swim-4', src: '/images/modelling/swimwear4.jpg', alt: 'Swimsuit lifestyle', category: 'Swimsuit', styleFilters: ['Accessories', 'Fashion', 'Full Body'], credits: { photographer: 'Luis Q.'}, height: 'tall'},
   // Beauty - Row 1 - 1,2,3,4
   { id: 'beau-1', src: '/images/modelling/beauty1.jpeg', alt: 'Beauty closeup', category: 'Beauty', styleFilters: ['Accessories', 'Makeup & Hair', 'Portraits'], credits: { photographer: 'Josephine M.', mua: 'Angelina L.', hair: 'Crystal M.'}, height: 'medium'},
-  { id: 'beau-2', src: '/images/modelling/beauty2.jpg', alt: 'Beauty glam', category: 'Beauty', styleFilters: ['Accessories', 'Makeup & Hair'], credits: { photographer: 'Amara A.', mua: 'Angelina L.', hair: 'Crystal M.', stylist: 'Maryam S.'}, height: 'medium'},
+  { id: 'beau-2', src: '/images/modelling/beauty2.jpg', alt: 'Beauty glam', category: 'Beauty', styleFilters: ['Accessories', 'Makeup & Hair', 'Portraits'], credits: { photographer: 'Amara A.', mua: 'Angelina L.', hair: 'Crystal M.', stylist: 'Maryam S.'}, height: 'medium'},
   { id: 'beau-3', src: '/images/modelling/beauty3.jpg', alt: 'Beauty editorial', category: 'Beauty', styleFilters: ['Accessories', 'Portraits'], credits: { photographer: 'Aamer S.'}, height: 'medium'},
   { id: 'beau-4', src: '/images/modelling/beauty4.jpg', alt: 'Beauty portrait', category: 'Beauty', styleFilters: ['Accessories', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Naga', mua: 'Angelina L. & Khushi C.', hair: 'Crystal M. & Liah W.', stylist: 'Shanice W.' }, height: 'tall' },
   // Row 2 - Beauty: 5,6,7,8
   { id: 'beau-5', src: '/images/modelling/beauty5.JPG', alt: 'Beauty artistic', category: 'Beauty', styleFilters: [ 'Makeup & Hair', 'Portraits'], credits: { photographer: 'Justin A.', mua: 'Khadija O.'}, height: 'tall'},
   { id: 'beau-6', src: '/images/modelling/beauty6.jpg', alt: 'Beauty creative', category: 'Beauty',styleFilters: ['Film', 'Makeup & Hair', 'Accessories'], credits: { photographer: 'Robert', mua: 'Birgitta W.', hair: 'Liah W. & Holly H.'}, height: 'medium', objectPosition: '85% center' },
   { id: 'beau-7', src: '/images/modelling/beauty7.jpg', alt: 'Beauty glam', category: 'Beauty', styleFilters: ['Accessories', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
-  { id: 'beau-10', src: '/images/modelling/beauty10.jpg', alt: 'Beauty editorial', category: 'Beauty', styleFilters: ['Makeup & Hair', 'Full Body', 'Accessories'], credits: { photographer: 'Julie M.', mua: 'Angelina L.', hair: 'Crystal M.' }, height: 'tall' },
-  { id: 'beau-11', src: '/images/modelling/beauty11.jpg', alt: 'Beauty lifestyle', category: 'Beauty', height: 'medium' },
-  { id: 'beau-12', src: '/images/modelling/beauty12.PNG', alt: 'Beauty portrait', category: 'Beauty', height: 'tall' },
-  // Cultural
-  { id: 'cult-1', src: '/images/modelling/cultural1.jpg', alt: 'Cultural shoot', category: 'Cultural', height: 'tall' },
-  { id: 'cult-2', src: '/images/modelling/cultural2.jpg', alt: 'Cultural portrait', category: 'Cultural', height: 'medium' },
-  { id: 'cult-3', src: '/images/modelling/cultural3.jpg', alt: 'Cultural editorial', category: 'Cultural', height: 'tall' },
-  { id: 'cult-4', src: '/images/modelling/cultural4.jpg', alt: 'Cultural creative', category: 'Cultural', height: 'medium' },
-  { id: 'cult-5', src: '/images/modelling/cultural5.jpg', alt: 'Cultural artistic', category: 'Cultural', height: 'tall' },
-  { id: 'cult-6', src: '/images/modelling/cultural6.jpg', alt: 'Cultural lifestyle', category: 'Cultural', height: 'medium' },
-  { id: 'cult-7', src: '/images/modelling/cultural7.JPG', alt: 'Cultural heritage', category: 'Cultural', height: 'tall' },
-  { id: 'cult-8', src: '/images/modelling/cultural8.jpg', alt: 'Cultural traditional', category: 'Cultural', height: 'medium' },
-  // Intimate
-  { id: 'intm-1', src: '/images/modelling/intimate1.jpg', alt: 'Intimate shoot', category: 'Intimate', height: 'tall' },
-  { id: 'intm-2', src: '/images/modelling/intimate2.jpg', alt: 'Intimate portrait', category: 'Intimate', height: 'medium' },
-  { id: 'intm-3', src: '/images/modelling/intimate3.jpg', alt: 'Intimate studio', category: 'Intimate', height: 'tall' },
-  { id: 'intm-4', src: '/images/modelling/intimate4.jpg', alt: 'Intimate creative', category: 'Intimate', height: 'medium' },
-  { id: 'intm-6', src: '/images/modelling/intimate6.jpg', alt: 'Intimate artistic', category: 'Intimate', height: 'medium' },
-  { id: 'intm-7', src: '/images/modelling/intimate7.jpg', alt: 'Intimate lifestyle', category: 'Intimate', height: 'tall' },
-  { id: 'intm-8', src: '/images/modelling/intimate8.jpg', alt: 'Intimate editorial', category: 'Intimate', height: 'medium' },
-  { id: 'intm-9', src: '/images/modelling/intimate9.JPG', alt: 'Intimate artistic', category: 'Intimate', height: 'tall' },
-  // Fitness
-  { id: 'fit-1', src: '/images/modelling/fitness1.jpg', alt: 'Fitness shoot', category: 'Fitness', height: 'tall' },
-  { id: 'fit-2', src: '/images/modelling/fitness2.jpg', alt: 'Fitness athletic', category: 'Fitness', height: 'medium' },
+  { id: 'beau-10', src: '/images/modelling/beauty10.jpg', alt: 'Beauty editorial', category: 'Beauty', styleFilters: ['Makeup & Hair', 'Full Body', 'Accessories'], credits: { photographer: 'Julie M.', mua: 'Angelina L.', hair: 'Crystal M. & Liah W.', stylist: 'Shanice W.'}, height: 'tall' },
+  // Row 3 - Beauty: 9,10,11,12
+  { id: 'beau-11', src: '/images/modelling/beauty11.jpg', alt: 'Beauty lifestyle', category: 'Beauty', styleFilters: ['Makeup & Hair', 'Portraits', 'B&W'], credits: { photographer: 'Dakksh N.', mua: 'Khushi C.', hair: 'Crystal M.' }, height: 'tall' },
+  { id: 'beau-12', src: '/images/modelling/beauty12.jpg', alt: 'Beauty portrait', category: 'Beauty', styleFilters: ['B&W', 'Portraits', 'Makeup & Hair'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'beau-13', src: '/images/modelling/beauty13.jpg', alt: 'Beauty portrait', category: 'Beauty', styleFilters: ['B&W', 'Full Body', 'Fashion'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
+  { id: 'beau-14', src: '/images/modelling/beauty14.jpg', alt: 'Beauty portrait', category: 'Beauty', styleFilters: ['B&W', 'Portraits', 'Fashion'], credits: { photographer: 'Shreyas H.', mua: 'Birgitta W. & Diane K.', hair: 'Angela D.', stylist: 'Roxsana B.' }, height: 'tall' },
+  // Intimate - Row 1 - 1,2,3,4
+  { id: 'intm-1', src: '/images/modelling/intimate1.jpg', alt: 'Intimate shoot', category: 'Intimate', styleFilters: ['Makeup & Hair'], credits: { photographer: 'Mattieu S. ', mua: 'Birgitta W. & Tatyana K.', hair: 'Angela D. & Crystal M.', stylist: 'Shanice W.' }, height: 'tall' },
+  { id: 'intm-2', src: '/images/modelling/intimate2.jpg', alt: 'Intimate portrait', category: 'Intimate', styleFilters: ['Film', 'Fashion', 'Full Body'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.', stylist: 'Samantha C.' }, height: 'medium' },
+  { id: 'intm-3', src: '/images/modelling/intimate3.jpg', alt: 'Intimate studio', category: 'Intimate', styleFilters: ['Film', 'Fashion', 'Full Body'], credits: { photographer: 'Amara A.', mua: 'Khushi C. & Elisa S.', hair: 'Crystal M. & Darya K.', stylist: 'Samantha C.' }, height: 'tall' },
+  { id: 'intm-4', src: '/images/modelling/intimate4.jpg', alt: 'Intimate creative', category: 'Intimate', styleFilters: ['Portraits'], credits: { photographer: 'Aamer S.'},  height: 'tall' },
+  // Row 2 - Intimate: 5,6,7,8
+  { id: 'intm-6', src: '/images/modelling/intimate6.jpg', alt: 'Intimate artistic', category: 'Intimate', styleFilters: ['Full Body'], credits: { photographer: 'Aamer S.'},  height: 'tall' },
+  { id: 'intm-7', src: '/images/modelling/intimate7.jpg', alt: 'Intimate lifestyle', category: 'Intimate', styleFilters: ['Portraits'], credits: { photographer: 'Aamer S.'},  height: 'tall' },
+  { id: 'intm-8', src: '/images/modelling/intimate8.jpg', alt: 'Intimate editorial', category: 'Intimate', styleFilters: ['Full Body'], credits: { photographer: 'Aamer S.'},  height: 'medium' },
+  { id: 'intm-9', src: '/images/modelling/intimate9.JPG', alt: 'Intimate artistic', category: 'Intimate', styleFilters: ['Portraits'], credits: { photographer: 'Josephine M.', mua: 'Angelina L', hair: 'Crystal M.'},  height: 'tall' },
+  // Cultural - Row 1 - 1,2,3,4
+  { id: 'cult-1', src: '/images/modelling/cultural1.jpg', alt: 'Cultural shoot', category: 'Cultural', styleFilters: ['Accessories', 'Fashion', 'Full Body'], credits: { photographer: 'Hooman Z.', mua: 'Sandhya S.', hair: 'Crystal M.', stylist: 'Shiraz K.' }, height: 'tall' },
+  { id: 'cult-2', src: '/images/modelling/cultural2.jpg', alt: 'Cultural portrait', category: 'Cultural', styleFilters: ['Accessories', 'Portraits', 'B&W'], credits: { photographer: 'Justin A.',}, height: 'tall' },
+  { id: 'cult-3', src: '/images/modelling/cultural3.jpg', alt: 'Cultural editorial', category: 'Cultural', styleFilters: ['Accessories', 'Makeup & Hair', 'Portraits'], credits: { photographer: 'Rouge Studios', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
+  { id: 'cult-4', src: '/images/modelling/cultural4.jpg', alt: 'Cultural creative', category: 'Cultural', styleFilters: ['Accessories', 'Portraits', 'B&W'], credits: { photographer: 'Justin A.',}, height: 'tall' },
+  // Row 2 - Cultural: 5,6,7,8
+  { id: 'cult-5', src: '/images/modelling/cultural5.jpg', alt: 'Cultural artistic', category: 'Cultural', styleFilters: ['Accessories', 'Portraits', 'B&W'], credits: { photographer: 'Justin A.',}, height: 'tall' },
+  { id: 'cult-6', src: '/images/modelling/cultural6.jpg', alt: 'Cultural lifestyle', category: 'Cultural', styleFilters: ['Fashion', 'Makeup & Hair', 'Full Body'], credits: { photographer: 'Rouge Studios', mua: 'Sarbjot G.', hair: 'Sarbjot G.'}, height: 'tall' },
+  { id: 'cult-7', src: '/images/modelling/cultural7.JPG', alt: 'Cultural heritage', category: 'Cultural', styleFilters: ['Accessories', 'Makeup & Hair', 'Portraits'], credits: { photographer: 'Rouge Studios',}, height: 'tall' },
+  { id: 'cult-8', src: '/images/modelling/cultural8.jpg', alt: 'Cultural traditional', category: 'Cultural', styleFilters: ['Full Body', 'Makeup & Hair', 'Fashion'], credits: { photographer: 'Justin A.',}, height: 'tall' },
+  // Fitness - 1,2
+  { id: 'fit-1', src: '/images/modelling/fitness1.jpg', alt: 'Fitness shoot', category: 'Fitness', styleFilters: ['Full Body', 'Fashion', 'Makeup & Hair'], credits: {photographer: 'Luis Q', mua: 'Sarbjot G.', hair: 'Sarbjot G.',}, height: 'tall' },
+  { id: 'fit-2', src: '/images/modelling/fitness2.jpg', alt: 'Fitness athletic', category: 'Fitness', styleFilters: ['Accessories', 'Fashion', 'Makeup & Hair'], credits: { photographer: 'Luis Q', mua: 'Sarbjot G.', hair: 'Sarbjot G.',}, height: 'medium' },
 ];
 
 function getBorderClass(border?: 'white' | 'black') {
@@ -196,7 +202,7 @@ export default function Modelling() {
                         <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-.88-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
                       </svg>
                     </motion.a>
-                    <span className="text-xs text-gray-500">1K</span>
+                    <span className="text-xs text-gray-500">1.2K</span>
                   </motion.div>
                   <motion.div className="flex flex-col items-center gap-1" whileHover={{ scale: 1.1, y: -3 }} whileTap={{ scale: 0.9 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
                     <motion.a href="https://youtube.com/@kirtisxena" target="_blank" rel="noopener noreferrer" className="group">
@@ -386,15 +392,13 @@ export default function Modelling() {
                   {catImages.map((image, index) => (
                     <motion.div
                       key={image.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
                       transition={{
-                        duration: 0.4,
-                        delay: index * 0.05,
-                        type: 'spring',
-                        stiffness: 200,
-                        damping: 25,
+                        duration: 0.3,
+                        delay: Math.min(index * 0.03, 0.15),
+                        ease: "easeOut",
                       }}
                       className="aspect-[3/4]"
                     >
@@ -408,7 +412,10 @@ export default function Modelling() {
                             alt={image.alt}
                             fill
                             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                            className="object-cover"
+                            className="object-cover transition-opacity duration-300"
+                            loading="lazy"
+                            placeholder="blur"
+                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMCwsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAAIAAoDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAcI/8QAHxAAAgEEAgMAAAAAAAAAAAAAAQIDAAQFEQYhEjFR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAYEQEBAQEBAAAAAAAAAAAAAAABAgADEf/aAAwDAQACEQMRAD8AqeL4/wASx0vJL2eC0t4reBgryxxKqs3kBsE6J0O/tSviGJteQ5+5urGES20s7NExUHy0TokeD/alKDmJdOuf/9k="
                             style={{
                               ...(image.objectPosition && { objectPosition: image.objectPosition }),
                               ...(image.scale && { transform: `scale(${image.scale})` }),
@@ -503,7 +510,7 @@ export default function Modelling() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3, type: 'spring', stiffness: 200, damping: 25 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               className="relative max-w-[90vw] max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
             >
