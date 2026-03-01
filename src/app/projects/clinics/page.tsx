@@ -67,42 +67,6 @@ const programs: Program[] = [
     color: '#FFD700',
   },
   {
-    id: 'mindset',
-    title: 'HIGH-PERFORMANCE MINDSET',
-    subtitle: 'Mindset · Discipline · Resilience',
-    tagline: 'How to maintain a high performance mindset throughout all aspects of your life.',
-    tiers: [
-      {
-        name: 'Mini Talk',
-        format: '1 × 60 minutes',
-        participants: '30-60 people',
-        price: '$750 flat',
-        perPersonCost: 'Single session for smaller groups',
-      },
-      {
-        name: 'Series Talk',
-        format: '3 × 60 minutes',
-        participants: '30-80 people',
-        price: '$1,800 flat',
-        perPersonCost: 'Deeper engagement and reinforcement',
-        highlight: 'Best value for lasting impact!',
-      },
-    ],
-    includes: {
-      focus: [
-        <>How to develop a <span style={{ color: '#A855F7' }}>high-performance mindset</span> through lessons from elite sport, engineering, and fashion modelling experiences.</>,
-        <>Understanding <span style={{ color: '#A855F7' }}>performance under pressure</span>, including mental strategies for high-stakes situations.</>,
-        <>Cultivating <span style={{ color: '#A855F7' }}>confidence and resilience</span> to overcome setbacks, handle failure constructively, and bounce back stronger.</>,
-      ],
-      requirements: [
-        <>Ideal for <span style={{ color: '#A855F7' }}>students, leadership groups, and teams</span> looking to elevate their performance.</>,
-        <>Interactive format with <span style={{ color: '#A855F7' }}>Q&A sessions</span> and real personal examples.</>,
-        <>Includes <span style={{ color: '#A855F7' }}>actionable takeaways</span> participants can implement immediately.</>,
-      ],
-    },
-    color: '#A855F7',
-  },
-  {
     id: 'privates',
     title: 'WRESTLING PRIVATE TRAINING',
     subtitle: 'Technical · Personalized · Results-Driven',
@@ -137,42 +101,6 @@ const programs: Program[] = [
       ],
     },
     color: '#F97316',
-  },
-  {
-    id: 'founder',
-    title: 'INNOVATE FOR A PURPOSE',
-    subtitle: 'Innovation · AI · Sustainability',
-    tagline: 'An honest, interactive conversation about building a solution for the United Nations Sustainable Development Goals.',
-    tiers: [
-      {
-        name: 'Mini Talk',
-        format: '1 × 60 minutes',
-        participants: '30-60 people',
-        price: '$750 flat',
-        perPersonCost: 'Single session for smaller groups',
-      },
-      {
-        name: 'Series Talk',
-        format: '3 × 60 minutes',
-        participants: '30-80 people',
-        price: '$1,800 flat',
-        perPersonCost: 'Deeper engagement and reinforcement',
-        highlight: 'Best value for lasting impact!',
-      },
-    ],
-    includes: {
-      focus: [
-        <>Understanding the <span style={{ color: '#10B981' }}>intersection of AI and sustainability</span> — where technology meets environmental and social impact.</>,
-        <>How to identify <span style={{ color: '#10B981' }}>meaningful problems</span> worth solving and validate ideas before building.</>,
-        <>Navigating <span style={{ color: '#10B981' }}>self doubt during early stage development</span> while staying true to your mission.</>,
-      ],
-      requirements: [
-        <>For <span style={{ color: '#10B981' }}>aspiring founders, students, and corporate innovation teams</span> interested in building solutions.</>,
-        <>Interactive with <span style={{ color: '#10B981' }}>real lessons learned</span> from building start-up's.</>,
-        <>Covers both <span style={{ color: '#10B981' }}>technical and business perspectives</span> on AI-driven sustainability solutions.</>,
-      ],
-    },
-    color: '#10B981',
   },
 ];
 
@@ -230,7 +158,7 @@ export default function Clinics() {
       >
         {/* Header */}
         <div className={isLarge ? "p-8 pb-6" : "p-6 pb-4"}>
-          {/* Badge for Talks vs Clinics */}
+          {/* Badge */}
           <div
             className={`inline-block ${isLarge ? 'px-4 py-1.5' : 'px-3 py-1'} rounded-full ${isLarge ? 'text-sm' : 'text-xs'} font-bold uppercase tracking-wider mb-3`}
             style={{
@@ -239,7 +167,7 @@ export default function Clinics() {
               border: `1px solid ${program.color}60`,
             }}
           >
-            {program.id === 'mindset' || program.id === 'founder' ? 'Talk' : 'Clinic'}
+            Clinic
           </div>
           <h3
                 className={`${isLarge ? 'text-5xl' : 'text-3xl'} font-black mb-2 tracking-wider uppercase`}
@@ -363,21 +291,6 @@ export default function Clinics() {
                     />
                   </div>
                 )}
-                {program.id === 'founder' && (
-                  <div className="my-6 flex gap-4 items-center overflow-hidden">
-                    <img
-                      src="/images/clinics/founder-talk.png"
-                      alt="Innovate for a Purpose Talk"
-                      className="rounded-lg object-cover w-full flex-shrink-0"
-                      style={{
-                        height: '280px',
-                        border: `2px solid ${program.color}40`,
-                        boxShadow: `0 0 20px ${program.color}15`,
-                      }}
-                    />
-                  </div>
-                )}
-
                 {/* Requirements section */}
                 <div
                   className={`rounded-lg ${isLarge ? 'p-6' : 'p-4'}`}
@@ -592,9 +505,9 @@ export default function Clinics() {
       <ProjectNav title="KIRTI SAXENA" />
       <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-5xl mx-auto">
         <ProjectHeader
-          title="Clinics & Talks"
+          title="Clinics"
           date="Available for Booking"
-          category="Mentorship · Training · Speaking"
+          category="Self Defense · Wrestling · Training"
         />
 
         {/* Discount Cards - Side by Side */}
@@ -618,17 +531,9 @@ export default function Clinics() {
                 <div className="text-sm text-white/60 mb-1">Self Defense</div>
                 <div className="text-base font-bold" style={{ color: '#FFD700' }}>Clinic</div>
               </div>
-              <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(168, 85, 247, 0.1)', border: '1px solid rgba(168, 85, 247, 0.4)' }}>
-                <div className="text-sm text-white/60 mb-1">High-Performance</div>
-                <div className="text-base font-bold" style={{ color: '#A855F7' }}>Talk</div>
-              </div>
-              <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.4)' }}>
-                <div className="text-sm text-white/60 mb-1">Innovate for a</div>
-                <div className="text-base font-bold" style={{ color: '#10B981' }}>Purpose</div>
-              </div>
               <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(249, 115, 22, 0.1)', border: '1px solid rgba(249, 115, 22, 0.4)' }}>
                 <div className="text-sm text-white/60 mb-1">Wrestling</div>
-                <div className="text-base font-bold" style={{ color: '#F97316' }}>Clinic</div>
+                <div className="text-base font-bold" style={{ color: '#F97316' }}>Privates</div>
               </div>
             </div>
 
@@ -775,17 +680,6 @@ export default function Clinics() {
         <div className="mb-16">
           {/* Self Defense Clinic - Full Width */}
           <ProgramCard program={programs.find(p => p.id === 'self-defense')!} isLarge={true} />
-
-          {/* Divider */}
-          <div className="max-w-3xl mx-auto my-12">
-            <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
-          </div>
-
-          {/* Talks - Side by Side */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <ProgramCard program={programs.find(p => p.id === 'mindset')!} isLarge={false} />
-            <ProgramCard program={programs.find(p => p.id === 'founder')!} isLarge={false} />
-          </div>
 
           {/* Divider */}
           <div className="max-w-3xl mx-auto my-12">

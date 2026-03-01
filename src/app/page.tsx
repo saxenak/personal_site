@@ -1,10 +1,13 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(false);
   const [currentVideo, setCurrentVideo] = useState('');
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [portfolioOpen, setPortfolioOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const introVideoRef = useRef<HTMLVideoElement>(null);
 
@@ -179,62 +182,101 @@ export default function Home() {
 
       {/* Full-width horizontal layout - vertical on mobile, horizontal on desktop */}
       <div className="min-h-screen flex items-center relative z-10">
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-0">
-          <a
-            href="/projects/engineering"
-            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
-            onMouseEnter={() => handleVideoHover('/engineering_landingpage.mp4')}
-            onMouseLeave={handleVideoLeave}
-          >
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
-              ENGINEER
-            </h2>
-          </a>
-
-          <a
-            href="/projects/athletics"
-            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
-            onMouseEnter={() => handleVideoHover('/wrestling_landingpage.mp4')}
-            onMouseLeave={handleVideoLeave}
-          >
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
-              ATHLETE
-            </h2>
-          </a>
-
-          <a
-            href="/projects/modelling"
-            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
-            onMouseEnter={() => handleVideoHover('/model_landingpage.MP4')}
-            onMouseLeave={handleVideoLeave}
-          >
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
-              MODEL
-            </h2>
-          </a>
-
-          <a
-            href="/projects/artistry"
-            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
-            onMouseEnter={() => handleVideoHover('/artist_landingpage.mp4')}
-            onMouseLeave={handleVideoLeave}
-          >
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
-              ARTIST
-            </h2>
-          </a>
-
-          <a
-            href="/projects/clinics"
-            className="group h-[20vh] md:h-screen flex items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300"
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
+          <div
+            className="group h-[50vh] md:h-screen flex flex-col items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300 cursor-pointer relative"
             onMouseEnter={() => handleVideoHover('/clinics_landingpage.mp4')}
             onMouseLeave={handleVideoLeave}
+            onClick={() => { setServicesOpen(!servicesOpen); setPortfolioOpen(false); }}
           >
-            <h2 className="text-xl md:text-3xl lg:text-4xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
-              CLINICS
-            </h2>
-          </a>
+            <div className="flex items-center gap-2 md:gap-3">
+              <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
+                SERVICES
+              </h2>
+              <svg
+                className={`w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 transition-transform duration-300 group-hover:text-[#FD9635] ${servicesOpen ? 'rotate-180' : ''}`}
+                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+
+            <div
+              className={`flex flex-col items-center gap-3 md:gap-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                servicesOpen ? 'max-h-96 opacity-100 mt-6 md:mt-10' : 'max-h-0 opacity-0 mt-0'
+              }`}
+            >
+              {[
+                { href: '/projects/clinics', label: 'CLINICS' },
+                { href: '/projects/talks', label: 'TALKS' },
+                { href: '/projects/web-development', label: 'WEB DEVELOPMENT' },
+                { href: '/projects/artist', label: 'ART' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-base md:text-xl font-light tracking-wider text-gray-300 hover:text-[#FD9635] transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div
+            className="group h-[50vh] md:h-screen flex flex-col items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300 cursor-pointer relative"
+            onMouseEnter={() => handleVideoHover('/model_landingpage.MP4')}
+            onMouseLeave={handleVideoLeave}
+            onClick={() => { setPortfolioOpen(!portfolioOpen); setServicesOpen(false); }}
+          >
+            <div className="flex items-center gap-2 md:gap-3">
+              <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
+                PORTFOLIO
+              </h2>
+              <svg
+                className={`w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 transition-transform duration-300 group-hover:text-[#FD9635] ${portfolioOpen ? 'rotate-180' : ''}`}
+                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+
+            <div
+              className={`flex flex-col items-center gap-3 md:gap-4 overflow-hidden transition-all duration-500 ease-in-out ${
+                portfolioOpen ? 'max-h-96 opacity-100 mt-6 md:mt-10' : 'max-h-0 opacity-0 mt-0'
+              }`}
+            >
+              {[
+                { href: '/projects/engineering', label: 'ENGINEER' },
+                { href: '/projects/athletics', label: 'ATHLETE' },
+                { href: '/projects/modelling', label: 'MODEL' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-base md:text-xl font-light tracking-wider text-gray-300 hover:text-[#FD9635] transition-colors"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* Contact at bottom */}
+      <div className="fixed bottom-6 left-0 right-0 z-50 flex items-center justify-center">
+        <a
+          href="mailto:kirti@kirtisaxena.com"
+          className="flex items-center gap-2 text-sm md:text-base font-light tracking-wider text-gray-400 hover:text-[#FD9635] transition-colors"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+          </svg>
+          kirti@kirtisaxena.com
+        </a>
       </div>
     </div>
   );
