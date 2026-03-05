@@ -43,10 +43,10 @@ export default function Nav() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="absolute top-full left-0 w-full bg-black/90 backdrop-blur-sm border-t border-gray-800"
           >
             <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-6">
@@ -64,7 +64,7 @@ export default function Nav() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                         className="overflow-hidden"
                       >
                         <div className="flex flex-col gap-2 pb-4">
@@ -99,7 +99,7 @@ export default function Nav() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.2 }}
+                        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                         className="overflow-hidden"
                       >
                         <div className="flex flex-col gap-2 pb-4">

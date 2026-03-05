@@ -31,9 +31,9 @@ export default function VideoSection({ src, poster, title, className = '' }: Vid
   return (
     <motion.div 
       className={`relative overflow-hidden ${className}`}
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
       viewport={{ once: true }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

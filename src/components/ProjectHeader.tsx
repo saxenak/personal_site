@@ -11,9 +11,9 @@ interface ProjectHeaderProps {
 export default function ProjectHeader({ title, date, category }: ProjectHeaderProps) {
   return (
     <motion.header
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="pt-16 md:pt-32 px-4 md:px-8 mb-8 md:mb-16"
     >
       <div className="max-w-6xl mx-auto">

@@ -296,9 +296,9 @@ export default function Modelling() {
 
           {/* Hero Section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="text-center mb-16"
           >
             <h1 className="text-4xl md:text-5xl font-light mb-4 md:mb-6">MODEL</h1>
@@ -325,9 +325,9 @@ export default function Modelling() {
 
           {/* Dimensions */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="mb-14"
           >
             <div className="flex flex-wrap justify-center gap-x-6 md:gap-x-12 gap-y-4 md:gap-y-5">
@@ -351,9 +351,9 @@ export default function Modelling() {
 
           {/* Filter Tabs */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="mb-12"
           >
             {/* Categories */}
@@ -431,9 +431,9 @@ export default function Modelling() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-50px" }}
                       transition={{
-                        duration: 0.3,
-                        delay: Math.min(index * 0.03, 0.15),
-                        ease: "easeOut",
+                        duration: 0.6,
+                        delay: Math.min(index * 0.05, 0.2),
+                        ease: [0.25, 0.46, 0.45, 0.94],
                       }}
                       className="aspect-[3/4]"
                     >

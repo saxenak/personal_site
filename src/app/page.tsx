@@ -202,7 +202,7 @@ export default function Home() {
             </div>
 
             <div
-              className={`flex flex-col items-center gap-3 md:gap-4 overflow-hidden transition-all duration-500 ease-in-out ${
+              className={`flex flex-col items-center gap-3 md:gap-4 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
                 servicesOpen ? 'max-h-96 opacity-100 mt-6 md:mt-10' : 'max-h-0 opacity-0 mt-0'
               }`}
             >
@@ -243,7 +243,7 @@ export default function Home() {
             </div>
 
             <div
-              className={`flex flex-col items-center gap-3 md:gap-4 overflow-hidden transition-all duration-500 ease-in-out ${
+              className={`flex flex-col items-center gap-3 md:gap-4 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
                 portfolioOpen ? 'max-h-96 opacity-100 mt-6 md:mt-10' : 'max-h-0 opacity-0 mt-0'
               }`}
             >

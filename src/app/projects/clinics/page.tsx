@@ -1,9 +1,17 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import ProjectNav from '@/components/ProjectNav';
 import ProjectHeader from '@/components/ProjectHeader';
 import Link from 'next/link';
+
+const sectionReveal = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-80px' as const },
+  transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as const },
+};
 
 interface PricingTier {
   name: string;
@@ -511,7 +519,7 @@ export default function Clinics() {
         />
 
         {/* Discount Cards - Side by Side */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12 items-stretch">
+        <motion.div {...sectionReveal} className="grid md:grid-cols-2 gap-6 mb-12 items-stretch">
           {/* Bundle Card */}
           <div
             className="rounded-xl p-6 h-full flex flex-col"
@@ -625,7 +633,7 @@ export default function Clinics() {
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Separator */}
         <div className="max-w-3xl mx-auto mb-12">
@@ -633,7 +641,7 @@ export default function Clinics() {
         </div>
 
         {/* Instructor Bio Card */}
-        <div className="mb-16">
+        <motion.div {...sectionReveal} className="mb-16">
           <div
             className="rounded-xl p-8 flex items-center gap-8"
             style={{
@@ -674,10 +682,10 @@ export default function Clinics() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Programs */}
-        <div className="mb-16">
+        <motion.div {...sectionReveal} className="mb-16">
           {/* Self Defense Clinic - Full Width */}
           <ProgramCard program={programs.find(p => p.id === 'self-defense')!} isLarge={true} />
 
@@ -688,7 +696,7 @@ export default function Clinics() {
 
           {/* Wrestling Privates - Full Width */}
           <ProgramCard program={programs.find(p => p.id === 'privates')!} isLarge={true} />
-        </div>
+        </motion.div>
 
         {/* Add-On Note */}
         <div className="max-w-3xl mx-auto mb-12 text-center">
@@ -698,7 +706,7 @@ export default function Clinics() {
         </div>
 
         {/* Location Section */}
-        <div className="max-w-5xl mx-auto">
+        <motion.div {...sectionReveal} className="max-w-5xl mx-auto">
           <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-12"></div>
           <h2 className="text-2xl font-bold text-white mb-6 text-center">No Mats or Space, No Worries!</h2>
           <p className="text-sm text-white/60 text-center mb-8">
@@ -777,10 +785,10 @@ export default function Clinics() {
               </a>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Reviews Section */}
-        <div className="max-w-5xl mx-auto mt-20">
+        <motion.div {...sectionReveal} className="max-w-5xl mx-auto mt-20">
           <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-12"></div>
           <h2 className="text-2xl font-bold text-white mb-2 text-center">Client Reviews</h2>
           <p className="text-sm text-white/60 text-center mb-12">What past clients are saying</p>
@@ -913,10 +921,10 @@ export default function Clinics() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Inquiry Section */}
-        <div id="inquiry" className="max-w-2xl mx-auto mt-20 scroll-mt-24">
+        <motion.div {...sectionReveal} id="inquiry" className="max-w-2xl mx-auto mt-20 scroll-mt-24">
           <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-12"></div>
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-white mb-2">Have a Question?</h2>
@@ -990,7 +998,7 @@ export default function Clinics() {
               </div>
             </form>
           )}
-        </div>
+        </motion.div>
       </div>
     </main>
   );
