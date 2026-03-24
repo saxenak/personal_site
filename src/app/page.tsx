@@ -207,10 +207,9 @@ export default function Home() {
               }`}
             >
               {[
-                { href: '/projects/clinics', label: 'CLINICS' },
-                { href: '/projects/talks', label: 'TALKS' },
+                { href: '/projects/clinics', label: 'CLINICS & TALKS' },
                 { href: '/projects/web-development', label: 'WEB DEVELOPMENT' },
-                { href: '/projects/artist', label: 'ART' },
+                { href: '/projects/artist', label: 'ARTIST' },
               ].map((item) => (
                 <Link
                   key={item.href}

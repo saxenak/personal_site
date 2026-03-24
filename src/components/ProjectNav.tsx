@@ -11,10 +11,9 @@ export default function ProjectNav({ onMenuToggle }: { title?: string; onMenuTog
   const [portfolioOpen, setPortfolioOpen] = useState(false);
 
   const serviceItems = [
-    { href: '/projects/artist', label: 'ARTIST' },
+    { href: '/projects/clinics', label: 'CLINICS & TALKS' },
     { href: '/projects/web-development', label: 'WEB DEVELOPMENT' },
-    { href: '/projects/talks', label: 'TALKS' },
-    { href: '/projects/clinics', label: 'CLINICS' },
+    { href: '/projects/artist', label: 'ARTIST' },
   ];
 
   const portfolioItems = [

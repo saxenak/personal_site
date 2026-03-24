@@ -1,17 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import ProjectNav from '@/components/ProjectNav';
 import ProjectHeader from '@/components/ProjectHeader';
 import Link from 'next/link';
-
-const sectionReveal = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-80px' as const },
-  transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] as const },
-};
 
 interface PricingTier {
   name: string;
@@ -33,6 +25,7 @@ interface Program {
   includes: string[] | { focus: React.ReactNode[]; requirements: React.ReactNode[] };
   idealFor?: string;
   color: string;
+  type: 'clinic' | 'talk';
 }
 
 const programs: Program[] = [
@@ -73,6 +66,7 @@ const programs: Program[] = [
       ],
     },
     color: '#FFD700',
+    type: 'clinic',
   },
   {
     id: 'privates',
@@ -109,6 +103,81 @@ const programs: Program[] = [
       ],
     },
     color: '#F97316',
+    type: 'clinic',
+  },
+  {
+    id: 'mindset',
+    title: 'HIGH-PERFORMANCE MINDSET',
+    subtitle: 'Mindset · Discipline · Resilience',
+    tagline: 'How to maintain a high performance mindset throughout all aspects of your life.',
+    tiers: [
+      {
+        name: 'Mini Talk',
+        format: '1 × 60 minutes',
+        participants: '30-60 people',
+        price: '$750 flat',
+        perPersonCost: 'Single session for smaller groups',
+      },
+      {
+        name: 'Series Talk',
+        format: '3 × 60 minutes',
+        participants: '30-80 people',
+        price: '$1,800 flat',
+        perPersonCost: 'Deeper engagement and reinforcement',
+        highlight: 'Best value for lasting impact!',
+      },
+    ],
+    includes: {
+      focus: [
+        <>How to develop a <span style={{ color: '#A855F7' }}>high-performance mindset</span> through lessons from elite sport, engineering, and fashion modelling experiences.</>,
+        <>Understanding <span style={{ color: '#A855F7' }}>performance under pressure</span>, including mental strategies for high-stakes situations.</>,
+        <>Cultivating <span style={{ color: '#A855F7' }}>confidence and resilience</span> to overcome setbacks, handle failure constructively, and bounce back stronger.</>,
+      ],
+      requirements: [
+        <>Ideal for <span style={{ color: '#A855F7' }}>students, leadership groups, and teams</span> looking to elevate their performance.</>,
+        <>Interactive format with <span style={{ color: '#A855F7' }}>Q&A sessions</span> and real personal examples.</>,
+        <>Includes <span style={{ color: '#A855F7' }}>actionable takeaways</span> participants can implement immediately.</>,
+      ],
+    },
+    color: '#A855F7',
+    type: 'talk',
+  },
+  {
+    id: 'founder',
+    title: 'INNOVATE FOR A PURPOSE',
+    subtitle: 'Innovation · AI · Sustainability',
+    tagline: 'An honest, interactive conversation about building a solution for the United Nations Sustainable Development Goals.',
+    tiers: [
+      {
+        name: 'Mini Talk',
+        format: '1 × 60 minutes',
+        participants: '30-60 people',
+        price: '$750 flat',
+        perPersonCost: 'Single session for smaller groups',
+      },
+      {
+        name: 'Series Talk',
+        format: '3 × 60 minutes',
+        participants: '30-80 people',
+        price: '$1,800 flat',
+        perPersonCost: 'Deeper engagement and reinforcement',
+        highlight: 'Best value for lasting impact!',
+      },
+    ],
+    includes: {
+      focus: [
+        <>Understanding the <span style={{ color: '#10B981' }}>intersection of AI and sustainability</span> — where technology meets environmental and social impact.</>,
+        <>How to identify <span style={{ color: '#10B981' }}>meaningful problems</span> worth solving and validate ideas before building.</>,
+        <>Navigating <span style={{ color: '#10B981' }}>self doubt during early stage development</span> while staying true to your mission.</>,
+      ],
+      requirements: [
+        <>For <span style={{ color: '#10B981' }}>aspiring founders, students, and corporate innovation teams</span> interested in building solutions.</>,
+        <>Interactive with <span style={{ color: '#10B981' }}>real lessons learned</span> from building start-up&apos;s.</>,
+        <>Covers both <span style={{ color: '#10B981' }}>technical and business perspectives</span> on AI-driven sustainability solutions.</>,
+      ],
+    },
+    color: '#10B981',
+    type: 'talk',
   },
 ];
 
@@ -120,6 +189,16 @@ export default function Clinics() {
     message: '',
   });
   const [inquiryStatus, setInquiryStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [showDiscountPopup, setShowDiscountPopup] = useState(true);
+
+  useEffect(() => {
+    if (showDiscountPopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [showDiscountPopup]);
 
   const handleInquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,53 +232,48 @@ export default function Clinics() {
     }
   };
   
-  const ProgramCard = ({ program, isLarge = false }: { program: Program; isLarge?: boolean }) => {
+  const ProgramCard = ({ program }: { program: Program }) => {
     return (
       <div
         id={program.id}
-        className="rounded-xl overflow-hidden"
+        className="rounded-xl overflow-hidden flex flex-col h-full scroll-mt-24"
         style={{
           backgroundColor: 'rgba(255, 255, 255, 0.05)',
-          border: `${isLarge ? '3px' : '2px'} solid ${program.color}`,
-          boxShadow: `0 0 ${isLarge ? '30px' : '20px'} ${program.color}30`,
+          border: `2px solid ${program.color}`,
+          boxShadow: `0 0 20px ${program.color}30`,
         }}
       >
         {/* Header */}
-        <div className={isLarge ? "p-8 pb-6" : "p-6 pb-4"}>
-          {/* Badge */}
+        <div className="p-4 pb-3">
           <div
-            className={`inline-block ${isLarge ? 'px-4 py-1.5' : 'px-3 py-1'} rounded-full ${isLarge ? 'text-sm' : 'text-xs'} font-bold uppercase tracking-wider mb-3`}
+            className="inline-block px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2"
             style={{
               backgroundColor: `${program.color}20`,
               color: program.color,
               border: `1px solid ${program.color}60`,
             }}
           >
-            Clinic
+            {program.type === 'talk' ? 'Talk' : 'Clinic'}
           </div>
           <h3
-                className={`${isLarge ? 'text-5xl' : 'text-3xl'} font-black mb-2 tracking-wider uppercase`}
-                style={{
-                  color: program.color,
-                  letterSpacing: isLarge ? '0.15em' : '0.1em',
-                }}
-              >{program.title}</h3>
-          <p className={`${isLarge ? 'text-base' : 'text-base'} tracking-wide mb-3`} style={{ color: program.color }}>
+            className="text-xl font-black mb-1 tracking-wider uppercase"
+            style={{ color: program.color, letterSpacing: '0.1em' }}
+          >{program.title}</h3>
+          <p className="text-sm tracking-wide mb-1" style={{ color: program.color }}>
             {program.subtitle}
           </p>
-          <p className={`text-gray-300 ${isLarge ? 'text-base' : 'text-base'} leading-relaxed font-semibold`}>{program.tagline}</p>
+          <p className="text-gray-300 text-sm leading-relaxed font-semibold">{program.tagline}</p>
         </div>
 
-        {/* Pricing Tiers */}
-        <div className={isLarge ? "px-8 pb-8" : "px-6 pb-6"}>
-          {/* Includes - moved above tiers */}
-          <div className={`${isLarge ? 'mb-6 pb-6' : 'mb-4 pb-4'} border-b border-white/10`}>
+        <div className="px-4 pb-4 flex flex-col flex-grow">
+          {/* Focus & Requirements */}
+          <div className="mb-3 pb-3 border-b border-white/10">
             {Array.isArray(program.includes) ? (
               <>
-                <h4 className={`${isLarge ? 'text-lg' : 'text-base'} font-semibold text-white mb-3`}>What's Included</h4>
-                <ul className={`${isLarge ? 'space-y-3' : 'space-y-2'}`}>
+                <h4 className="text-sm font-semibold text-white mb-2">What&apos;s Included</h4>
+                <ul className="space-y-1">
                   {program.includes.map((item, idx) => (
-                    <li key={idx} className={`flex items-start gap-3 ${isLarge ? 'text-base' : 'text-sm'} text-white/90`}>
+                    <li key={idx} className="flex items-start gap-2 text-xs text-white/90">
                       <span className="mt-0.5" style={{ color: program.color }}>✔</span>
                       <span>{item}</span>
                     </li>
@@ -208,111 +282,36 @@ export default function Clinics() {
               </>
             ) : (
               <>
-                {/* Focus section */}
                 <div
-                  className={`rounded-lg ${isLarge ? 'p-6' : 'p-4'} mb-6`}
+                  className="rounded-lg p-3 mb-3"
                   style={{
                     backgroundColor: `${program.color}10`,
                     border: `1px solid ${program.color}40`,
-                    boxShadow: `0 0 20px ${program.color}15`,
                   }}
                 >
-                  <h4 className={`${isLarge ? 'text-xl' : 'text-lg'} font-bold text-white mb-4`} style={{ color: program.color }}>Focus</h4>
-                  <ul className={`${isLarge ? 'space-y-4' : 'space-y-3'}`}>
+                  <h4 className="text-sm font-bold mb-2" style={{ color: program.color }}>Focus</h4>
+                  <ul className="space-y-1.5">
                     {program.includes.focus.map((item, idx) => (
-                      <li key={idx} className={`flex items-start gap-3 ${isLarge ? 'text-base' : 'text-sm'} text-white`}>
-                        <span className="mt-0.5 text-lg" style={{ color: program.color }}>✔</span>
+                      <li key={idx} className="flex items-start gap-2 text-xs text-white">
+                        <span className="mt-0.5" style={{ color: program.color }}>✔</span>
                         <span className="font-medium">{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                {/* Photos between Focus and Requirements - for self-defense and privates */}
-                {program.id === 'self-defense' && (
-                  <div className="my-6 flex gap-4 items-center overflow-hidden">
-                    <img
-                      src="/images/clinics/271A0332.jpg"
-                      alt="Self Defense Clinic"
-                      className="rounded-lg object-cover w-full md:w-[180px] flex-shrink-0"
-                      style={{
-                        height: '280px',
-                        border: `2px solid ${program.color}40`,
-                        boxShadow: `0 0 20px ${program.color}15`,
-                      }}
-                    />
-                    <img
-                      src="/images/clinics/271A0141.jpg"
-                      alt="Self Defense Clinic"
-                      className="hidden md:block flex-1 rounded-lg object-cover"
-                      style={{
-                        height: '280px',
-                        border: `2px solid ${program.color}40`,
-                        boxShadow: `0 0 20px ${program.color}15`,
-                      }}
-                    />
-                    <img
-                      src="/images/clinics/271A0435.jpg"
-                      alt="Self Defense Clinic"
-                      className="hidden md:block rounded-lg object-cover"
-                      style={{
-                        width: '180px',
-                        height: '280px',
-                        border: `2px solid ${program.color}40`,
-                        boxShadow: `0 0 20px ${program.color}15`,
-                      }}
-                    />
-                  </div>
-                )}
-                {program.id === 'privates' && (
-                  <div className="my-6 flex gap-4 items-center overflow-hidden">
-                    <img
-                      src="/images/clinics/271A0484.jpg"
-                      alt="Wrestling Private Training"
-                      className="rounded-lg object-cover w-full md:w-[180px] flex-shrink-0"
-                      style={{
-                        height: '280px',
-                        border: `2px solid ${program.color}40`,
-                        boxShadow: `0 0 20px ${program.color}15`,
-                      }}
-                    />
-                    <img
-                      src="/images/clinics/271A1120.jpg"
-                      alt="Wrestling Private Training"
-                      className="hidden md:block flex-1 rounded-lg object-cover"
-                      style={{
-                        height: '280px',
-                        border: `2px solid ${program.color}40`,
-                        boxShadow: `0 0 20px ${program.color}15`,
-                      }}
-                    />
-                    <img
-                      src="/images/clinics/271A0133.jpg"
-                      alt="Wrestling Private Training"
-                      className="hidden md:block rounded-lg object-cover"
-                      style={{
-                        width: '180px',
-                        height: '280px',
-                        border: `2px solid ${program.color}40`,
-                        boxShadow: `0 0 20px ${program.color}15`,
-                      }}
-                    />
-                  </div>
-                )}
-                {/* Requirements section */}
                 <div
-                  className={`rounded-lg ${isLarge ? 'p-6' : 'p-4'}`}
+                  className="rounded-lg p-3"
                   style={{
                     backgroundColor: `${program.color}10`,
                     border: `1px solid ${program.color}40`,
-                    boxShadow: `0 0 20px ${program.color}15`,
                   }}
                 >
-                  <h4 className={`${isLarge ? 'text-xl' : 'text-lg'} font-bold text-white mb-4`} style={{ color: program.color }}>Requirements</h4>
-                  <ul className={`${isLarge ? 'space-y-4' : 'space-y-3'}`}>
+                  <h4 className="text-sm font-bold mb-2" style={{ color: program.color }}>Requirements</h4>
+                  <ul className="space-y-1.5">
                     {program.includes.requirements.map((item, idx) => (
-                      <li key={idx} className={`flex items-start gap-3 ${isLarge ? 'text-base' : 'text-sm'} text-white`}>
-                        <span className="mt-0.5 text-lg" style={{ color: program.color }}>✔</span>
+                      <li key={idx} className="flex items-start gap-2 text-xs text-white">
+                        <span className="mt-0.5" style={{ color: program.color }}>✔</span>
                         <span className="font-medium">{item}</span>
                       </li>
                     ))}
@@ -322,163 +321,94 @@ export default function Clinics() {
             )}
           </div>
 
-          {/* Custom pricing tables for wrestling privates */}
+          {/* Pricing */}
           {program.id === 'privates' ? (
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Single Session Pricing */}
+            <div className="space-y-3">
               <div
-                className="rounded-lg p-6"
+                className="rounded-lg p-3"
                 style={{
                   backgroundColor: 'rgba(255, 255, 255, 0.03)',
                   border: `1px solid ${program.color}40`,
                 }}
               >
-                <h4 className="text-xl font-semibold text-white mb-2">Single Session</h4>
-                <p className="text-sm text-white/60 mb-4">60-Minute Session Pricing</p>
-
-                <table className="w-full text-sm">
+                <h4 className="text-sm font-semibold text-white mb-1">Single Session (60 min)</h4>
+                <table className="w-full text-xs">
                   <thead>
                     <tr className="border-b border-white/10">
-                      <th className="text-left py-2 text-white/60 font-medium">Group Size</th>
-                      <th className="text-right py-2 text-white/60 font-medium">Total</th>
-                      <th className="text-right py-2 text-white/60 font-medium">Per Athlete</th>
+                      <th className="text-left py-1 text-white/60">Size</th>
+                      <th className="text-right py-1 text-white/60">Total</th>
+                      <th className="text-right py-1 text-white/60">Per Athlete</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-b border-white/5">
-                      <td className="py-2 text-white">1 athlete</td>
-                      <td className="py-2 text-right text-gray-300">$100</td>
-                      <td className="py-2 text-right font-semibold" style={{ color: program.color }}>$100</td>
-                    </tr>
-                    <tr className="border-b border-white/5">
-                      <td className="py-2 text-white">2 athletes</td>
-                      <td className="py-2 text-right text-gray-300">$150</td>
-                      <td className="py-2 text-right font-semibold" style={{ color: program.color }}>$75</td>
-                    </tr>
-                    <tr className="border-b border-white/5">
-                      <td className="py-2 text-white">3 athletes</td>
-                      <td className="py-2 text-right text-gray-300">$180</td>
-                      <td className="py-2 text-right font-semibold" style={{ color: program.color }}>$60</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 text-white">4 athletes (max)</td>
-                      <td className="py-2 text-right text-gray-300">$200</td>
-                      <td className="py-2 text-right font-semibold" style={{ color: program.color }}>$50</td>
-                    </tr>
+                    <tr className="border-b border-white/5"><td className="py-1 text-white">1</td><td className="py-1 text-right text-gray-300">$100</td><td className="py-1 text-right font-semibold" style={{ color: program.color }}>$100</td></tr>
+                    <tr className="border-b border-white/5"><td className="py-1 text-white">2</td><td className="py-1 text-right text-gray-300">$150</td><td className="py-1 text-right font-semibold" style={{ color: program.color }}>$75</td></tr>
+                    <tr className="border-b border-white/5"><td className="py-1 text-white">3</td><td className="py-1 text-right text-gray-300">$180</td><td className="py-1 text-right font-semibold" style={{ color: program.color }}>$60</td></tr>
+                    <tr><td className="py-1 text-white">4 (max)</td><td className="py-1 text-right text-gray-300">$200</td><td className="py-1 text-right font-semibold" style={{ color: program.color }}>$50</td></tr>
                   </tbody>
                 </table>
-
-                <p className="text-xs text-white/50 mt-4 italic">
-                  Bring training partners and save per athlete!
-                </p>
               </div>
 
-              {/* Series Package Pricing */}
               <div
-                className="rounded-lg p-6"
+                className="rounded-lg p-3"
                 style={{
                   backgroundColor: 'rgba(255, 255, 255, 0.03)',
                   border: `1px solid ${program.color}40`,
                 }}
               >
-                <div className="flex items-center gap-2 mb-2">
-                  <h4 className="text-xl font-semibold text-white">6-Session Package</h4>
-                  <span
-                    className="px-2 py-0.5 rounded text-xs font-bold"
-                    style={{ backgroundColor: `${program.color}30`, color: program.color }}
-                  >
-                    RECOMMENDED
-                  </span>
+                <div className="flex items-center gap-2 mb-1">
+                  <h4 className="text-sm font-semibold text-white">6-Session Package</h4>
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold" style={{ backgroundColor: `${program.color}30`, color: program.color }}>RECOMMENDED</span>
                 </div>
-                <p className="text-sm text-white/60 mb-4">6 × 60 min sessions</p>
-
-                <table className="w-full text-sm">
+                <table className="w-full text-xs">
                   <thead>
                     <tr className="border-b border-white/10">
-                      <th className="text-left py-2 text-white/60 font-medium">Group Size</th>
-                      <th className="text-right py-2 text-white/60 font-medium">Total</th>
-                      <th className="text-right py-2 text-white/60 font-medium">Savings</th>
+                      <th className="text-left py-1 text-white/60">Size</th>
+                      <th className="text-right py-1 text-white/60">Total</th>
+                      <th className="text-right py-1 text-white/60">Savings</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-b border-white/5">
-                      <td className="py-2 text-white">1 athlete</td>
-                      <td className="py-2 text-right text-gray-300">$500</td>
-                      <td className="py-2 text-right font-semibold" style={{ color: '#10B981' }}>Save $100</td>
-                    </tr>
-                    <tr className="border-b border-white/5">
-                      <td className="py-2 text-white">2 athletes</td>
-                      <td className="py-2 text-right text-gray-300">$750</td>
-                      <td className="py-2 text-right font-semibold" style={{ color: '#10B981' }}>Save $150</td>
-                    </tr>
-                    <tr className="border-b border-white/5">
-                      <td className="py-2 text-white">3 athletes</td>
-                      <td className="py-2 text-right text-gray-300">$900</td>
-                      <td className="py-2 text-right font-semibold" style={{ color: '#10B981' }}>Save $180</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 text-white">4 athletes (max)</td>
-                      <td className="py-2 text-right text-gray-300">$1,000</td>
-                      <td className="py-2 text-right font-semibold" style={{ color: '#10B981' }}>Save $200</td>
-                    </tr>
+                    <tr className="border-b border-white/5"><td className="py-1 text-white">1</td><td className="py-1 text-right text-gray-300">$500</td><td className="py-1 text-right font-semibold" style={{ color: '#10B981' }}>Save $100</td></tr>
+                    <tr className="border-b border-white/5"><td className="py-1 text-white">2</td><td className="py-1 text-right text-gray-300">$750</td><td className="py-1 text-right font-semibold" style={{ color: '#10B981' }}>Save $150</td></tr>
+                    <tr className="border-b border-white/5"><td className="py-1 text-white">3</td><td className="py-1 text-right text-gray-300">$900</td><td className="py-1 text-right font-semibold" style={{ color: '#10B981' }}>Save $180</td></tr>
+                    <tr><td className="py-1 text-white">4 (max)</td><td className="py-1 text-right text-gray-300">$1,000</td><td className="py-1 text-right font-semibold" style={{ color: '#10B981' }}>Save $200</td></tr>
                   </tbody>
                 </table>
-
-                <p className="text-xs mt-4 font-medium" style={{ color: program.color }}>
-                  Best value for serious development!
-                </p>
               </div>
             </div>
           ) : (
-            <div className={`grid md:grid-cols-2 ${isLarge ? 'gap-6' : 'gap-4'}`}>
+            <div className="grid grid-cols-2 gap-3">
               {program.tiers.map((tier, idx) => (
                 <div
                   key={idx}
-                  className={`rounded-lg ${isLarge ? 'p-6' : 'p-4'}`}
+                  className="rounded-lg p-3"
                   style={{
                     backgroundColor: 'rgba(255, 255, 255, 0.03)',
                     border: `1px solid ${program.color}40`,
                   }}
                 >
-                  <h4 className={`${isLarge ? 'text-xl' : 'text-lg'} font-semibold text-white mb-3`}>{tier.name}</h4>
-
-                  <div className={`space-y-3 ${isLarge ? 'text-base' : 'text-sm'}`}>
+                  <h4 className="text-sm font-semibold text-white mb-2">{tier.name}</h4>
+                  <div className="space-y-1.5 text-xs">
                     <div className="flex justify-between">
                       <span className="text-white/60">Format:</span>
                       <span className="text-gray-300">{tier.format}</span>
                     </div>
-
                     {tier.participants && (
                       <div className="flex justify-between">
                         <span className="text-white/60">Audience:</span>
                         <span className="text-gray-300">{tier.participants}</span>
                       </div>
                     )}
-
-                    {/* Price display */}
-                    <div className="flex justify-between items-center pt-3 border-t border-white/10 mt-3">
+                    <div className="flex justify-between items-center pt-2 border-t border-white/10">
                       <span className="text-white/60">Price:</span>
-                      <span className={`${isLarge ? 'text-2xl' : 'text-xl'} font-bold`} style={{ color: program.color }}>
-                        {tier.price}
-                      </span>
+                      <span className="text-base font-bold" style={{ color: program.color }}>{tier.price}</span>
                     </div>
-
-                    {tier.additionalParticipants && (
-                      <div className={`${isLarge ? 'text-sm' : 'text-xs'} text-white/50 pt-2`}>
-                        {tier.additionalParticipants}
-                      </div>
-                    )}
-
                     {tier.perPersonCost && (
-                      <div className={`${isLarge ? 'text-sm' : 'text-xs'} text-white/70 pt-2`}>
-                        {tier.perPersonCost}
-                      </div>
+                      <div className="text-[10px] text-white/70">{tier.perPersonCost}</div>
                     )}
-
                     {tier.highlight && (
-                      <div className={`${isLarge ? 'text-sm' : 'text-xs'} font-medium pt-2`} style={{ color: program.color }}>
-                        {tier.highlight}
-                      </div>
+                      <div className="text-[10px] font-medium" style={{ color: program.color }}>{tier.highlight}</div>
                     )}
                   </div>
                 </div>
@@ -486,11 +416,11 @@ export default function Clinics() {
             </div>
           )}
 
-          {/* Contact CTA */}
-          <div className={isLarge ? "mt-8" : "mt-6"}>
+          {/* CTA */}
+          <div className="mt-auto pt-4">
             <Link
               href={`/projects/clinics/checkout?program=${program.id}`}
-              className={`inline-flex items-center gap-2 ${isLarge ? 'px-6 py-3 text-base' : 'px-4 py-2 text-sm'} rounded-lg font-medium transition-all duration-300 hover:scale-110 hover:-translate-y-1`}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm rounded-lg font-medium transition-all duration-300 hover:scale-105"
               style={{
                 backgroundColor: `${program.color}20`,
                 color: program.color,
@@ -498,7 +428,7 @@ export default function Clinics() {
               }}
             >
               Book This Program
-              <svg className={isLarge ? "w-5 h-5" : "w-4 h-4"} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
@@ -513,127 +443,207 @@ export default function Clinics() {
       <ProjectNav title="KIRTI SAXENA" />
       <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-5xl mx-auto">
         <ProjectHeader
-          title="Clinics"
+          title="Clinics & Talks"
           date="Available for Booking"
-          category="Self Defense · Wrestling · Training"
+          category="Self Defense · Wrestling · Speaking · Mindset · Innovation"
         />
 
-        {/* Discount Cards - Side by Side */}
-        <motion.div {...sectionReveal} className="grid md:grid-cols-2 gap-6 mb-12 items-stretch">
-          {/* Bundle Card */}
-          <div
-            className="rounded-xl p-6 h-full flex flex-col"
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(2, 74, 162, 0.15) 100%)',
-              border: '2px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 0 40px rgba(255, 215, 0, 0.1), 0 0 40px rgba(2, 74, 162, 0.1)',
-            }}
-          >
-            <div className="text-center mb-6">
-              <h3 className="text-3xl font-black text-white mb-3 tracking-wide">BUNDLE & SAVE</h3>
-              <p className="text-white/70 text-base">Combine multiple programs for a custom package</p>
-            </div>
+        {/* Navigation Buttons */}
+        <div className="flex flex-wrap gap-3 mb-12">
+          {/* Clinics */}
+          {[
+            { label: 'Self Defense', target: 'self-defense', color: '#FFD700' },
+            { label: 'Wrestling Privates', target: 'privates', color: '#F97316' },
+          ].map((btn) => (
+            <button
+              key={btn.target}
+              onClick={() => document.getElementById(btn.target)?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105"
+              style={{ backgroundColor: `${btn.color}20`, color: btn.color, border: `1px solid ${btn.color}` }}
+            >
+              {btn.label}
+            </button>
+          ))}
 
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(255, 215, 0, 0.1)', border: '1px solid rgba(255, 215, 0, 0.4)' }}>
-                <div className="text-sm text-white/60 mb-1">Self Defense</div>
-                <div className="text-base font-bold" style={{ color: '#FFD700' }}>Clinic</div>
-              </div>
-              <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(249, 115, 22, 0.1)', border: '1px solid rgba(249, 115, 22, 0.4)' }}>
-                <div className="text-sm text-white/60 mb-1">Wrestling</div>
-                <div className="text-base font-bold" style={{ color: '#F97316' }}>Privates</div>
-              </div>
-            </div>
+          <div className="w-px bg-white/20 mx-1"></div>
 
-            <div className="text-center mb-6 flex-grow">
-              <div className="inline-block px-5 py-3 rounded-full mb-4" style={{ background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)' }}>
-                <span className="text-2xl font-black text-black">SAVE 15%</span>
-              </div>
-              <p className="text-white/80 text-base mb-4">
-                Book 2 or more programs together and use BUNDLE at checkout
-              </p>
-              <div className="flex flex-col items-center gap-2 text-m text-white/60">
-              </div>
-            </div>
+          {/* Talks */}
+          {[
+            { label: 'High-Performance Mindset', target: 'mindset', color: '#A855F7' },
+            { label: 'Innovate for a Purpose', target: 'founder', color: '#10B981' },
+          ].map((btn) => (
+            <button
+              key={btn.target}
+              onClick={() => document.getElementById(btn.target)?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105"
+              style={{ backgroundColor: `${btn.color}20`, color: btn.color, border: `1px solid ${btn.color}` }}
+            >
+              {btn.label}
+            </button>
+          ))}
 
-            <div className="text-center mt-auto">
-              <Link
-                href="/projects/clinics/checkout"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-semibold transition-all duration-300 hover:scale-110 hover:-translate-y-1"
-                style={{
-                  background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
-                  color: '#000',
-                }}
+          <div className="w-px bg-white/20 mx-1"></div>
+
+          {/* Other sections */}
+          {[
+            { label: 'Bio', target: 'bio-section', color: '#FFD700' },
+            { label: 'Location', target: 'location-section', color: '#3B82F6' },
+            { label: 'Reviews', target: 'reviews-section', color: '#F59E0B' },
+          ].map((btn) => (
+            <button
+              key={btn.target}
+              onClick={() => document.getElementById(btn.target)?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 hover:scale-105"
+              style={{ backgroundColor: `${btn.color}20`, color: btn.color, border: `1px solid ${btn.color}` }}
+            >
+              {btn.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Auto-show Discount Popup */}
+        {showDiscountPopup && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />
+
+            <div
+              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl"
+              style={{
+                backgroundColor: '#111',
+                border: '2px solid rgba(255, 215, 0, 0.4)',
+                boxShadow: '0 0 60px rgba(255, 215, 0, 0.15), 0 0 60px rgba(59, 130, 246, 0.1)',
+              }}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setShowDiscountPopup(false)}
+                className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white"
               >
-                Build Your Bundle
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
-              </Link>
+              </button>
+
+              <div className="p-6">
+                {/* Bundle & Save */}
+                <div className="text-center mb-5">
+                  <h3 className="text-3xl font-black text-white mb-2 tracking-wide">BUNDLE & SAVE</h3>
+                  <p className="text-white/70 text-base">Combine multiple programs for a custom package</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 mb-5">
+                  <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(255, 215, 0, 0.1)', border: '1px solid rgba(255, 215, 0, 0.4)' }}>
+                    <div className="text-sm text-white/60 mb-1">Self Defense</div>
+                    <div className="text-base font-bold" style={{ color: '#FFD700' }}>Clinic</div>
+                  </div>
+                  <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(249, 115, 22, 0.1)', border: '1px solid rgba(249, 115, 22, 0.4)' }}>
+                    <div className="text-sm text-white/60 mb-1">Wrestling</div>
+                    <div className="text-base font-bold" style={{ color: '#F97316' }}>Privates</div>
+                  </div>
+                  <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(168, 85, 247, 0.1)', border: '1px solid rgba(168, 85, 247, 0.4)' }}>
+                    <div className="text-sm text-white/60 mb-1">Mindset</div>
+                    <div className="text-base font-bold" style={{ color: '#A855F7' }}>Talk</div>
+                  </div>
+                  <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.4)' }}>
+                    <div className="text-sm text-white/60 mb-1">Innovation</div>
+                    <div className="text-base font-bold" style={{ color: '#10B981' }}>Talk</div>
+                  </div>
+                </div>
+
+                <div className="text-center mb-5">
+                  <div className="inline-block px-5 py-3 rounded-full mb-3" style={{ background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)' }}>
+                    <span className="text-2xl font-black text-black">SAVE 15%</span>
+                  </div>
+                  <p className="text-white/80 text-base">
+                    Book 2 or more programs together and use <span className="font-bold text-white">BUNDLE</span> at checkout
+                  </p>
+                </div>
+
+                {/* Divider */}
+                <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent my-6"></div>
+
+                {/* School Discount */}
+                <div className="text-center mb-5">
+                  <h3 className="text-3xl font-black text-white mb-2 tracking-wide">SCHOOL DISCOUNT</h3>
+                  <p className="text-white/70 text-base">Special pricing for educational institutions</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 mb-5">
+                  <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.4)' }}>
+                    <div className="text-2xl mb-1">🏫</div>
+                    <div className="text-sm font-bold text-white">K-12</div>
+                  </div>
+                  <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(147, 51, 234, 0.1)', border: '1px solid rgba(147, 51, 234, 0.4)' }}>
+                    <div className="text-2xl mb-1">🎓</div>
+                    <div className="text-sm font-bold text-white">University</div>
+                  </div>
+                  <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.4)' }}>
+                    <div className="text-2xl mb-1">📚</div>
+                    <div className="text-sm font-bold text-white">Organizations</div>
+                  </div>
+                  <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(147, 51, 234, 0.1)', border: '1px solid rgba(147, 51, 234, 0.4)' }}>
+                    <div className="text-2xl mb-1">🎯</div>
+                    <div className="text-sm font-bold text-white">Workshops</div>
+                  </div>
+                </div>
+
+                <div className="text-center mb-6">
+                  <div className="inline-block px-5 py-3 rounded-full mb-3" style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #9333EA 100%)' }}>
+                    <span className="text-2xl font-black text-white">SAVE 35%</span>
+                  </div>
+                  <p className="text-white/80 text-base">
+                    When you bundle two or more programs use <span className="font-bold text-white">SKULE2</span> at checkout
+                  </p>
+                </div>
+
+                {/* CTA */}
+                <div className="text-center">
+                  <Link
+                    href="/projects/clinics/checkout"
+                    onClick={() => setShowDiscountPopup(false)}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-semibold transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                    style={{
+                      background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+                      color: '#000',
+                    }}
+                  >
+                    Build Your Bundle
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
+        )}
 
-          {/* School Discount Card */}
-          <div
-            className="rounded-xl p-6 h-full flex flex-col"
-            style={{
-              background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(147, 51, 234, 0.15) 100%)',
-              border: '2px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 0 40px rgba(59, 130, 246, 0.1), 0 0 40px rgba(147, 51, 234, 0.1)',
-            }}
-          >
-            <div className="text-center mb-6">
-              <h3 className="text-3xl font-black text-white mb-3 tracking-wide">SCHOOL DISCOUNT</h3>
-              <p className="text-white/70 text-base">Special pricing for educational institutions</p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mb-6">
-              <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.4)' }}>
-                <div className="text-2xl mb-1">🏫</div>
-                <div className="text-sm font-bold text-white">K-12</div>
-              </div>
-              <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(147, 51, 234, 0.1)', border: '1px solid rgba(147, 51, 234, 0.4)' }}>
-                <div className="text-2xl mb-1">🎓</div>
-                <div className="text-sm font-bold text-white">University</div>
-              </div>
-              <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.4)' }}>
-                <div className="text-2xl mb-1">📚</div>
-                <div className="text-sm font-bold text-white">Organizations</div>
-              </div>
-              <div className="rounded-lg p-3 text-center h-[72px] flex flex-col justify-center" style={{ backgroundColor: 'rgba(147, 51, 234, 0.1)', border: '1px solid rgba(147, 51, 234, 0.4)' }}>
-                <div className="text-2xl mb-1">🎯</div>
-                <div className="text-sm font-bold text-white">Workshops</div>
-              </div>
-            </div>
-
-            <div className="text-center mb-6 flex-grow">
-              <div className="inline-block px-5 py-3 rounded-full mb-4" style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #9333EA 100%)' }}>
-                <span className="text-2xl font-black text-white">SAVE 35%</span>
-              </div>
-              <p className="text-white/80 text-base mb-4">
-                When you bundle two or more programs use SKULE2 at checkout
-              </p>
-              <div className="flex flex-col items-center gap-2 text-m text-white/60">
-              </div>
-            </div>
-
-            <div className="text-center mt-auto">
-              <Link
-                href="/projects/clinics/checkout"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-base font-semibold transition-all duration-300 hover:scale-110 hover:-translate-y-1"
-                style={{
-                  background: 'linear-gradient(135deg, #3B82F6 0%, #9333EA 100%)',
-                  color: '#fff',
-                }}
-              >
-                School Pricing
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
-            </div>
+        {/* Clinic Programs */}
+        <div id="clinics-section" className="mb-16 scroll-mt-24">
+          <div className="mb-6">
+            <h2 className="text-3xl font-black text-white tracking-wide">CLINICS</h2>
           </div>
-        </motion.div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <ProgramCard program={programs.find(p => p.id === 'self-defense')!} />
+            <ProgramCard program={programs.find(p => p.id === 'privates')!} />
+          </div>
+        </div>
+
+        {/* Separator */}
+        <div className="max-w-3xl mx-auto mb-12">
+          <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
+        </div>
+
+        {/* Talk Programs */}
+        <div id="talks-section" className="mb-16 scroll-mt-24">
+          <div className="mb-6">
+            <h2 className="text-3xl font-black text-white tracking-wide">TALKS</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <ProgramCard program={programs.find(p => p.id === 'mindset')!} />
+            <ProgramCard program={programs.find(p => p.id === 'founder')!} />
+          </div>
+        </div>
 
         {/* Separator */}
         <div className="max-w-3xl mx-auto mb-12">
@@ -641,7 +651,7 @@ export default function Clinics() {
         </div>
 
         {/* Instructor Bio Card */}
-        <motion.div {...sectionReveal} className="mb-16">
+        <div id="bio-section" className="mb-16 scroll-mt-24">
           <div
             className="rounded-xl p-8 flex items-center gap-8"
             style={{
@@ -682,21 +692,7 @@ export default function Clinics() {
               </div>
             </div>
           </div>
-        </motion.div>
-
-        {/* Programs */}
-        <motion.div {...sectionReveal} className="mb-16">
-          {/* Self Defense Clinic - Full Width */}
-          <ProgramCard program={programs.find(p => p.id === 'self-defense')!} isLarge={true} />
-
-          {/* Divider */}
-          <div className="max-w-3xl mx-auto my-12">
-            <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
-          </div>
-
-          {/* Wrestling Privates - Full Width */}
-          <ProgramCard program={programs.find(p => p.id === 'privates')!} isLarge={true} />
-        </motion.div>
+        </div>
 
         {/* Add-On Note */}
         <div className="max-w-3xl mx-auto mb-12 text-center">
@@ -706,7 +702,7 @@ export default function Clinics() {
         </div>
 
         {/* Location Section */}
-        <motion.div {...sectionReveal} className="max-w-5xl mx-auto">
+        <div id="location-section" className="max-w-5xl mx-auto scroll-mt-24">
           <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-12"></div>
           <h2 className="text-2xl font-bold text-white mb-6 text-center">No Mats or Space, No Worries!</h2>
           <p className="text-sm text-white/60 text-center mb-8">
@@ -785,10 +781,10 @@ export default function Clinics() {
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Reviews Section */}
-        <motion.div {...sectionReveal} className="max-w-5xl mx-auto mt-20">
+        <div id="reviews-section" className="max-w-5xl mx-auto mt-20 scroll-mt-24">
           <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-12"></div>
           <h2 className="text-2xl font-bold text-white mb-2 text-center">Client Reviews</h2>
           <p className="text-sm text-white/60 text-center mb-12">What past clients are saying</p>
@@ -921,10 +917,10 @@ export default function Clinics() {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Inquiry Section */}
-        <motion.div {...sectionReveal} id="inquiry" className="max-w-2xl mx-auto mt-20 scroll-mt-24">
+        <div id="inquiry" className="max-w-2xl mx-auto mt-20 scroll-mt-24">
           <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mb-12"></div>
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-white mb-2">Have a Question?</h2>
@@ -998,7 +994,7 @@ export default function Clinics() {
               </div>
             </form>
           )}
-        </motion.div>
+        </div>
       </div>
     </main>
   );

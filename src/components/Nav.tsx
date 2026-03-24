@@ -10,10 +10,9 @@ export default function Nav() {
   const [portfolioOpen, setPortfolioOpen] = useState(false);
 
   const serviceItems = [
-    { href: '/projects/artist', label: 'ARTIST' },
+    { href: '/projects/clinics', label: 'CLINICS & TALKS' },
     { href: '/projects/web-development', label: 'WEB DEVELOPMENT' },
-    { href: '/projects/talks', label: 'TALKS' },
-    { href: '/projects/clinics', label: 'CLINICS' },
+    { href: '/projects/artist', label: 'ARTIST' },
   ];
 
   const portfolioItems = [
