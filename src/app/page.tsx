@@ -5,27 +5,7 @@ import Link from 'next/link';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(false);
-  const [currentVideo, setCurrentVideo] = useState('');
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [portfolioOpen, setPortfolioOpen] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const introVideoRef = useRef<HTMLVideoElement>(null);
-
-  const handleVideoHover = (videoName: string) => {
-    setCurrentVideo(videoName);
-  };
-
-  const handleVideoLeave = () => {
-    setCurrentVideo('');
-  };
-
-  useEffect(() => {
-    if (currentVideo && videoRef.current) {
-      videoRef.current.play();
-    } else if (videoRef.current) {
-      videoRef.current.pause();
-    }
-  }, [currentVideo]);
 
   // Check if intro should be shown
   useEffect(() => {
@@ -145,21 +125,6 @@ export default function Home() {
         !showIntro ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      {/* Background Video */}
-      {currentVideo && (
-        <video
-          key={currentVideo}
-          ref={videoRef}
-          className="fixed inset-0 w-full h-full object-cover z-0 opacity-50"
-          muted
-          loop
-          autoPlay
-          playsInline
-        >
-          <source src={currentVideo.startsWith('/') ? currentVideo : `/videos/${currentVideo}`} type="video/mp4" />
-        </video>
-      )}
-
       {/* Logo in top-left corner */}
       <div
         className="fixed top-4 left-4 md:top-8 md:left-8 z-50 cursor-pointer hover:opacity-80 transition-opacity"
@@ -183,81 +148,81 @@ export default function Home() {
       {/* Full-width horizontal layout - vertical on mobile, horizontal on desktop */}
       <div className="min-h-screen flex items-center relative z-10">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
-          <div
-            className="group h-[50vh] md:h-screen flex flex-col items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300 cursor-pointer relative"
-            onMouseEnter={() => handleVideoHover('/clinics_landingpage.mp4')}
-            onMouseLeave={handleVideoLeave}
-            onClick={() => { setServicesOpen(!servicesOpen); setPortfolioOpen(false); }}
-          >
-            <div className="flex items-center gap-2 md:gap-3">
-              <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
-                SERVICES
-              </h2>
-              <svg
-                className={`w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 transition-transform duration-300 group-hover:text-[#FD9635] ${servicesOpen ? 'rotate-180' : ''}`}
-                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-
-            <div
-              className={`flex flex-col items-center gap-3 md:gap-4 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
-                servicesOpen ? 'max-h-96 opacity-100 mt-6 md:mt-10' : 'max-h-0 opacity-0 mt-0'
-              }`}
-            >
+          {/* Services - top row */}
+          <div className="flex flex-col items-center justify-center py-8 md:py-0 md:h-screen">
+            <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider mb-6 md:mb-10">
+              SERVICES
+            </h2>
+            <div className="grid grid-cols-3 gap-3 md:gap-4 w-full px-4 md:px-8">
               {[
-                { href: '/projects/clinics', label: 'CLINICS & TALKS' },
-                { href: '/projects/web-development', label: 'WEB DEVELOPMENT' },
-                { href: '/projects/artist', label: 'ARTIST' },
+                { href: '/projects/web-development', label: 'WEB DEVELOPMENT', video: '/clinics_landingpage.mp4' },
+                { href: '/projects/clinics', label: 'CLINICS & TALKS', video: '/clinics_landingpage.mp4' },
+                { href: '/projects/artist', label: 'ARTIST', video: '/artist_landingpage.mp4' },
               ].map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-base md:text-xl font-light tracking-wider text-gray-300 hover:text-[#FD9635] transition-colors"
-                  onClick={(e) => e.stopPropagation()}
+                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 aspect-square relative"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(253, 150, 53, 0.2)',
+                  }}
                 >
-                  {item.label}
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                  >
+                    <source src={item.video} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
+                  <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
+                    <h3 className="text-[10px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                      {item.label}
+                    </h3>
+                  </div>
                 </Link>
               ))}
             </div>
           </div>
 
-          <div
-            className="group h-[50vh] md:h-screen flex flex-col items-center justify-center hover:bg-black/60 hover:shadow-[inset_0_0_80px_rgba(253,150,53,0.15)] transition-all duration-300 cursor-pointer relative"
-            onMouseEnter={() => handleVideoHover('/model_landingpage.MP4')}
-            onMouseLeave={handleVideoLeave}
-            onClick={() => { setPortfolioOpen(!portfolioOpen); setServicesOpen(false); }}
-          >
-            <div className="flex items-center gap-2 md:gap-3">
-              <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider group-hover:text-[#FD9635] transition-colors">
-                PORTFOLIO
-              </h2>
-              <svg
-                className={`w-4 h-4 md:w-6 md:h-6 lg:w-8 lg:h-8 transition-transform duration-300 group-hover:text-[#FD9635] ${portfolioOpen ? 'rotate-180' : ''}`}
-                fill="none" stroke="currentColor" viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
-
-            <div
-              className={`flex flex-col items-center gap-3 md:gap-4 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
-                portfolioOpen ? 'max-h-96 opacity-100 mt-6 md:mt-10' : 'max-h-0 opacity-0 mt-0'
-              }`}
-            >
+          {/* Portfolio - bottom row */}
+          <div className="flex flex-col items-center justify-center py-8 md:py-0 md:h-screen">
+            <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider mb-6 md:mb-10">
+              PORTFOLIO
+            </h2>
+            <div className="grid grid-cols-3 gap-3 md:gap-4 w-full px-4 md:px-8">
               {[
-                { href: '/projects/engineering', label: 'ENGINEER' },
-                { href: '/projects/athletics', label: 'ATHLETE' },
-                { href: '/projects/modelling', label: 'MODEL' },
+                { href: '/projects/engineering', label: 'ENGINEER', video: '/engineering_landingpage.mp4' },
+                { href: '/projects/athletics', label: 'ATHLETE', video: '/wrestling_landingpage.mp4' },
+                { href: '/projects/modelling', label: 'MODEL', video: '/model_landingpage.MP4' },
               ].map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-base md:text-xl font-light tracking-wider text-gray-300 hover:text-[#FD9635] transition-colors"
-                  onClick={(e) => e.stopPropagation()}
+                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 aspect-square relative"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(253, 150, 53, 0.2)',
+                  }}
                 >
-                  {item.label}
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                  >
+                    <source src={item.video} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
+                  <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
+                    <h3 className="text-[10px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                      {item.label}
+                    </h3>
+                  </div>
                 </Link>
               ))}
             </div>

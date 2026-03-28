@@ -48,7 +48,7 @@ export default function WebDevelopment() {
   return (
     <main className="min-h-screen bg-black text-white pb-20">
       <ProjectNav title="KIRTI SAXENA" />
-      <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-5xl mx-auto">
+      <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-7xl mx-auto">
         <ProjectHeader
           title="Web Development"
           date="Available for Booking"
@@ -69,64 +69,102 @@ export default function WebDevelopment() {
               className="group rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1"
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '2px solid rgba(255, 255, 255, 0.1)',
+                border: '2px solid rgba(253, 150, 53, 0.2)',
               }}
             >
-              <div className="aspect-video bg-gradient-to-br from-[#FD9635]/20 to-black/60 flex items-center justify-center overflow-hidden">
-                <img src="/KIRTILOGO.PNG" alt="kirtisaxena.com" className="h-16 w-auto object-contain group-hover:scale-110 transition-transform duration-300" />
+              <div className="aspect-video relative overflow-hidden">
+                <iframe
+                  src="/"
+                  className="w-[200%] h-[200%] origin-top-left scale-50 pointer-events-none"
+                  title="kirtisaxena.com preview"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin"
+                />
+                <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
                 <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#FD9635] transition-colors">kirtisaxena.com</h3>
-                <p className="text-sm text-white/50">Personal portfolio &amp; services platform</p>
-                <div className="flex flex-wrap gap-2 mt-3">
+                <p className="text-sm text-white/50 mb-3">Portfolio site with Stripe checkout, service packages, and email integration</p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(253, 150, 53, 0.2)', color: '#FD9635', border: '1px solid rgba(253, 150, 53, 0.4)' }}>Portfolio</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(253, 150, 53, 0.2)', color: '#FD9635', border: '1px solid rgba(253, 150, 53, 0.4)' }}>Checkout</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Next.js</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Stripe</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Vercel</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Framer Motion</span>
                 </div>
               </div>
             </a>
 
-            {/* Project 2 - Placeholder */}
-            <div
-              className="group rounded-xl overflow-hidden"
+            {/* Project 2 - The Akhara */}
+            <a
+              href="https://theakhara.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1"
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '2px solid rgba(255, 255, 255, 0.1)',
+                border: '2px solid rgba(255, 215, 0, 0.2)',
               }}
             >
-              <div className="aspect-video bg-gradient-to-br from-blue-500/10 to-black/60 flex items-center justify-center">
-                <span className="text-white/20 text-sm">Coming Soon</span>
+              <div className="aspect-video relative overflow-hidden">
+                <iframe
+                  src="https://theakhara.com"
+                  className="absolute top-1/2 left-1/2 w-[300%] h-[300%] -translate-x-1/2 -translate-y-1/2 scale-[0.333] pointer-events-none"
+                  title="theakhara.com preview"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin"
+                />
+                <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-bold text-white/40 mb-1">Client Project</h3>
-                <p className="text-sm text-white/30">Business website</p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-white/30">React</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-white/30">Tailwind</span>
+                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#FFD700] transition-colors">theakhara.com</h3>
+                <p className="text-sm text-white/50 mb-3">Wrestling club site with gym membership signup, Stripe payments, and scheduling</p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(255, 215, 0, 0.2)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)' }}>Business</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(255, 215, 0, 0.2)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)' }}>Checkout</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Next.js</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Stripe</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Vercel</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Framer Motion</span>
                 </div>
               </div>
-            </div>
+            </a>
 
-            {/* Project 3 - Placeholder */}
-            <div
-              className="group rounded-xl overflow-hidden"
+            {/* Project 3 - Ajna Materials */}
+            <a
+              href="https://ajnamaterials.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1"
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '2px solid rgba(255, 255, 255, 0.1)',
+                border: '2px solid rgba(147, 51, 234, 0.2)',
               }}
             >
-              <div className="aspect-video bg-gradient-to-br from-purple-500/10 to-black/60 flex items-center justify-center">
-                <span className="text-white/20 text-sm">Coming Soon</span>
+              <div className="aspect-video relative overflow-hidden">
+                <iframe
+                  src="https://ajnamaterials.com"
+                  className="w-[200%] h-[200%] origin-top-left scale-50 pointer-events-none"
+                  title="ajnamaterials.com preview"
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin"
+                />
+                <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-bold text-white/40 mb-1">Client Project</h3>
-                <p className="text-sm text-white/30">E-commerce platform</p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-white/30">Next.js</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/5 text-white/30">Stripe</span>
+                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#9333EA] transition-colors">ajnamaterials.com</h3>
+                <p className="text-sm text-white/50 mb-3">E-commerce marketplace with product catalog, inventory management, and Stripe checkout</p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(147, 51, 234, 0.2)', color: '#9333EA', border: '1px solid rgba(147, 51, 234, 0.4)' }}>E-Commerce</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(147, 51, 234, 0.2)', color: '#9333EA', border: '1px solid rgba(147, 51, 234, 0.4)' }}>Marketplace</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Next.js</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">AWS</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Stripe</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Tailwind</span>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
 
@@ -144,226 +182,82 @@ export default function WebDevelopment() {
             </p>
           </div>
 
-          {/* Packages - Side by Side Grid */}
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
-
-            {/* 1 - Starter One-Pager */}
-            <div
-              className="rounded-xl p-6 md:p-8"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '2px solid rgba(59, 130, 246, 0.3)',
-                boxShadow: '0 0 20px rgba(59, 130, 246, 0.1)',
-              }}
-            >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                <div>
-                  <div
-                    className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3"
-                    style={{ backgroundColor: 'rgba(59, 130, 246, 0.2)', color: '#3B82F6', border: '1px solid rgba(59, 130, 246, 0.4)' }}
-                  >
-                    Starter
-                  </div>
-                  <h3 className="text-2xl font-black tracking-wider" style={{ color: '#3B82F6' }}>STARTER ONE-PAGER</h3>
-                  <p className="text-gray-300 text-sm mt-2">A clean, professional landing page to get your business online fast.</p>
-                </div>
-                <p className="text-3xl font-black whitespace-nowrap" style={{ color: '#3B82F6' }}>$200</p>
-              </div>
-
-              <div
-                className="rounded-lg p-4 mb-4"
-                style={{ backgroundColor: 'rgba(59, 130, 246, 0.1)', border: '1px solid rgba(59, 130, 246, 0.3)' }}
-              >
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#3B82F6' }}>&#10003;</span><span className="font-medium">1-page website (Hero, About, Services, Testimonials, CTA)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#3B82F6' }}>&#10003;</span><span className="font-medium">Mobile-optimized</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#3B82F6' }}>&#10003;</span><span className="font-medium">Clean layout with basic styling</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#3B82F6' }}>&#10003;</span><span className="font-medium">Contact button (Email / Phone / Instagram)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#3B82F6' }}>&#10003;</span><span className="font-medium">Domain + hosting setup assistance</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#3B82F6' }}>&#10003;</span><span className="font-medium">1 revision round</span></li>
-                </ul>
-              </div>
-
-              <p className="text-sm text-white/60 mb-4">Custom visual styling upgrade: <span style={{ color: '#3B82F6' }}>+$100</span> (Total $300)</p>
-              <p className="text-xs text-white/40 italic">Best for: Small businesses that just need a strong, simple online presence.</p>
-            </div>
-
-            {/* 2 - Essentials */}
-            <div
-              className="rounded-xl p-6 md:p-8"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '2px solid rgba(16, 185, 129, 0.3)',
-                boxShadow: '0 0 20px rgba(16, 185, 129, 0.1)',
-              }}
-            >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                <div>
-                  <div
-                    className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3"
-                    style={{ backgroundColor: 'rgba(16, 185, 129, 0.2)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.4)' }}
-                  >
-                    Essentials
-                  </div>
-                  <h3 className="text-2xl font-black tracking-wider" style={{ color: '#10B981' }}>ESSENTIALS</h3>
-                  <p className="text-gray-300 text-sm mt-2">A simple but professional multi-page business website.</p>
-                </div>
-                <p className="text-3xl font-black whitespace-nowrap" style={{ color: '#10B981' }}>$600</p>
-              </div>
-
-              <div
-                className="rounded-lg p-4 mb-4"
-                style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)' }}
-              >
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#10B981' }}>&#10003;</span><span className="font-medium">Up to 3 pages (Home, About, Services, Contact)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#10B981' }}>&#10003;</span><span className="font-medium">Mobile responsive</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#10B981' }}>&#10003;</span><span className="font-medium">Basic SEO setup (titles + meta descriptions)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#10B981' }}>&#10003;</span><span className="font-medium">Contact form (email integration)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#10B981' }}>&#10003;</span><span className="font-medium">Google Maps integration</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#10B981' }}>&#10003;</span><span className="font-medium">2 revision rounds</span></li>
-                </ul>
-              </div>
-
-              <p className="text-sm text-white/60 mb-4">Custom design version: <span style={{ color: '#10B981' }}>$700</span></p>
-              <p className="text-xs text-white/40 italic">Best for: Local service businesses that want credibility and structure.</p>
-            </div>
-
-            {/* 3 - Growth */}
-            <div
-              className="rounded-xl p-6 md:p-8 relative"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '3px solid rgba(168, 85, 247, 0.5)',
-                boxShadow: '0 0 30px rgba(168, 85, 247, 0.15)',
-              }}
-            >
-              <div className="absolute -top-3 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider"
-                style={{ backgroundColor: '#A855F7', color: '#000' }}>
-                Popular
-              </div>
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                <div>
-                  <div
-                    className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3"
-                    style={{ backgroundColor: 'rgba(168, 85, 247, 0.2)', color: '#A855F7', border: '1px solid rgba(168, 85, 247, 0.4)' }}
-                  >
-                    Growth
-                  </div>
-                  <h3 className="text-2xl font-black tracking-wider" style={{ color: '#A855F7' }}>GROWTH</h3>
-                  <p className="text-gray-300 text-sm mt-2">Built for businesses that want real lead generation.</p>
-                </div>
-                <p className="text-3xl font-black whitespace-nowrap" style={{ color: '#A855F7' }}>$1,000</p>
-              </div>
-
-              <div
-                className="rounded-lg p-4 mb-4"
-                style={{ backgroundColor: 'rgba(168, 85, 247, 0.1)', border: '1px solid rgba(168, 85, 247, 0.3)' }}
-              >
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#A855F7' }}>&#10003;</span><span className="font-medium">Up to 5 pages</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#A855F7' }}>&#10003;</span><span className="font-medium">Cohesive design system (fonts, spacing, branding consistency)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#A855F7' }}>&#10003;</span><span className="font-medium">Enhanced SEO setup + image optimization</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#A855F7' }}>&#10003;</span><span className="font-medium">Lead capture form + thank-you page</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#A855F7' }}>&#10003;</span><span className="font-medium">Google Analytics (GA4) setup</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#A855F7' }}>&#10003;</span><span className="font-medium">2 revision rounds</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#A855F7' }}>&#10003;</span><span className="font-medium">Custom branding + design consultation included</span></li>
-                </ul>
-              </div>
-
-              <p className="text-xs text-white/40 italic">Best for: Businesses ready to convert visitors into clients.</p>
-            </div>
-
-            {/* 4 - Pro */}
-            <div
-              className="rounded-xl p-6 md:p-8"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '2px solid rgba(249, 115, 22, 0.3)',
-                boxShadow: '0 0 20px rgba(249, 115, 22, 0.1)',
-              }}
-            >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                <div>
-                  <div
-                    className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3"
-                    style={{ backgroundColor: 'rgba(249, 115, 22, 0.2)', color: '#F97316', border: '1px solid rgba(249, 115, 22, 0.4)' }}
-                  >
-                    Pro
-                  </div>
-                  <h3 className="text-2xl font-black tracking-wider" style={{ color: '#F97316' }}>PRO</h3>
-                  <p className="text-gray-300 text-sm mt-2">For businesses that need bookings, payments, and automation.</p>
-                </div>
-                <p className="text-3xl font-black whitespace-nowrap" style={{ color: '#F97316' }}>$2,500</p>
-              </div>
-
-              <div
-                className="rounded-lg p-4 mb-4"
-                style={{ backgroundColor: 'rgba(249, 115, 22, 0.1)', border: '1px solid rgba(249, 115, 22, 0.3)' }}
-              >
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#F97316' }}>&#10003;</span><span className="font-medium">Up to 8 pages (or 5 pages + advanced features)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#F97316' }}>&#10003;</span><span className="font-medium">Booking system integration (TidyCal / Calendly)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#F97316' }}>&#10003;</span><span className="font-medium">Stripe payment setup (including deposits)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#F97316' }}>&#10003;</span><span className="font-medium">Email list integration (Brevo / Mailchimp)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#F97316' }}>&#10003;</span><span className="font-medium">Basic automation workflows</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#F97316' }}>&#10003;</span><span className="font-medium">3-4 revision rounds</span></li>
-                </ul>
-              </div>
-
-              <p className="text-xs text-white/40 italic">Best for: Clinics, coaches, beauty brands, consultants, and event-based businesses.</p>
-            </div>
-
-            {/* 5 - Custom / Scale - spans full width */}
-            <div
-              className="rounded-xl p-6 md:p-8 md:col-span-2"
-              style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '2px solid rgba(255, 215, 0, 0.3)',
-                boxShadow: '0 0 20px rgba(255, 215, 0, 0.1)',
-              }}
-            >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
-                <div>
-                  <div
-                    className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3"
-                    style={{ backgroundColor: 'rgba(255, 215, 0, 0.2)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)' }}
-                  >
-                    Enterprise
-                  </div>
-                  <h3 className="text-2xl font-black tracking-wider" style={{ color: '#FFD700' }}>CUSTOM / SCALE</h3>
-                  <p className="text-gray-300 text-sm mt-2">For startups and advanced digital platforms.</p>
-                </div>
-                <p className="text-3xl font-black whitespace-nowrap" style={{ color: '#FFD700' }}>From $4,000</p>
-              </div>
-
-              <div
-                className="rounded-lg p-4 mb-4"
-                style={{ backgroundColor: 'rgba(255, 215, 0, 0.1)', border: '1px solid rgba(255, 215, 0, 0.3)' }}
-              >
-                <ul className="space-y-3 text-sm">
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#FFD700' }}>&#10003;</span><span className="font-medium">Custom UI/UX design</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#FFD700' }}>&#10003;</span><span className="font-medium">Advanced integrations (portals, dashboards, memberships, multi-vendor)</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#FFD700' }}>&#10003;</span><span className="font-medium">Performance optimization + security hardening</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#FFD700' }}>&#10003;</span><span className="font-medium">Scalable architecture</span></li>
-                  <li className="flex items-start gap-3 text-white"><span style={{ color: '#FFD700' }}>&#10003;</span><span className="font-medium">Optional ongoing development roadmap</span></li>
-                </ul>
-              </div>
-
-              <p className="text-xs text-white/40 italic">Best for: Founders building full platforms or digital products.</p>
+          {/* Packages Comparison Table */}
+          <div className="mb-12 rounded-xl overflow-hidden" style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', border: '2px solid rgba(255, 255, 255, 0.1)' }}>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[600px] text-sm">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    <th className="sticky left-0 z-10 bg-black text-left py-3 px-4 font-bold text-white/50 text-xs uppercase tracking-wider w-[150px]">Feature</th>
+                    <th className="py-3 px-3 text-center">
+                      <span className="block text-sm font-black" style={{ color: '#3B82F6' }}>Starter</span>
+                      <span className="block text-lg font-black text-white">$300</span>
+                    </th>
+                    <th className="py-3 px-3 text-center">
+                      <span className="block text-sm font-black" style={{ color: '#10B981' }}>Essentials</span>
+                      <span className="block text-lg font-black text-white">$600</span>
+                    </th>
+                    <th className="py-3 px-3 text-center" style={{ backgroundColor: 'rgba(168, 85, 247, 0.08)' }}>
+                      <span className="block text-sm font-black" style={{ color: '#A855F7' }}>Growth</span>
+                      <span className="block text-lg font-black text-white">$1,000</span>
+                      <span className="inline-block mt-1 px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider" style={{ backgroundColor: 'rgba(168, 85, 247, 0.2)', color: '#A855F7', border: '1px solid rgba(168, 85, 247, 0.4)' }}>Popular</span>
+                    </th>
+                    <th className="py-3 px-3 text-center">
+                      <span className="block text-sm font-black" style={{ color: '#FFD700' }}>Custom</span>
+                      <span className="block text-lg font-black text-white">$3,000+</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { feature: 'Pages', values: ['1', 'Up to 3', 'Up to 5', 'Unlimited'] },
+                    { feature: 'Custom Design', values: ['My Recommendation', 'Concept Board', 'check', 'check'] },
+                    { feature: 'SEO', values: ['—', 'Basic', 'Enhanced', 'Full'] },
+                    { feature: 'Contact / Leads', values: ['Button', 'Email', 'Lead capture', 'Custom'] },
+                    { feature: 'Analytics (GA4)', values: ['—', '—', 'check', 'check'] },
+                    { feature: 'Booking & Payments', values: ['—', '—', 'Add-on', 'check'] },
+                    { feature: 'Revisions', values: ['1', '2', '3', 'Unlimited'] },
+                  ].map((row, i) => {
+                    const colors = ['#3B82F6', '#10B981', '#A855F7', '#FFD700'];
+                    return (
+                      <tr key={i} className="border-b border-white/[0.06]">
+                        <td className="sticky left-0 z-10 bg-black py-2.5 px-4 text-white/60 font-medium text-sm">{row.feature}</td>
+                        {row.values.map((val, j) => (
+                          <td key={j} className="py-2.5 px-3 text-center text-sm" style={j === 2 ? { backgroundColor: 'rgba(168, 85, 247, 0.08)' } : undefined}>
+                            {val === 'check' ? (
+                              <span className="text-base" style={{ color: colors[j] }}>&#10003;</span>
+                            ) : val === '—' ? (
+                              <span className="text-white/20">—</span>
+                            ) : (
+                              <span className="text-white/80">{val}</span>
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                  <tr className="border-t border-white/15">
+                    <td className="sticky left-0 z-10 bg-black py-3 px-4 text-white/60 font-medium text-sm">Best for</td>
+                    <td className="py-3 px-3 text-center text-xs italic leading-tight" style={{ color: '#3B82F6' }}>Simple online presence</td>
+                    <td className="py-3 px-3 text-center text-xs italic leading-tight" style={{ color: '#10B981' }}>Local service businesses</td>
+                    <td className="py-3 px-3 text-center text-xs italic leading-tight" style={{ backgroundColor: 'rgba(168, 85, 247, 0.08)', color: '#A855F7' }}>Converting visitors to clients</td>
+                    <td className="py-3 px-3 text-center text-xs italic leading-tight" style={{ color: '#FFD700' }}>Full platforms & products</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 
           {/* Standard Terms */}
           <div
-            className="rounded-xl p-6 md:p-8"
+            className="rounded-xl p-4 md:p-5"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.03)',
               border: '2px solid rgba(255, 255, 255, 0.1)',
             }}
           >
             <h3 className="text-xl font-black text-white mb-4 tracking-wide">STANDARD TERMS</h3>
-            <ul className="space-y-3 text-sm text-white/70">
+            <ul className="space-y-2 text-xs text-white/70">
               <li className="flex items-start gap-3"><span className="text-white/40">&#8226;</span>50% deposit to begin, 50% upon completion</li>
               <li className="flex items-start gap-3"><span className="text-white/40">&#8226;</span>Timeline depends on content readiness</li>
               <li className="flex items-start gap-3"><span className="text-white/40">&#8226;</span>Client provides branding, copy, and photos unless otherwise discussed</li>
