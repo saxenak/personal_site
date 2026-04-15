@@ -154,8 +154,34 @@ export default function Home() {
               SERVICES
             </h2>
             <div className="grid grid-cols-3 gap-3 md:gap-4 w-full px-4 md:px-8">
+              {/* Web Development Card - Live ajnamaterials.com embed */}
+              <Link
+                href="/projects/web-development"
+                className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 aspect-square relative"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(253, 150, 53, 0.2)',
+                }}
+              >
+                <div className="absolute inset-0 overflow-hidden">
+                  <iframe
+                    src="https://ajnamaterials.com"
+                    className="absolute top-0 left-0 w-[400%] h-[400%] scale-[0.25] origin-top-left pointer-events-none"
+                    title="ajnamaterials.com preview"
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
+                <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
+                  <h3 className="text-[10px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                    WEB DEVELOPMENT
+                  </h3>
+                </div>
+              </Link>
+
+              {/* Other service cards */}
               {[
-                { href: '/projects/web-development', label: 'WEB DEVELOPMENT', video: '/clinics_landingpage.mp4' },
                 { href: '/projects/clinics', label: 'CLINICS & TALKS', video: '/clinics_landingpage.mp4' },
                 { href: '/projects/artist', label: 'ARTIST', video: '/artist_landingpage.mp4' },
               ].map((item) => (
@@ -233,13 +259,13 @@ export default function Home() {
       {/* Contact at bottom */}
       <div className="fixed bottom-6 left-0 right-0 z-50 flex items-center justify-center">
         <a
-          href="mailto:kirti@kirtisaxena.com"
+          href="mailto:info@kirtisaxena.com"
           className="flex items-center gap-2 text-sm md:text-base font-light tracking-wider text-gray-400 hover:text-[#FD9635] transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
           </svg>
-          kirti@kirtisaxena.com
+          info@kirtisaxena.com
         </a>
       </div>
     </div>
