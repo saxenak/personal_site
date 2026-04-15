@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProjectNav from '@/components/ProjectNav';
 import ProjectHeader from '@/components/ProjectHeader';
 
@@ -12,6 +12,16 @@ export default function WebDevelopment() {
     message: '',
   });
   const [inquiryStatus, setInquiryStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [showStarterPopup, setShowStarterPopup] = useState(true);
+
+  useEffect(() => {
+    if (showStarterPopup) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [showStarterPopup]);
 
   const handleInquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,6 +58,84 @@ export default function WebDevelopment() {
   return (
     <main className="min-h-screen bg-black text-white pb-20">
       <ProjectNav title="KIRTI SAXENA" />
+
+      {/* $300 Starter Popup */}
+      {showStarterPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowStarterPopup(false)} />
+          <div
+            className="relative w-full max-w-lg rounded-2xl overflow-hidden"
+            style={{
+              backgroundColor: '#0a0a0a',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              boxShadow: '0 0 80px rgba(59, 130, 246, 0.15), 0 0 160px rgba(147, 51, 234, 0.08), 0 25px 50px rgba(0, 0, 0, 0.5)',
+            }}
+          >
+            {/* Gradient accent bar at top */}
+            <div className="h-1" style={{ background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #3B82F6)' }} />
+
+            <button
+              onClick={() => setShowStarterPopup(false)}
+              className="absolute top-5 right-5 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/15 transition-colors text-white/40 hover:text-white"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="px-8 pt-10 pb-8 text-center">
+              {/* Price hero */}
+              <div className="mb-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40 mb-4">Starter Package</p>
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="text-sm font-medium text-white/40">$</span>
+                  <span className="text-7xl font-black text-white leading-none">300</span>
+                </div>
+                <p className="text-lg font-black text-white/50 mt-3 uppercase tracking-widest">one-time flat rate</p>
+              </div>
+
+              {/* Divider */}
+              <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-6" />
+
+              {/* Features */}
+              <div className="space-y-3 mb-8">
+                {[
+                  { icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z', text: '1-page custom design' },
+                  { icon: 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z', text: 'Mobile-friendly & responsive' },
+                  { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', text: '1 revision included' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-3 justify-center">
+                    <svg className="w-4 h-4 flex-shrink-0" style={{ color: '#3B82F6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={item.icon} />
+                    </svg>
+                    <span className="text-sm text-white/70">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA */}
+              <a
+                href="#inquiry"
+                onClick={() => setShowStarterPopup(false)}
+                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                style={{
+                  background: 'linear-gradient(135deg, #3B82F6 0%, #6366F1 50%, #8B5CF6 100%)',
+                  color: '#fff',
+                  boxShadow: '0 4px 20px rgba(59, 130, 246, 0.3)',
+                }}
+              >
+                Get Started
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+
+              <p className="text-sm font-semibold text-white/60 mt-5">50% deposit to begin</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="pt-20 md:pt-32 px-4 md:px-8 max-w-7xl mx-auto">
         <ProjectHeader
           title="Web Development"

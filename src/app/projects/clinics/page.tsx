@@ -244,9 +244,9 @@ export default function Clinics() {
         }}
       >
         {/* Header */}
-        <div className="p-4 pb-3">
+        <div className="p-5 pb-3">
           <div
-            className="inline-block px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2"
+            className="inline-block px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3"
             style={{
               backgroundColor: `${program.color}20`,
               color: program.color,
@@ -256,168 +256,36 @@ export default function Clinics() {
             {program.type === 'talk' ? 'Talk' : 'Clinic'}
           </div>
           <h3
-            className="text-xl font-black mb-1 tracking-wider uppercase"
+            className="text-xl font-black mb-2 tracking-wider uppercase"
             style={{ color: program.color, letterSpacing: '0.1em' }}
           >{program.title}</h3>
-          <p className="text-sm tracking-wide mb-1" style={{ color: program.color }}>
-            {program.subtitle}
-          </p>
-          <p className="text-gray-300 text-sm leading-relaxed font-semibold">{program.tagline}</p>
+          <p className="text-gray-300 text-sm leading-relaxed">{program.tagline}</p>
         </div>
 
-        <div className="px-4 pb-4 flex flex-col flex-grow">
-          {/* Focus & Requirements */}
-          <div className="mb-3 pb-3 border-b border-white/10">
-            {Array.isArray(program.includes) ? (
-              <>
-                <h4 className="text-sm font-semibold text-white mb-2">What&apos;s Included</h4>
-                <ul className="space-y-1">
-                  {program.includes.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-xs text-white/90">
-                      <span className="mt-0.5" style={{ color: program.color }}>✔</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <>
-                <div
-                  className="rounded-lg p-3 mb-3"
-                  style={{
-                    backgroundColor: `${program.color}10`,
-                    border: `1px solid ${program.color}40`,
-                  }}
-                >
-                  <h4 className="text-sm font-bold mb-2" style={{ color: program.color }}>Focus</h4>
-                  <ul className="space-y-1.5">
-                    {program.includes.focus.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-xs text-white">
-                        <span className="mt-0.5" style={{ color: program.color }}>✔</span>
-                        <span className="font-medium">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div
-                  className="rounded-lg p-3"
-                  style={{
-                    backgroundColor: `${program.color}10`,
-                    border: `1px solid ${program.color}40`,
-                  }}
-                >
-                  <h4 className="text-sm font-bold mb-2" style={{ color: program.color }}>Requirements</h4>
-                  <ul className="space-y-1.5">
-                    {program.includes.requirements.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2 text-xs text-white">
-                        <span className="mt-0.5" style={{ color: program.color }}>✔</span>
-                        <span className="font-medium">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
+        <div className="px-5 pb-5 flex flex-col flex-grow">
+          {/* Pricing */}
+          <div className="grid grid-cols-2 gap-3 mb-4">
+            {program.tiers.map((tier, idx) => (
+              <div
+                key={idx}
+                className="rounded-lg p-3 text-center"
+                style={{
+                  backgroundColor: `${program.color}08`,
+                  border: `1px solid ${program.color}30`,
+                }}
+              >
+                <p className="text-xs font-bold text-white mb-1">{tier.name}</p>
+                <p className="text-lg font-black" style={{ color: program.color }}>{tier.price}</p>
+                <p className="text-[11px] text-white/50 mt-1">{tier.format}</p>
+                {tier.highlight && (
+                  <p className="text-[10px] font-semibold mt-1" style={{ color: program.color }}>{tier.highlight}</p>
+                )}
+              </div>
+            ))}
           </div>
 
-          {/* Pricing */}
-          {program.id === 'privates' ? (
-            <div className="space-y-3">
-              <div
-                className="rounded-lg p-3"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: `1px solid ${program.color}40`,
-                }}
-              >
-                <h4 className="text-sm font-semibold text-white mb-1">Single Session (60 min)</h4>
-                <table className="w-full text-xs">
-                  <thead>
-                    <tr className="border-b border-white/10">
-                      <th className="text-left py-1 text-white/60">Size</th>
-                      <th className="text-right py-1 text-white/60">Total</th>
-                      <th className="text-right py-1 text-white/60">Per Athlete</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-white/5"><td className="py-1 text-white">1</td><td className="py-1 text-right text-gray-300">$100</td><td className="py-1 text-right font-semibold" style={{ color: program.color }}>$100</td></tr>
-                    <tr className="border-b border-white/5"><td className="py-1 text-white">2</td><td className="py-1 text-right text-gray-300">$150</td><td className="py-1 text-right font-semibold" style={{ color: program.color }}>$75</td></tr>
-                    <tr className="border-b border-white/5"><td className="py-1 text-white">3</td><td className="py-1 text-right text-gray-300">$180</td><td className="py-1 text-right font-semibold" style={{ color: program.color }}>$60</td></tr>
-                    <tr><td className="py-1 text-white">4 (max)</td><td className="py-1 text-right text-gray-300">$200</td><td className="py-1 text-right font-semibold" style={{ color: program.color }}>$50</td></tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div
-                className="rounded-lg p-3"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: `1px solid ${program.color}40`,
-                }}
-              >
-                <div className="flex items-center gap-2 mb-1">
-                  <h4 className="text-sm font-semibold text-white">6-Session Package</h4>
-                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold" style={{ backgroundColor: `${program.color}30`, color: program.color }}>RECOMMENDED</span>
-                </div>
-                <table className="w-full text-xs">
-                  <thead>
-                    <tr className="border-b border-white/10">
-                      <th className="text-left py-1 text-white/60">Size</th>
-                      <th className="text-right py-1 text-white/60">Total</th>
-                      <th className="text-right py-1 text-white/60">Savings</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b border-white/5"><td className="py-1 text-white">1</td><td className="py-1 text-right text-gray-300">$500</td><td className="py-1 text-right font-semibold" style={{ color: '#10B981' }}>Save $100</td></tr>
-                    <tr className="border-b border-white/5"><td className="py-1 text-white">2</td><td className="py-1 text-right text-gray-300">$750</td><td className="py-1 text-right font-semibold" style={{ color: '#10B981' }}>Save $150</td></tr>
-                    <tr className="border-b border-white/5"><td className="py-1 text-white">3</td><td className="py-1 text-right text-gray-300">$900</td><td className="py-1 text-right font-semibold" style={{ color: '#10B981' }}>Save $180</td></tr>
-                    <tr><td className="py-1 text-white">4 (max)</td><td className="py-1 text-right text-gray-300">$1,000</td><td className="py-1 text-right font-semibold" style={{ color: '#10B981' }}>Save $200</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 gap-3">
-              {program.tiers.map((tier, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-lg p-3"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    border: `1px solid ${program.color}40`,
-                  }}
-                >
-                  <h4 className="text-sm font-semibold text-white mb-2">{tier.name}</h4>
-                  <div className="space-y-1.5 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-white/60">Format:</span>
-                      <span className="text-gray-300">{tier.format}</span>
-                    </div>
-                    {tier.participants && (
-                      <div className="flex justify-between">
-                        <span className="text-white/60">Audience:</span>
-                        <span className="text-gray-300">{tier.participants}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between items-center pt-2 border-t border-white/10">
-                      <span className="text-white/60">Price:</span>
-                      <span className="text-base font-bold" style={{ color: program.color }}>{tier.price}</span>
-                    </div>
-                    {tier.perPersonCost && (
-                      <div className="text-[10px] text-white/70">{tier.perPersonCost}</div>
-                    )}
-                    {tier.highlight && (
-                      <div className="text-[10px] font-medium" style={{ color: program.color }}>{tier.highlight}</div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
           {/* CTA */}
-          <div className="mt-auto pt-4">
+          <div className="mt-auto">
             <Link
               href={`/projects/clinics/checkout?program=${program.id}`}
               className="inline-flex items-center gap-2 px-4 py-2 text-sm rounded-lg font-medium transition-all duration-300 hover:scale-105"
