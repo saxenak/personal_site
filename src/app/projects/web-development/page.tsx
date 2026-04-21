@@ -271,10 +271,49 @@ export default function WebDevelopment() {
             </p>
           </div>
 
-          {/* Packages Comparison Table */}
-          <div className="mb-12 rounded-xl overflow-hidden" style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', border: '2px solid rgba(255, 255, 255, 0.1)' }}>
+          {/* Packages - Cards on mobile, Table on desktop */}
+          {/* Mobile cards */}
+          <div className="mb-12 md:hidden grid grid-cols-2 gap-3">
+            {[
+              { name: 'Starter', color: '#3B82F6', price: '$300', oldPrice: '$400', pages: '1', design: 'My Recommendation', seo: '—', contact: 'Button', analytics: '—', booking: '—', revisions: '1', best: 'Simple online presence' },
+              { name: 'Essentials', color: '#10B981', price: '$600', pages: 'Up to 3', design: 'Concept Board', seo: 'Basic', contact: 'Email', analytics: '—', booking: '—', revisions: '2', best: 'Local service businesses' },
+              { name: 'Growth', color: '#A855F7', price: '$1,000', pages: 'Up to 5', design: '✓', seo: 'Enhanced', contact: 'Lead capture', analytics: '✓', booking: 'Add-on', revisions: '3', best: 'Converting visitors to clients', popular: true },
+              { name: 'Custom', color: '#FFD700', price: '$3,000+', pages: 'Unlimited', design: '✓', seo: 'Full', contact: 'Custom', analytics: '✓', booking: '✓', revisions: 'Unlimited', best: 'Full platforms & products' },
+            ].map((pkg) => (
+              <div
+                key={pkg.name}
+                className="rounded-xl p-3 relative"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                  border: `1px solid ${pkg.color}33`,
+                }}
+              >
+                {pkg.popular && (
+                  <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wider" style={{ backgroundColor: `${pkg.color}33`, color: pkg.color, border: `1px solid ${pkg.color}66` }}>Popular</span>
+                )}
+                <h4 className="text-xs font-black mb-1" style={{ color: pkg.color }}>{pkg.name}</h4>
+                <div className="text-lg font-black text-white mb-2">
+                  {pkg.oldPrice && <span className="text-sm line-through text-white/40 mr-1">{pkg.oldPrice}</span>}
+                  <span style={pkg.oldPrice ? { color: pkg.color } : undefined}>{pkg.price}</span>
+                </div>
+                <div className="space-y-1 text-[10px] text-white/70">
+                  <div className="flex justify-between"><span className="text-white/40">Pages</span><span>{pkg.pages}</span></div>
+                  <div className="flex justify-between"><span className="text-white/40">Design</span><span>{pkg.design}</span></div>
+                  <div className="flex justify-between"><span className="text-white/40">SEO</span><span>{pkg.seo === '—' ? <span className="text-white/20">—</span> : pkg.seo}</span></div>
+                  <div className="flex justify-between"><span className="text-white/40">Contact</span><span>{pkg.contact}</span></div>
+                  <div className="flex justify-between"><span className="text-white/40">Analytics</span><span>{pkg.analytics === '—' ? <span className="text-white/20">—</span> : pkg.analytics}</span></div>
+                  <div className="flex justify-between"><span className="text-white/40">Booking</span><span>{pkg.booking === '—' ? <span className="text-white/20">—</span> : pkg.booking}</span></div>
+                  <div className="flex justify-between"><span className="text-white/40">Revisions</span><span>{pkg.revisions}</span></div>
+                </div>
+                <p className="mt-2 text-[9px] italic text-center" style={{ color: pkg.color }}>{pkg.best}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop table */}
+          <div className="mb-12 rounded-xl overflow-hidden hidden md:block" style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)', border: '2px solid rgba(255, 255, 255, 0.1)' }}>
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[600px] text-sm">
+              <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-white/10">
                     <th className="sticky left-0 z-10 bg-black text-left py-3 px-4 font-bold text-white/50 text-xs uppercase tracking-wider w-[150px]">Feature</th>

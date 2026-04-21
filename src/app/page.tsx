@@ -200,7 +200,7 @@ export default function Home() {
                 </div>
                 <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                 <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
-                  <h3 className="text-[10px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                  <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
                     WEB DEVELOPMENT
                   </h3>
                 </div>
@@ -240,7 +240,7 @@ export default function Home() {
                   </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
-                    <h3 className="text-[10px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                    <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
                       {item.label}
                     </h3>
                   </div>
@@ -289,7 +289,7 @@ export default function Home() {
                   </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
-                    <h3 className="text-[10px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                    <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
                       {item.label}
                     </h3>
                   </div>
