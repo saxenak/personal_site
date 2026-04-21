@@ -87,9 +87,10 @@ export default function WebDevelopment() {
               {/* Price hero */}
               <div className="mb-6">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40 mb-4">Starter Package</p>
-                <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-sm font-medium text-white/40">$</span>
-                  <span className="text-7xl font-black text-white leading-none">300</span>
+                <div className="flex items-baseline justify-center gap-2">
+                  <span className="text-3xl font-black text-white/40 line-through">$400</span>
+                  <span className="text-sm font-medium" style={{ color: '#3B82F6' }}>$</span>
+                  <span className="text-7xl font-black leading-none" style={{ color: '#3B82F6' }}>300</span>
                 </div>
                 <p className="text-lg font-black text-white/50 mt-3 uppercase tracking-widest">one-time flat rate</p>
               </div>
@@ -279,7 +280,7 @@ export default function WebDevelopment() {
                     <th className="sticky left-0 z-10 bg-black text-left py-3 px-4 font-bold text-white/50 text-xs uppercase tracking-wider w-[150px]">Feature</th>
                     <th className="py-3 px-3 text-center">
                       <span className="block text-sm font-black" style={{ color: '#3B82F6' }}>Starter</span>
-                      <span className="block text-lg font-black text-white">$300</span>
+                      <span className="block text-lg font-black text-white"><span className="line-through text-white/40">$400</span> <span style={{ color: '#3B82F6' }}>$300</span></span>
                     </th>
                     <th className="py-3 px-3 text-center">
                       <span className="block text-sm font-black" style={{ color: '#10B981' }}>Essentials</span>

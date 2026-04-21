@@ -41,7 +41,7 @@ export default function Home() {
       const timer = setTimeout(() => {
         setShowIntro(false);
         localStorage.setItem('hasSeenIntro', 'true');
-      }, 3000); // Extended to 3.0s for longer animation
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [showIntro]);
@@ -49,70 +49,62 @@ export default function Home() {
   if (showIntro) {
     return (
       <div className="fixed inset-0 bg-black text-white z-50 overflow-hidden">
-        {/* Logo Animation - simple fade effect */}
-        <div className="absolute inset-0 flex items-center justify-center"
+        {/* Hero collage background */}
+        <div
+          className="absolute inset-0"
           style={{
-            animation: 'logoFade 3.5s ease-out forwards'
+            animation: 'imageFadeOut 3s ease-in-out forwards',
           }}
         >
           <img
-            src="/KIRTILOGO.PNG"
-            alt="Kirti Saxena Logo"
-            className="h-32 md:h-48 lg:h-64 w-auto object-contain"
+            src="/hero.png"
+            alt=""
+            className="w-full h-full object-cover"
             style={{
-              animation: 'logoReveal 1.5s ease-out forwards'
+              animation: 'imageZoom 3s ease-out forwards',
             }}
           />
         </div>
 
-        {/* Full-screen transitional video */}
-        <video
-          ref={introVideoRef}
-          className="absolute inset-0 w-full h-full object-cover"
-          muted
-          playsInline
-          onEnded={() => {
-            setTimeout(() => {
-              setShowIntro(false);
-              localStorage.setItem('hasSeenIntro', 'true');
-            }, 500);
-          }}
-          style={{
-            animationDelay: '1s',
-            opacity: 0,
-            animation: 'fadeInVideo 0.5s ease-in-out 1s forwards'
-          }}
-        >
-          <source src="/videos/intro-video.mp4" type="video/mp4" />
-        </video>
+        {/* Logo wipes in top-left */}
+        <div className="absolute top-4 left-4 md:top-8 md:left-8">
+          <img
+            src="/KIRTILOGO.PNG"
+            alt="Kirti Saxena Logo"
+            className="h-16 md:h-24 w-auto object-contain"
+            style={{
+              clipPath: 'inset(0 100% 0 0)',
+              animation: 'introWipe 1.2s ease-out 0.5s forwards',
+            }}
+          />
+        </div>
+
+        {/* "create your own odds" writing wipes in on top */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <img
+            src="/writing.png"
+            alt="create your own odds"
+            className="w-[80vw] md:w-[50vw] max-w-[700px] h-auto"
+            style={{
+              clipPath: 'inset(0 100% 0 0)',
+              animation: 'introWipe 1.5s ease-out 0.8s forwards',
+            }}
+          />
+        </div>
 
         <style jsx>{`
-          @keyframes fadeInVideo {
-            from { opacity: 0; }
-            to { opacity: 1; }
+          @keyframes imageZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
           }
-
-          @keyframes logoReveal {
-            from {
-              opacity: 0;
-              transform: scale(0.95);
-            }
-            to {
-              opacity: 1;
-              transform: scale(1);
-            }
+          @keyframes imageFadeOut {
+            0% { opacity: 1; }
+            60% { opacity: 1; }
+            100% { opacity: 0; }
           }
-
-          @keyframes logoFade {
-            0% {
-              opacity: 1;
-            }
-            85% {
-              opacity: 1;
-            }
-            100% {
-              opacity: 0;
-            }
+          @keyframes introWipe {
+            from { clip-path: inset(0 100% 0 0); }
+            to { clip-path: inset(0 0% 0 0); }
           }
         `}</style>
       </div>
@@ -144,6 +136,39 @@ export default function Home() {
       >
         <h1 className="text-sm md:text-base font-bold">KIRTI SAXENA</h1>
       </div>
+
+      {/* Hero collage background */}
+      <div className="fixed inset-0 z-0 pointer-events-none select-none">
+        <img
+          src="/hero.png"
+          alt=""
+          className="w-full h-full object-cover opacity-10"
+        />
+      </div>
+
+      {/* "create your own odds" slides up to top */}
+      <div className="fixed left-0 right-0 z-20 flex justify-center pointer-events-none select-none motto-slide">
+        <img
+          src="/writing.png"
+          alt="create your own odds"
+          className="w-[70vw] md:w-[40vw] max-w-[500px] h-auto"
+        />
+      </div>
+      <style jsx>{`
+        .motto-slide {
+          animation: slideUpBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes slideUpBounce {
+          0% { top: 50%; transform: translateY(-50%); }
+          100% { top: 5rem; transform: translateY(0); }
+        }
+        @media (min-width: 768px) {
+          @keyframes slideUpBounce {
+            0% { top: 50%; transform: translateY(-50%); }
+            100% { top: 2.5rem; transform: translateY(0); }
+          }
+        }
+      `}</style>
 
       {/* Full-width horizontal layout - vertical on mobile, horizontal on desktop */}
       <div className="min-h-screen flex items-center relative z-10">
