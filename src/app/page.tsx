@@ -161,7 +161,7 @@ export default function Home() {
         }
         @keyframes slideUpBounce {
           0% { top: 50%; transform: translateY(-50%); }
-          100% { top: 5rem; transform: translateY(0); }
+          100% { top: 0.5rem; transform: translateY(0); }
         }
         @media (min-width: 768px) {
           @keyframes slideUpBounce {
@@ -220,14 +220,23 @@ export default function Home() {
                     border: '1px solid rgba(253, 150, 53, 0.2)',
                   }}
                 >
+                  {/* Video on desktop, still frame on mobile */}
                   <video
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover hidden md:block"
                     muted
                     loop
                     autoPlay
                     playsInline
                   >
                     <source src={item.video} type="video/mp4" />
+                  </video>
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover md:hidden"
+                    muted
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src={`${item.video}#t=0.1`} type="video/mp4" />
                   </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
@@ -260,14 +269,23 @@ export default function Home() {
                     border: '1px solid rgba(253, 150, 53, 0.2)',
                   }}
                 >
+                  {/* Video on desktop, still frame on mobile */}
                   <video
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover hidden md:block"
                     muted
                     loop
                     autoPlay
                     playsInline
                   >
                     <source src={item.video} type="video/mp4" />
+                  </video>
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover md:hidden"
+                    muted
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src={`${item.video}#t=0.1`} type="video/mp4" />
                   </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
