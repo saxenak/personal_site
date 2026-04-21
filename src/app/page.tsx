@@ -179,7 +179,7 @@ export default function Home() {
             <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider mb-6 md:mb-10">
               SERVICES
             </h2>
-            <div className="grid grid-cols-3 gap-3 md:gap-4 w-full px-4 md:px-8">
+            <div className="grid grid-cols-3 gap-2 md:gap-4 w-full px-2 md:px-8">
               {/* Web Development Card - Live ajnamaterials.com embed */}
               <Link
                 href="/projects/web-development"
@@ -199,17 +199,18 @@ export default function Home() {
                   />
                 </div>
                 <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
-                <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
+                <div className="absolute bottom-0 left-0 right-0 p-1 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
                   <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
-                    WEB DEVELOPMENT
+                    <span className="md:hidden">WEB DEV</span>
+                    <span className="hidden md:inline">WEB DEVELOPMENT</span>
                   </h3>
                 </div>
               </Link>
 
               {/* Other service cards */}
               {[
-                { href: '/projects/clinics', label: 'CLINICS & TALKS', video: '/clinics_landingpage.mp4' },
-                { href: '/projects/artist', label: 'ARTIST', video: '/artist_landingpage.mp4' },
+                { href: '/projects/clinics', label: 'CLINICS & TALKS', mobileLabel: 'CLINICS', video: '/clinics_landingpage.mp4' },
+                { href: '/projects/artist', label: 'ARTIST', mobileLabel: 'ARTIST', video: '/artist_landingpage.mp4' },
               ].map((item) => (
                 <Link
                   key={item.href}
@@ -239,9 +240,10 @@ export default function Home() {
                     <source src={`${item.video}#t=0.1`} type="video/mp4" />
                   </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
-                  <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
+                  <div className="absolute bottom-0 left-0 right-0 p-1 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
                     <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
-                      {item.label}
+                      <span className="md:hidden">{item.mobileLabel}</span>
+                      <span className="hidden md:inline">{item.label}</span>
                     </h3>
                   </div>
                 </Link>
@@ -254,7 +256,7 @@ export default function Home() {
             <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider mb-6 md:mb-10">
               PORTFOLIO
             </h2>
-            <div className="grid grid-cols-3 gap-3 md:gap-4 w-full px-4 md:px-8">
+            <div className="grid grid-cols-3 gap-2 md:gap-4 w-full px-2 md:px-8">
               {[
                 { href: '/projects/engineering', label: 'ENGINEER', video: '/engineering_landingpage.mp4' },
                 { href: '/projects/athletics', label: 'ATHLETE', video: '/wrestling_landingpage.mp4' },
@@ -288,7 +290,7 @@ export default function Home() {
                     <source src={`${item.video}#t=0.1`} type="video/mp4" />
                   </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
-                  <div className="absolute bottom-0 left-0 right-0 p-2 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
+                  <div className="absolute bottom-0 left-0 right-0 p-1 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
                     <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
                       {item.label}
                     </h3>
