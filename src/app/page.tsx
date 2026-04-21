@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
   const introVideoRef = useRef<HTMLVideoElement>(null);
 
   // Check if intro should be shown
@@ -145,6 +145,7 @@ export default function Home() {
           className="w-full h-full object-cover opacity-10"
         />
       </div>
+
 
       {/* "create your own odds" slides up to top */}
       <div className="fixed left-0 right-0 z-20 flex justify-center pointer-events-none select-none motto-slide">
