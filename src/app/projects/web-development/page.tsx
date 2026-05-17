@@ -27,7 +27,7 @@ export default function WebDevelopment() {
 
   const handleInquirySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inquiryForm.name || !inquiryForm.email || !inquiryForm.message) {
+    if (!inquiryForm.name || !inquiryForm.email || !inquiryForm.phone || !inquiryForm.message) {
       alert('Please fill in all required fields');
       return;
     }
@@ -135,7 +135,7 @@ export default function WebDevelopment() {
                 </svg>
               </button>
 
-              <p className="text-sm font-semibold text-white/60 mt-5">50% deposit to begin</p>
+              <p className="text-sm font-semibold text-white/60 mt-5">Full payment upfront</p>
             </div>
           </div>
         </div>
@@ -166,18 +166,19 @@ export default function WebDevelopment() {
               }}
             >
               <div className="aspect-video relative overflow-hidden">
-                <iframe
-                  src="/"
-                  className="w-[200%] h-[200%] origin-top-left scale-50 pointer-events-none"
-                  title="kirtisaxena.com preview"
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin"
-                />
+                <video
+                  className="absolute inset-0 w-full h-full object-cover"
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                >
+                  <source src="/kirtisaxena_web.mp4" type="video/mp4" />
+                </video>
                 <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#FD9635] transition-colors">kirtisaxena.com</h3>
-                <p className="text-sm text-white/50 mb-3">Portfolio site with Stripe checkout, service packages, and email integration</p>
+                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#FD9635] transition-colors">kirtisaxena.com</h3>
                 <div className="flex flex-wrap gap-2">
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(253, 150, 53, 0.2)', color: '#FD9635', border: '1px solid rgba(253, 150, 53, 0.4)' }}>Portfolio</span>
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(253, 150, 53, 0.2)', color: '#FD9635', border: '1px solid rgba(253, 150, 53, 0.4)' }}>Checkout</span>
@@ -201,18 +202,19 @@ export default function WebDevelopment() {
               }}
             >
               <div className="aspect-video relative overflow-hidden">
-                <iframe
-                  src="https://theakhara.com"
-                  className="absolute top-1/2 left-1/2 w-[300%] h-[300%] -translate-x-1/2 -translate-y-1/2 scale-[0.333] pointer-events-none"
-                  title="theakhara.com preview"
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin"
-                />
+                <video
+                  className="absolute inset-0 w-full h-full object-cover"
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                >
+                  <source src="/AOC Edit 2 (1).mp4" type="video/mp4" />
+                </video>
                 <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#FFD700] transition-colors">theakhara.com</h3>
-                <p className="text-sm text-white/50 mb-3">Wrestling club site with gym membership signup, Stripe payments, and scheduling</p>
+                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#FFD700] transition-colors">theakhara.com</h3>
                 <div className="flex flex-wrap gap-2">
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(255, 215, 0, 0.2)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)' }}>Business</span>
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(255, 215, 0, 0.2)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)' }}>Checkout</span>
@@ -226,7 +228,7 @@ export default function WebDevelopment() {
 
             {/* Project 3 - Ajna Materials */}
             <a
-              href="https://ajnamaterials.com"
+              href="https://www.ajnamarket.com/products"
               target="_blank"
               rel="noopener noreferrer"
               className="group rounded-xl overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1"
@@ -236,18 +238,19 @@ export default function WebDevelopment() {
               }}
             >
               <div className="aspect-video relative overflow-hidden">
-                <iframe
-                  src="https://ajnamaterials.com"
-                  className="w-[200%] h-[200%] origin-top-left scale-50 pointer-events-none"
-                  title="ajnamaterials.com preview"
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin"
-                />
+                <video
+                  className="absolute inset-0 w-full h-full object-cover"
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                >
+                  <source src="/ajnamarket.com.mp4" type="video/mp4" />
+                </video>
                 <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#9333EA] transition-colors">ajnamaterials.com</h3>
-                <p className="text-sm text-white/50 mb-3">E-commerce marketplace with product catalog, inventory management, and Stripe checkout</p>
+                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#9333EA] transition-colors">ajnamarket.com</h3>
                 <div className="flex flex-wrap gap-2">
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(147, 51, 234, 0.2)', color: '#9333EA', border: '1px solid rgba(147, 51, 234, 0.4)' }}>E-Commerce</span>
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(147, 51, 234, 0.2)', color: '#9333EA', border: '1px solid rgba(147, 51, 234, 0.4)' }}>Marketplace</span>
@@ -414,17 +417,30 @@ export default function WebDevelopment() {
 
           {/* Standard Terms */}
           <div
-            className="rounded-xl p-4 md:p-5"
+            className="rounded-xl p-6 md:p-8"
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.03)',
               border: '2px solid rgba(255, 255, 255, 0.1)',
             }}
           >
-            <h3 className="text-xl font-black text-white mb-4 tracking-wide">STANDARD TERMS</h3>
-            <ul className="space-y-2 text-xs text-white/70">
-              <li className="flex items-start gap-3"><span className="text-white/40">&#8226;</span>50% deposit to begin, 50% upon completion</li>
+            <h3 className="text-2xl font-black text-white mb-6 tracking-wide">STANDARD TERMS</h3>
+            <ul className="space-y-3 text-base text-white/70">
+              <li className="flex items-start gap-3">
+                <span className="text-white/40">&#8226;</span>
+                <div>
+                  Packages: 50% deposit to begin, 50% upon completion
+                  <p className="text-sm text-white/40 mt-1 ml-2">&#8212; Exception: Starter package is full payment upfront</p>
+                </div>
+              </li>
               <li className="flex items-start gap-3"><span className="text-white/40">&#8226;</span>Timeline depends on content readiness</li>
               <li className="flex items-start gap-3"><span className="text-white/40">&#8226;</span>Client provides branding, copy, and photos unless otherwise discussed</li>
+              <li className="flex items-start gap-3">
+                <span className="text-white/40">&#8226;</span>
+                <div>
+                  Revisions are dependant on package size
+                  <p className="text-sm text-white/40 mt-1 ml-2">&#8212; For every extra revision or change, additional charges will be relayed</p>
+                </div>
+              </li>
               <li className="flex items-start gap-3"><span className="text-white/40">&#8226;</span>Hosting + domain fees paid separately</li>
             </ul>
           </div>
@@ -475,10 +491,11 @@ export default function WebDevelopment() {
                 </div>
                 <input
                   type="tel"
-                  placeholder="Phone Number (optional)"
+                  placeholder="Phone Number *"
                   value={inquiryForm.phone}
                   onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
                   className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-blue-400 transition-colors"
+                  required
                 />
                 <textarea
                   placeholder="Your Message *"

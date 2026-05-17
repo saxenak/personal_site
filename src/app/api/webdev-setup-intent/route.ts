@@ -13,9 +13,9 @@ export async function POST(req: NextRequest) {
 
     const { name, email, phone, packageName, packagePrice, businessName, sitePurpose, referenceSites, notes } = await req.json();
 
-    if (!name || !email || !packageName || !packagePrice) {
+    if (!name || !email || !phone || !packageName || !packagePrice) {
       return NextResponse.json(
-        { error: 'Name, email, package name, and price are required' },
+        { error: 'Name, email, phone, package name, and price are required' },
         { status: 400 }
       );
     }

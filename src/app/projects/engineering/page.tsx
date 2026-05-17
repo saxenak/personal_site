@@ -616,7 +616,7 @@ export default function Engineering() {
       images: ['/images/engineering/ajna-1.png', '/images/engineering/ajna-2.png'],
       keyTakeaway: 'Building a startup requires resilience, adaptability, and unwavering commitment to your vision.',
       keyTakeawayAudio: '/audio/ajna-takeaway.mp3',
-      link: 'https://ajnamaterials.com',
+      link: 'https://ajnamarket.com',
       startDate: 'August 2025',
       endDate: 'Present',
       category: 'current'

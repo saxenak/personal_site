@@ -176,7 +176,7 @@ export default function Home() {
             {[
               { href: '/projects/artist', label: 'ARTIST', mobileLabel: 'ARTIST', type: 'video', src: '/artist_landingpage.mp4', group: 'services' },
               { href: '/projects/clinics', label: 'CLINICS & TALKS', mobileLabel: 'CLINICS', type: 'video', src: '/clinics_landingpage.mp4', group: 'services' },
-              { href: '/projects/web-development', label: 'WEB DEVELOPMENT', mobileLabel: 'WEB DEV', type: 'iframe', src: 'https://ajnamaterials.com', group: 'services' },
+              { href: '/projects/web-development', label: 'WEB DEVELOPMENT', mobileLabel: 'WEB DEV', type: 'iframe', src: 'https://ajnamarket.com', group: 'services' },
               { href: '/projects/engineering', label: 'ENGINEER', mobileLabel: 'ENGINEER', type: 'video', src: '/engineering_landingpage.mp4', group: 'portfolio' },
               { href: '/projects/athletics', label: 'ATHLETE', mobileLabel: 'ATHLETE', type: 'video', src: '/wrestling_landingpage.mp4', group: 'portfolio' },
               { href: '/projects/modelling', label: 'MODEL', mobileLabel: 'MODEL', type: 'video', src: '/model_landingpage.MP4', group: 'portfolio' },
@@ -211,7 +211,7 @@ export default function Home() {
                       <iframe
                         src={item.src}
                         className="absolute top-0 left-0 w-[400%] h-[400%] scale-[0.25] origin-top-left pointer-events-none"
-                        title="ajnamaterials.com preview"
+                        title="ajnamarket.com preview"
                         loading="lazy"
                         sandbox="allow-scripts allow-same-origin"
                       />

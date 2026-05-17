@@ -20,6 +20,7 @@ function CardForm({ packageName, packagePrice, packageColor, onClose }: WebDevCa
   const [form, setForm] = useState({ name: '', email: '', phone: '', businessName: '', sitePurpose: '', referenceSites: '', notes: '' });
   const [status, setStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -31,8 +32,12 @@ function CardForm({ packageName, packagePrice, packageColor, onClose }: WebDevCa
     e.preventDefault();
     if (!stripe || !elements) return;
 
-    if (!form.name || !form.email || !form.businessName || !form.sitePurpose) {
-      setErrorMsg('Name, email, business name, and site purpose are required.');
+    if (!form.name || !form.email || !form.phone || !form.businessName || !form.sitePurpose) {
+      setErrorMsg('Name, email, phone, business name, and site purpose are required.');
+      return;
+    }
+    if (!termsAccepted) {
+      setErrorMsg('Please accept the standard terms to continue.');
       return;
     }
 
@@ -175,7 +180,7 @@ function CardForm({ packageName, packagePrice, packageColor, onClose }: WebDevCa
           <div className="text-center mb-6">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40 mb-1">{packageName} Package</p>
             <p className="text-2xl font-black" style={{ color: packageColor }}>{packagePrice}</p>
-            <p className="text-xs text-white/40 mt-1">Book your project &mdash; pay after it&apos;s done</p>
+            <p className="text-xs text-white/40 mt-1">Book your project</p>
           </div>
 
           <div className="space-y-3 mb-5">
@@ -197,10 +202,11 @@ function CardForm({ packageName, packagePrice, packageColor, onClose }: WebDevCa
             />
             <input
               type="tel"
-              placeholder="Phone (optional)"
+              placeholder="Phone *"
               value={form.phone}
               onChange={(e) => setForm({ ...form, phone: e.target.value })}
               className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-white/30 transition-colors"
+              required
             />
 
             <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-1" />
@@ -255,13 +261,42 @@ function CardForm({ packageName, packagePrice, packageColor, onClose }: WebDevCa
             </div>
           </div>
 
+          {/* Standard Terms */}
+          <div className="mb-5 rounded-lg p-5 bg-white/[0.03] border border-white/10">
+            <p className="text-sm font-bold text-white/70 uppercase tracking-wider mb-4">Standard Terms</p>
+            <ul className="space-y-2 text-sm text-white/60 mb-5">
+              <li>&#8226; Packages: 50% deposit to begin, 50% upon completion
+                <ul className="ml-5 mt-1">
+                  <li className="text-white/40 text-xs">&#8212; Exception: Starter package is full payment upfront</li>
+                </ul>
+              </li>
+              <li>&#8226; Timeline depends on content readiness</li>
+              <li>&#8226; Client provides branding, copy, and photos unless otherwise discussed</li>
+              <li>&#8226; Revisions are dependant on package size
+                <ul className="ml-5 mt-1">
+                  <li className="text-white/40 text-xs">&#8212; For every extra revision or change, additional charges will be relayed</li>
+                </ul>
+              </li>
+              <li>&#8226; Hosting + domain fees paid separately</li>
+            </ul>
+            <label className="flex items-start gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={termsAccepted}
+                onChange={(e) => setTermsAccepted(e.target.checked)}
+                className="mt-0.5 w-4 h-4 rounded border-white/20 accent-blue-500"
+              />
+              <span className="text-sm text-white/70">I agree to the standard terms</span>
+            </label>
+          </div>
+
           {errorMsg && (
             <p className="text-red-400 text-xs mb-4">{errorMsg}</p>
           )}
 
           <button
             type="submit"
-            disabled={!stripe || status === 'saving'}
+            disabled={!stripe || status === 'saving' || !termsAccepted}
             className="w-full py-3.5 rounded-lg font-semibold text-sm transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
               background: `linear-gradient(135deg, ${packageColor}, ${packageColor}cc)`,
@@ -279,7 +314,7 @@ function CardForm({ packageName, packagePrice, packageColor, onClose }: WebDevCa
           </button>
 
           <p className="text-center text-[10px] text-white/30 mt-3">
-            Your card will not be charged. Payment is collected only after project completion.
+            Your card details are securely saved via Stripe.
           </p>
         </form>
       </div>
