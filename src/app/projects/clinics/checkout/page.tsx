@@ -6,9 +6,6 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ProjectNav from '@/components/ProjectNav';
 import { CLINIC_PROGRAMS, DISCOUNT_CONFIG, type ProgramId, type TierType, type SelectedProgram } from '@/lib/stripe';
-import { loadStripe } from '@stripe/stripe-js';
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 // Program card component
 function ProgramCard({
@@ -546,14 +543,8 @@ function CheckoutContent() {
         return;
       }
 
-      // Redirect to Stripe
-      const stripe = await stripePromise;
-      if (stripe) {
-        const { error } = await stripe.redirectToCheckout({ sessionId: data.sessionId });
-        if (error) {
-          alert('Error: ' + error.message);
-        }
-      }
+      // Redirect to Stripe checkout
+      window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
     } catch (err) {
       alert('An error occurred. Please try again.');
       console.error(err);

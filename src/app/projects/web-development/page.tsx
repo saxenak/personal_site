@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import ProjectNav from '@/components/ProjectNav';
 import ProjectHeader from '@/components/ProjectHeader';
+import WebDevCardForm from '@/components/WebDevCardForm';
 
 export default function WebDevelopment() {
   const [inquiryForm, setInquiryForm] = useState({
@@ -13,6 +14,7 @@ export default function WebDevelopment() {
   });
   const [inquiryStatus, setInquiryStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [showStarterPopup, setShowStarterPopup] = useState(true);
+  const [cardFormPkg, setCardFormPkg] = useState<{ name: string; price: string; color: string } | null>(null);
 
   useEffect(() => {
     if (showStarterPopup) {
@@ -115,9 +117,11 @@ export default function WebDevelopment() {
               </div>
 
               {/* CTA */}
-              <a
-                href="#inquiry"
-                onClick={() => setShowStarterPopup(false)}
+              <button
+                onClick={() => {
+                  setShowStarterPopup(false);
+                  setCardFormPkg({ name: 'Starter', price: '$300', color: '#3B82F6' });
+                }}
                 className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 style={{
                   background: 'linear-gradient(135deg, #3B82F6 0%, #6366F1 50%, #8B5CF6 100%)',
@@ -129,7 +133,7 @@ export default function WebDevelopment() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-              </a>
+              </button>
 
               <p className="text-sm font-semibold text-white/60 mt-5">50% deposit to begin</p>
             </div>
@@ -306,6 +310,16 @@ export default function WebDevelopment() {
                   <div className="flex justify-between"><span className="text-white/40">Revisions</span><span>{pkg.revisions}</span></div>
                 </div>
                 <p className="mt-2 text-[9px] italic text-center" style={{ color: pkg.color }}>{pkg.best}</p>
+                <button
+                  onClick={() => setCardFormPkg({ name: pkg.name, price: pkg.price, color: pkg.color })}
+                  className="mt-3 w-full py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all hover:scale-[1.03] active:scale-[0.97]"
+                  style={{
+                    background: `linear-gradient(135deg, ${pkg.color}, ${pkg.color}cc)`,
+                    color: '#fff',
+                  }}
+                >
+                  Book Service
+                </button>
               </div>
             ))}
           </div>
@@ -370,6 +384,28 @@ export default function WebDevelopment() {
                     <td className="py-3 px-3 text-center text-xs italic leading-tight" style={{ color: '#10B981' }}>Local service businesses</td>
                     <td className="py-3 px-3 text-center text-xs italic leading-tight" style={{ backgroundColor: 'rgba(168, 85, 247, 0.08)', color: '#A855F7' }}>Converting visitors to clients</td>
                     <td className="py-3 px-3 text-center text-xs italic leading-tight" style={{ color: '#FFD700' }}>Full platforms & products</td>
+                  </tr>
+                  <tr>
+                    <td className="sticky left-0 z-10 bg-black py-3 px-4"></td>
+                    {[
+                      { name: 'Starter', price: '$300', color: '#3B82F6' },
+                      { name: 'Essentials', price: '$600', color: '#10B981' },
+                      { name: 'Growth', price: '$1,000', color: '#A855F7' },
+                      { name: 'Custom', price: '$3,000+', color: '#FFD700' },
+                    ].map((pkg, j) => (
+                      <td key={j} className="py-3 px-3 text-center" style={j === 2 ? { backgroundColor: 'rgba(168, 85, 247, 0.08)' } : undefined}>
+                        <button
+                          onClick={() => setCardFormPkg(pkg)}
+                          className="px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all hover:scale-105 active:scale-95"
+                          style={{
+                            background: `linear-gradient(135deg, ${pkg.color}, ${pkg.color}cc)`,
+                            color: '#fff',
+                          }}
+                        >
+                          Book Service
+                        </button>
+                      </td>
+                    ))}
                   </tr>
                 </tbody>
               </table>
@@ -471,6 +507,15 @@ export default function WebDevelopment() {
           )}
         </div>
       </div>
+
+      {cardFormPkg && (
+        <WebDevCardForm
+          packageName={cardFormPkg.name}
+          packagePrice={cardFormPkg.price}
+          packageColor={cardFormPkg.color}
+          onClose={() => setCardFormPkg(null)}
+        />
+      )}
     </main>
   );
 }

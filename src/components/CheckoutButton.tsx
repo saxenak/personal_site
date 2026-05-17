@@ -72,38 +72,10 @@ export default function CheckoutButton({
       
       console.log('🚀 Attempting Stripe checkout redirect...');
       
-      // Method 1: Try the official Stripe.js redirect first
-      try {
-        const { loadStripe } = await import('@stripe/stripe-js');
-        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
-        
-        if (stripe) {
-          console.log('Using Stripe.js redirect method');
-          const result = await stripe.redirectToCheckout({ sessionId });
-
-          if (result.error) {
-            throw new Error(result.error.message);
-          }
-          return; // Success, no need to try other methods
-        }
-      } catch (stripeError) {
-        console.log('Stripe.js redirect failed, trying direct URL:', stripeError);
-      }
-      
-      // Method 2: Direct URL redirect as fallback
+      // Redirect to Stripe checkout
       const checkoutUrl = `https://checkout.stripe.com/c/pay/${sessionId}`;
-      console.log('� Using direct URL redirect:', checkoutUrl);
-      
-      // Try window.open first (in case of popup blockers)
-      const newWindow = window.open(checkoutUrl, '_blank');
-      
-      if (!newWindow || newWindow.closed) {
-        // If popup blocked, use location.href
-        console.log('Popup blocked, using same-window redirect');
-        window.location.href = checkoutUrl;
-      } else {
-        console.log('Opened in new window');
-      }
+      console.log('Redirecting to checkout:', checkoutUrl);
+      window.location.href = checkoutUrl;
       
     } catch (error) {
       console.error('❌ Checkout error:', error);

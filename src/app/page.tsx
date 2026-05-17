@@ -1,244 +1,242 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(true);
-  const introVideoRef = useRef<HTMLVideoElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const staircaseRef = useRef<HTMLDivElement>(null);
 
-  // Check if intro should be shown
-  useEffect(() => {
-    const hasSeenIntro = localStorage.getItem('hasSeenIntro');
-    const shouldShowIntro = localStorage.getItem('showIntro');
+  const { scrollYProgress } = useScroll({
+    target: staircaseRef,
+    offset: ['start end', 'end start'],
+  });
 
-    // DEVELOPMENT MODE: Always show intro (comment out the condition below for production)
-    setShowIntro(true);
+  const labelY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.5, 0.55, 0.6], [-50, 30, 10, 70, 50, 100]);
 
-    // PRODUCTION MODE: Uncomment this for production
-    // if (!hasSeenIntro || shouldShowIntro === 'true') {
-    //   setShowIntro(true);
-    //   localStorage.removeItem('showIntro');
-    // }
-  }, []);
+  const scrollToContent = () => {
+    contentRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
-  // Handle intro video playback with error handling
-  useEffect(() => {
-    if (showIntro && introVideoRef.current) {
-      const playPromise = introVideoRef.current.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          // Silently handle play interruption - this is expected when component unmounts
-          console.log('Video play interrupted:', error.message);
-        });
-      }
-    }
-  }, [showIntro]);
-
-  // Auto-transition after intro - extended duration for screen wipe
-  useEffect(() => {
-    if (showIntro) {
-      const timer = setTimeout(() => {
-        setShowIntro(false);
-        localStorage.setItem('hasSeenIntro', 'true');
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showIntro]);
-
-  if (showIntro) {
-    return (
-      <div className="fixed inset-0 bg-black text-white z-50 overflow-hidden">
-        {/* Hero collage background */}
-        <div
-          className="absolute inset-0"
-          style={{
-            animation: 'imageFadeOut 3s ease-in-out forwards',
-          }}
-        >
-          <img
-            src="/hero.png"
-            alt=""
-            className="w-full h-full object-cover"
-            style={{
-              animation: 'imageZoom 3s ease-out forwards',
-            }}
+  return (
+    <div className="bg-black text-white">
+      {/* ===== FULL-SCREEN HERO SECTION ===== */}
+      <section className="relative h-screen w-full overflow-hidden flex flex-col">
+        {/* B&W hero background - collage pieces laying down */}
+        <div className="absolute inset-0 z-0">
+          {[
+            // 4x3 grid = 12 smaller pieces, scattered random order
+            { clip: 'polygon(50% 33%, 75% 33%, 75% 66%, 50% 66%)', rotate: 1.5, delay: 0 },
+            { clip: 'polygon(0% 0%, 25% 0%, 25% 33%, 0% 33%)', rotate: -2, delay: 0.18 },
+            { clip: 'polygon(75% 66%, 100% 66%, 100% 100%, 75% 100%)', rotate: -2, delay: 0.32 },
+            { clip: 'polygon(25% 33%, 50% 33%, 50% 66%, 25% 66%)', rotate: -2.5, delay: 0.48 },
+            { clip: 'polygon(75% 0%, 100% 0%, 100% 33%, 75% 33%)', rotate: 2, delay: 0.6 },
+            { clip: 'polygon(0% 66%, 25% 66%, 25% 100%, 0% 100%)', rotate: 2, delay: 0.75 },
+            { clip: 'polygon(50% 0%, 75% 0%, 75% 33%, 50% 33%)', rotate: -1, delay: 0.9 },
+            { clip: 'polygon(25% 66%, 50% 66%, 50% 100%, 25% 100%)', rotate: -1.5, delay: 1.05 },
+            { clip: 'polygon(75% 33%, 100% 33%, 100% 66%, 75% 66%)', rotate: -1, delay: 1.18 },
+            { clip: 'polygon(25% 0%, 50% 0%, 50% 33%, 25% 33%)', rotate: 1.5, delay: 1.32 },
+            { clip: 'polygon(0% 33%, 25% 33%, 25% 66%, 0% 66%)', rotate: 1, delay: 1.48 },
+            { clip: 'polygon(50% 66%, 75% 66%, 75% 100%, 50% 100%)', rotate: 1, delay: 1.65 },
+          ].map((piece, i) => (
+            <motion.div
+              key={i}
+              className="absolute inset-0"
+              style={{ clipPath: piece.clip }}
+              initial={{ opacity: 0, scale: 1.1, rotate: piece.rotate, y: -30 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: piece.delay,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+            >
+              <img
+                src="/hero.png"
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          ))}
+          {/* Dark overlay for text readability */}
+          <motion.div
+            className="absolute inset-0 bg-black/60"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.5, delay: 2.5 }}
           />
         </div>
 
-        {/* Logo wipes in top-left */}
-        <div className="absolute top-4 left-4 md:top-8 md:left-8">
+        {/* Logo top-left */}
+        <div className="absolute top-4 left-4 md:top-8 md:left-8 z-10">
           <img
             src="/KIRTILOGO.PNG"
             alt="Kirti Saxena Logo"
             className="h-16 md:h-24 w-auto object-contain"
-            style={{
-              clipPath: 'inset(0 100% 0 0)',
-              animation: 'introWipe 1.2s ease-out 0.5s forwards',
-            }}
           />
         </div>
 
-        {/* "create your own odds" writing wipes in on top */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        {/* Name top-right - hidden on mobile */}
+        <div className="absolute top-4 right-4 md:top-8 md:right-8 z-10 hidden md:block">
+          <h1 className="text-sm md:text-base font-bold">KIRTI SAXENA</h1>
+        </div>
+
+        {/* "create your own odds" centered - fades in after collage lands */}
+        <motion.div
+          className="flex-1 flex items-center justify-center z-10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2, ease: 'easeOut', delay: 2.8 }}
+        >
           <img
             src="/writing.png"
             alt="create your own odds"
             className="w-[80vw] md:w-[50vw] max-w-[700px] h-auto"
-            style={{
-              clipPath: 'inset(0 100% 0 0)',
-              animation: 'introWipe 1.5s ease-out 0.8s forwards',
-            }}
           />
+        </motion.div>
+
+        {/* Scroll-down indicator */}
+        <div
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 cursor-pointer flex flex-col items-center gap-3"
+          onClick={scrollToContent}
+        >
+          <span className="text-sm md:text-base font-semibold tracking-[0.2em] text-yellow-200 uppercase">
+            Scroll for more
+          </span>
+          <div className="scroll-chevron">
+            <svg
+              className="w-10 h-10 md:w-12 md:h-12 text-yellow-200"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
         </div>
 
         <style jsx>{`
-          @keyframes imageZoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
+          .scroll-chevron {
+            animation: bounceDown 2s ease-in-out infinite;
           }
-          @keyframes imageFadeOut {
-            0% { opacity: 1; }
-            60% { opacity: 1; }
-            100% { opacity: 0; }
-          }
-          @keyframes introWipe {
-            from { clip-path: inset(0 100% 0 0); }
-            to { clip-path: inset(0 0% 0 0); }
+          @keyframes bounceDown {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(8px); opacity: 0.5; }
           }
         `}</style>
-      </div>
-    );
-  }
+      </section>
 
-  return (
-    <div 
-      className={`min-h-screen bg-black text-white relative transition-opacity duration-1000 ${
-        !showIntro ? 'opacity-100' : 'opacity-0'
-      }`}
-    >
-      {/* Logo in top-left corner */}
-      <div
-        className="fixed top-4 left-4 md:top-8 md:left-8 z-50 cursor-pointer hover:opacity-80 transition-opacity"
-        onClick={() => setShowIntro(true)}
-      >
-        <img
-          src="/KIRTILOGO.PNG"
-          alt="Kirti Saxena Logo"
-          className="h-16 md:h-24 w-auto object-contain"
-        />
-      </div>
+      {/* ===== MAIN CONTENT (SERVICES + PORTFOLIO) ===== */}
+      <div ref={contentRef} className="relative z-10">
+        {/* Fixed header elements that appear over content */}
+        <div className="sticky top-0 z-50 pointer-events-none">
+          <div className="absolute top-4 left-4 md:top-8 md:left-8 pointer-events-auto cursor-pointer hover:opacity-80 transition-opacity">
+            <img
+              src="/KIRTILOGO.PNG"
+              alt="Kirti Saxena Logo"
+              className="h-16 md:h-24 w-auto object-contain"
+            />
+          </div>
+          <div className="absolute top-4 right-4 md:top-8 md:right-8 pointer-events-auto cursor-pointer hover:opacity-80 transition-opacity hidden md:block">
+            <h1 className="text-sm md:text-base font-bold">KIRTI SAXENA</h1>
+          </div>
+        </div>
 
-      {/* Name in top-right corner - hidden on mobile */}
-      <div
-        className="fixed top-4 right-4 md:top-8 md:right-8 z-50 cursor-pointer hover:opacity-80 transition-opacity hidden md:block"
-        onClick={() => setShowIntro(true)}
-      >
-        <h1 className="text-sm md:text-base font-bold">KIRTI SAXENA</h1>
-      </div>
+        {/* Staircase layout - cards staggered from top-left to bottom-right */}
+        <div ref={staircaseRef} className="h-screen flex items-center relative">
+          {/* SERVICES - stacked letters on left side */}
+          <motion.div
+            className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1 md:gap-2 origin-center"
+            style={{ y: labelY }}
+          >
+            {'SERVICES'.split('').map((letter, i) => (
+              <span key={i} className="text-xs md:text-sm font-bold text-white/40">
+                {letter}
+              </span>
+            ))}
+          </motion.div>
+          {/* PORTFOLIO - stacked letters on right side */}
+          <motion.div
+            className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1 md:gap-2 origin-center"
+            style={{ y: labelY }}
+          >
+            {'PORTFOLIO'.split('').map((letter, i) => (
+              <span key={i} className="text-xs md:text-sm font-bold text-white/40">
+                {letter}
+              </span>
+            ))}
+          </motion.div>
+          <div className="w-full relative h-[70vh] md:h-[75vh] px-4 md:px-12">
+            {[
+              { href: '/projects/artist', label: 'ARTIST', mobileLabel: 'ARTIST', type: 'video', src: '/artist_landingpage.mp4', group: 'services' },
+              { href: '/projects/clinics', label: 'CLINICS & TALKS', mobileLabel: 'CLINICS', type: 'video', src: '/clinics_landingpage.mp4', group: 'services' },
+              { href: '/projects/web-development', label: 'WEB DEVELOPMENT', mobileLabel: 'WEB DEV', type: 'iframe', src: 'https://ajnamaterials.com', group: 'services' },
+              { href: '/projects/engineering', label: 'ENGINEER', mobileLabel: 'ENGINEER', type: 'video', src: '/engineering_landingpage.mp4', group: 'portfolio' },
+              { href: '/projects/athletics', label: 'ATHLETE', mobileLabel: 'ATHLETE', type: 'video', src: '/wrestling_landingpage.mp4', group: 'portfolio' },
+              { href: '/projects/modelling', label: 'MODEL', mobileLabel: 'MODEL', type: 'video', src: '/model_landingpage.MP4', group: 'portfolio' },
+            ].map((item, index) => {
+              // Services: staircase goes DOWN left-to-right
+              // Portfolio: staircase goes UP left-to-right (V shape)
+              const isPortfolio = item.group === 'portfolio';
+              const portfolioIndex = index - 3;
+              const left = isPortfolio
+                ? `${55 + (portfolioIndex * 13)}%`
+                : `${10 + (index * 13)}%`;
+              const top = isPortfolio
+                ? `${49 - (portfolioIndex * 17)}%`
+                : `${15 + (index * 17)}%`;
 
-      {/* Hero collage background */}
-      <div className="fixed inset-0 z-0 pointer-events-none select-none">
-        <img
-          src="/hero.png"
-          alt=""
-          className="w-full h-full object-cover opacity-10"
-        />
-      </div>
-
-
-      {/* "create your own odds" slides up to top */}
-      <div className="fixed left-0 right-0 z-20 flex justify-center pointer-events-none select-none motto-slide">
-        <img
-          src="/writing.png"
-          alt="create your own odds"
-          className="w-[70vw] md:w-[40vw] max-w-[500px] h-auto"
-        />
-      </div>
-      <style jsx>{`
-        .motto-slide {
-          animation: slideUpBounce 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        @keyframes slideUpBounce {
-          0% { top: 50%; transform: translateY(-50%); }
-          100% { top: 0.5rem; transform: translateY(0); }
-        }
-        @media (min-width: 768px) {
-          @keyframes slideUpBounce {
-            0% { top: 50%; transform: translateY(-50%); }
-            100% { top: 2.5rem; transform: translateY(0); }
-          }
-        }
-      `}</style>
-
-      {/* Full-width horizontal layout - vertical on mobile, horizontal on desktop */}
-      <div className="min-h-screen flex items-center relative z-10">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-0">
-          {/* Services - top row */}
-          <div className="flex flex-col items-center justify-center py-8 md:py-0 md:h-screen">
-            <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider mb-6 md:mb-10">
-              SERVICES
-            </h2>
-            <div className="grid grid-cols-3 gap-2 md:gap-4 w-full px-2 md:px-8">
-              {/* Web Development Card - Live ajnamaterials.com embed */}
-              <Link
-                href="/projects/web-development"
-                className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 aspect-square relative"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(253, 150, 53, 0.2)',
-                }}
+              return (
+              <div
+                key={item.href}
+                className="absolute"
+                style={{ left, top }}
               >
-                <div className="absolute inset-0 overflow-hidden">
-                  <iframe
-                    src="https://ajnamaterials.com"
-                    className="absolute top-0 left-0 w-[400%] h-[400%] scale-[0.25] origin-top-left pointer-events-none"
-                    title="ajnamaterials.com preview"
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
-                <div className="absolute bottom-0 left-0 right-0 p-1 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
-                  <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
-                    <span className="md:hidden">WEB DEV</span>
-                    <span className="hidden md:inline">WEB DEVELOPMENT</span>
-                  </h3>
-                </div>
-              </Link>
-
-              {/* Other service cards */}
-              {[
-                { href: '/projects/clinics', label: 'CLINICS & TALKS', mobileLabel: 'CLINICS', video: '/clinics_landingpage.mp4' },
-                { href: '/projects/artist', label: 'ARTIST', mobileLabel: 'ARTIST', video: '/artist_landingpage.mp4' },
-              ].map((item) => (
                 <Link
-                  key={item.href}
                   href={item.href}
-                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 aspect-square relative"
+                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.05] hover:-translate-y-1 relative block w-24 h-24 md:w-36 md:h-36 lg:w-40 lg:h-40"
                   style={{
                     backgroundColor: 'rgba(255, 255, 255, 0.05)',
                     border: '1px solid rgba(253, 150, 53, 0.2)',
                   }}
                 >
-                  {/* Video on desktop, still frame on mobile */}
-                  <video
-                    className="absolute inset-0 w-full h-full object-cover hidden md:block"
-                    muted
-                    loop
-                    autoPlay
-                    playsInline
-                  >
-                    <source src={item.video} type="video/mp4" />
-                  </video>
-                  <video
-                    className="absolute inset-0 w-full h-full object-cover md:hidden"
-                    muted
-                    playsInline
-                    preload="metadata"
-                  >
-                    <source src={`${item.video}#t=0.1`} type="video/mp4" />
-                  </video>
+                  {item.type === 'iframe' ? (
+                    <div className="absolute inset-0 overflow-hidden">
+                      <iframe
+                        src={item.src}
+                        className="absolute top-0 left-0 w-[400%] h-[400%] scale-[0.25] origin-top-left pointer-events-none"
+                        title="ajnamaterials.com preview"
+                        loading="lazy"
+                        sandbox="allow-scripts allow-same-origin"
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <video
+                        className="absolute inset-0 w-full h-full object-cover hidden md:block"
+                        muted
+                        loop
+                        autoPlay
+                        playsInline
+                      >
+                        <source src={item.src} type="video/mp4" />
+                      </video>
+                      <video
+                        className="absolute inset-0 w-full h-full object-cover md:hidden"
+                        muted
+                        playsInline
+                        preload="metadata"
+                      >
+                        <source src={`${item.src}#t=0.1`} type="video/mp4" />
+                      </video>
+                    </>
+                  )}
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-1 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
                     <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
@@ -247,72 +245,25 @@ export default function Home() {
                     </h3>
                   </div>
                 </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Portfolio - bottom row */}
-          <div className="flex flex-col items-center justify-center py-8 md:py-0 md:h-screen">
-            <h2 className="text-xl md:text-3xl lg:text-5xl font-light tracking-wider mb-6 md:mb-10">
-              PORTFOLIO
-            </h2>
-            <div className="grid grid-cols-3 gap-2 md:gap-4 w-full px-2 md:px-8">
-              {[
-                { href: '/projects/engineering', label: 'ENGINEER', video: '/engineering_landingpage.mp4' },
-                { href: '/projects/athletics', label: 'ATHLETE', video: '/wrestling_landingpage.mp4' },
-                { href: '/projects/modelling', label: 'MODEL', video: '/model_landingpage.MP4' },
-              ].map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 aspect-square relative"
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(253, 150, 53, 0.2)',
-                  }}
-                >
-                  {/* Video on desktop, still frame on mobile */}
-                  <video
-                    className="absolute inset-0 w-full h-full object-cover hidden md:block"
-                    muted
-                    loop
-                    autoPlay
-                    playsInline
-                  >
-                    <source src={item.video} type="video/mp4" />
-                  </video>
-                  <video
-                    className="absolute inset-0 w-full h-full object-cover md:hidden"
-                    muted
-                    playsInline
-                    preload="metadata"
-                  >
-                    <source src={`${item.video}#t=0.1`} type="video/mp4" />
-                  </video>
-                  <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
-                  <div className="absolute bottom-0 left-0 right-0 p-1 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
-                    <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
-                      {item.label}
-                    </h3>
-                  </div>
-                </Link>
-              ))}
-            </div>
+              </div>
+              );
+              }
+            )}
           </div>
         </div>
-      </div>
 
-      {/* Contact at bottom */}
-      <div className="fixed bottom-6 left-0 right-0 z-50 flex items-center justify-center">
-        <a
-          href="mailto:info@kirtisaxena.com"
-          className="flex items-center gap-2 text-sm md:text-base font-light tracking-wider text-gray-400 hover:text-[#FD9635] transition-colors"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-          </svg>
-          info@kirtisaxena.com
-        </a>
+        {/* Contact at bottom of content */}
+        <div className="py-8 flex items-center justify-center">
+          <a
+            href="mailto:info@kirtisaxena.com"
+            className="flex items-center gap-2 text-sm md:text-base font-light tracking-wider text-gray-400 hover:text-[#FD9635] transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+            </svg>
+            info@kirtisaxena.com
+          </a>
+        </div>
       </div>
     </div>
   );
