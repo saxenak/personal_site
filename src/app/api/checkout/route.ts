@@ -52,7 +52,8 @@ export async function POST(req: NextRequest) {
                 business_name: productType === 'clinics' ? 'Clinics' : 'Kirti Saxena'
               }
             },
-            unit_amount: product.price * 100, // Stripe uses cents
+            // Add Stripe processing fee (2.9% + $0.30) so customer covers it
+            unit_amount: Math.round((product.price * 100 + 30) / (1 - 0.029)),
           },
           quantity,
         },

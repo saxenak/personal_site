@@ -62,8 +62,9 @@ export async function POST(req: NextRequest) {
         continue;
       }
 
-      // Calculate 50% deposit amount
-      const depositAmount = Math.round(fullUnitAmount / 2);
+      // Calculate 50% deposit amount + Stripe processing fee (2.9% + $0.30)
+      const rawDeposit = Math.round(fullUnitAmount / 2);
+      const depositAmount = Math.round((rawDeposit + 30) / (1 - 0.029));
       fullTotal += fullUnitAmount * lineQuantity;
 
       const itemName = packageQuantity > 1

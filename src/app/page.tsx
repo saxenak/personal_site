@@ -176,7 +176,7 @@ export default function Home() {
             {[
               { href: '/projects/artist', label: 'ARTIST', mobileLabel: 'ARTIST', type: 'video', src: '/artist_landingpage.mp4', group: 'services' },
               { href: '/projects/clinics', label: 'CLINICS & TALKS', mobileLabel: 'CLINICS', type: 'video', src: '/clinics_landingpage.mp4', group: 'services' },
-              { href: '/projects/web-development', label: 'WEB DEVELOPMENT', mobileLabel: 'WEB DEV', type: 'iframe', src: 'https://ajnamarket.com', group: 'services' },
+              { href: '/projects/web-development', label: 'WEB DEVELOPMENT', mobileLabel: 'WEB DEV', type: 'video', src: '/ajnamarket.com.mp4', group: 'services' },
               { href: '/projects/engineering', label: 'ENGINEER', mobileLabel: 'ENGINEER', type: 'video', src: '/engineering_landingpage.mp4', group: 'portfolio' },
               { href: '/projects/athletics', label: 'ATHLETE', mobileLabel: 'ATHLETE', type: 'video', src: '/wrestling_landingpage.mp4', group: 'portfolio' },
               { href: '/projects/modelling', label: 'MODEL', mobileLabel: 'MODEL', type: 'video', src: '/model_landingpage.MP4', group: 'portfolio' },
@@ -206,37 +206,23 @@ export default function Home() {
                     border: '1px solid rgba(253, 150, 53, 0.2)',
                   }}
                 >
-                  {item.type === 'iframe' ? (
-                    <div className="absolute inset-0 overflow-hidden">
-                      <iframe
-                        src={item.src}
-                        className="absolute top-0 left-0 w-[400%] h-[400%] scale-[0.25] origin-top-left pointer-events-none"
-                        title="ajnamarket.com preview"
-                        loading="lazy"
-                        sandbox="allow-scripts allow-same-origin"
-                      />
-                    </div>
-                  ) : (
-                    <>
-                      <video
-                        className="absolute inset-0 w-full h-full object-cover hidden md:block"
-                        muted
-                        loop
-                        autoPlay
-                        playsInline
-                      >
-                        <source src={item.src} type="video/mp4" />
-                      </video>
-                      <video
-                        className="absolute inset-0 w-full h-full object-cover md:hidden"
-                        muted
-                        playsInline
-                        preload="metadata"
-                      >
-                        <source src={`${item.src}#t=0.1`} type="video/mp4" />
-                      </video>
-                    </>
-                  )}
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover hidden md:block"
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                  >
+                    <source src={item.src} type="video/mp4" />
+                  </video>
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover md:hidden"
+                    muted
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src={`${item.src}#t=0.1`} type="video/mp4" />
+                  </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-1 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
                     <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">

@@ -178,10 +178,12 @@ export default function WebDevelopment() {
                 <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#FD9635] transition-colors">kirtisaxena.com</h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-lg font-bold text-white group-hover:text-[#FD9635] transition-colors">kirtisaxena.com</h3>
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(253, 150, 53, 0.2)', color: '#FD9635', border: '1px solid rgba(253, 150, 53, 0.4)' }}>Portfolio</span>
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(253, 150, 53, 0.2)', color: '#FD9635', border: '1px solid rgba(253, 150, 53, 0.4)' }}>Checkout</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Next.js</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Stripe</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Vercel</span>
@@ -214,10 +216,12 @@ export default function WebDevelopment() {
                 <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#FFD700] transition-colors">theakhara.com</h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-lg font-bold text-white group-hover:text-[#FFD700] transition-colors">theakhara.com</h3>
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(255, 215, 0, 0.2)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)' }}>Business</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(255, 215, 0, 0.2)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)' }}>Checkout</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(255, 215, 0, 0.2)', color: '#FFD700', border: '1px solid rgba(255, 215, 0, 0.4)' }}>Gym</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Next.js</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Stripe</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Vercel</span>
@@ -250,10 +254,12 @@ export default function WebDevelopment() {
                 <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#9333EA] transition-colors">ajnamarket.com</h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <h3 className="text-lg font-bold text-white group-hover:text-[#9333EA] transition-colors">ajnamarket.com</h3>
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(147, 51, 234, 0.2)', color: '#9333EA', border: '1px solid rgba(147, 51, 234, 0.4)' }}>E-Commerce</span>
                   <span className="text-xs px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: 'rgba(147, 51, 234, 0.2)', color: '#9333EA', border: '1px solid rgba(147, 51, 234, 0.4)' }}>Marketplace</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Next.js</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">AWS</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-white/10 text-white/60">Stripe</span>
