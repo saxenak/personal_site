@@ -195,10 +195,11 @@ export default function Home() {
                   <video
                     className="absolute inset-0 w-full h-full object-cover"
                     muted
+                    loop
+                    autoPlay
                     playsInline
-                    preload="metadata"
                   >
-                    <source src={`${item.src}#t=0.1`} type="video/mp4" />
+                    <source src={item.src} type="video/mp4" />
                   </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center bg-gradient-to-t from-black/70 to-transparent">
@@ -229,10 +230,11 @@ export default function Home() {
                   <video
                     className="absolute inset-0 w-full h-full object-cover"
                     muted
+                    loop
+                    autoPlay
                     playsInline
-                    preload="metadata"
                   >
-                    <source src={`${item.src}#t=0.1`} type="video/mp4" />
+                    <source src={item.src} type="video/mp4" />
                   </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center bg-gradient-to-t from-black/70 to-transparent">

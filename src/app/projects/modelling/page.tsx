@@ -498,106 +498,176 @@ export default function Modelling() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center cursor-pointer"
+            className="fixed inset-0 z-[100] bg-black/95 cursor-pointer"
             onClick={() => setLightboxImage(null)}
           >
             {/* Close button */}
             <button
-              className="absolute top-6 right-6 text-white/60 hover:text-white text-3xl font-light z-10 transition-colors"
+              className="absolute top-4 right-4 md:top-6 md:right-6 text-white/60 hover:text-white text-3xl font-light z-10 transition-colors"
               onClick={() => setLightboxImage(null)}
             >
               ✕
             </button>
 
-            {/* Category + Credits */}
-            <div className="absolute bottom-6 left-6 z-10">
-              <span className="text-base tracking-[0.2em] text-[#FD9635] uppercase font-bold">
-                {[lightboxImage.category, ...(lightboxImage.tags || [])].filter((v, i, a) => a.indexOf(v) === i).join(' · ')}
-              </span>
-              {lightboxImage.credits && (
-                <div className="mt-3 flex flex-col gap-1.5">
-                  {lightboxImage.credits.photographer && (
-                    <span className="text-sm text-white">
-                      <span className="text-[#FD9635] font-medium">PH:</span>{' '}
-                      {lightboxImage.credits.photographerLink ? (
-                        <a
-                          href={lightboxImage.credits.photographerLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline hover:text-[#FD9635] transition-colors"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {lightboxImage.credits.photographer}
-                        </a>
-                      ) : (
-                        lightboxImage.credits.photographer
-                      )}
-                    </span>
-                  )}
-                  {lightboxImage.credits.mua && (
-                    <span className="text-sm text-white">
-                      <span className="text-[#FD9635] font-medium">MUA:</span>{' '}
-                      {lightboxImage.credits.muaLink ? (
-                        <a
-                          href={lightboxImage.credits.muaLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline hover:text-[#FD9635] transition-colors"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {lightboxImage.credits.mua}
-                        </a>
-                      ) : (
-                        lightboxImage.credits.mua
-                      )}
-                    </span>
-                  )}
-                  {lightboxImage.credits.hair && (
-                    <span className="text-sm text-white">
-                      <span className="text-[#FD9635] font-medium">HS:</span>{' '}
-                      {renderHairCredits(lightboxImage.credits.hair)}
-                    </span>
-                  )}
-                  {lightboxImage.credits.stylist && (
-                    <span className="text-sm text-white">
-                      <span className="text-[#FD9635] font-medium">FS:</span>{' '}
-                      {lightboxImage.credits.stylistLink ? (
-                        <a
-                          href={lightboxImage.credits.stylistLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="underline hover:text-[#FD9635] transition-colors"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {lightboxImage.credits.stylist}
-                        </a>
-                      ) : (
-                        lightboxImage.credits.stylist
-                      )}
-                    </span>
-                  )}
-                </div>
-              )}
+            {/* Mobile: column layout (image + credits below) */}
+            <div className="flex flex-col items-center justify-center h-full md:hidden px-4 py-14 overflow-y-auto">
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="relative w-full max-h-[65vh] flex items-center justify-center"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={lightboxImage.src}
+                  alt={lightboxImage.alt}
+                  width={0}
+                  height={0}
+                  sizes="90vw"
+                  className="w-auto h-auto max-w-full max-h-[65vh] object-contain"
+                />
+              </motion.div>
+              {/* Credits below image on mobile */}
+              <div className="mt-4 w-full" onClick={(e) => e.stopPropagation()}>
+                <span className="text-xs tracking-[0.2em] text-[#FD9635] uppercase font-bold">
+                  {[lightboxImage.category, ...(lightboxImage.tags || [])].filter((v, i, a) => a.indexOf(v) === i).join(' · ')}
+                </span>
+                {lightboxImage.credits && (
+                  <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                    {lightboxImage.credits.photographer && (
+                      <span className="text-xs text-white">
+                        <span className="text-[#FD9635] font-medium">PH:</span>{' '}
+                        {lightboxImage.credits.photographerLink ? (
+                          <a href={lightboxImage.credits.photographerLink} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#FD9635] transition-colors" onClick={(e) => e.stopPropagation()}>
+                            {lightboxImage.credits.photographer}
+                          </a>
+                        ) : lightboxImage.credits.photographer}
+                      </span>
+                    )}
+                    {lightboxImage.credits.mua && (
+                      <span className="text-xs text-white">
+                        <span className="text-[#FD9635] font-medium">MUA:</span>{' '}
+                        {lightboxImage.credits.muaLink ? (
+                          <a href={lightboxImage.credits.muaLink} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#FD9635] transition-colors" onClick={(e) => e.stopPropagation()}>
+                            {lightboxImage.credits.mua}
+                          </a>
+                        ) : lightboxImage.credits.mua}
+                      </span>
+                    )}
+                    {lightboxImage.credits.hair && (
+                      <span className="text-xs text-white">
+                        <span className="text-[#FD9635] font-medium">HS:</span>{' '}
+                        {renderHairCredits(lightboxImage.credits.hair)}
+                      </span>
+                    )}
+                    {lightboxImage.credits.stylist && (
+                      <span className="text-xs text-white">
+                        <span className="text-[#FD9635] font-medium">FS:</span>{' '}
+                        {lightboxImage.credits.stylistLink ? (
+                          <a href={lightboxImage.credits.stylistLink} target="_blank" rel="noopener noreferrer" className="underline hover:text-[#FD9635] transition-colors" onClick={(e) => e.stopPropagation()}>
+                            {lightboxImage.credits.stylist}
+                          </a>
+                        ) : lightboxImage.credits.stylist}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Image */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="relative max-w-[90vw] max-h-[90vh]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Image
-                src={lightboxImage.src}
-                alt={lightboxImage.alt}
-                width={0}
-                height={0}
-                sizes="90vw"
-                className="w-auto h-auto max-w-[90vw] max-h-[90vh] object-contain"
-              />
-            </motion.div>
+            {/* Desktop: overlay layout (unchanged) */}
+            <div className="hidden md:flex items-center justify-center h-full">
+              {/* Category + Credits */}
+              <div className="absolute bottom-6 left-6 z-10">
+                <span className="text-base tracking-[0.2em] text-[#FD9635] uppercase font-bold">
+                  {[lightboxImage.category, ...(lightboxImage.tags || [])].filter((v, i, a) => a.indexOf(v) === i).join(' · ')}
+                </span>
+                {lightboxImage.credits && (
+                  <div className="mt-3 flex flex-col gap-1.5">
+                    {lightboxImage.credits.photographer && (
+                      <span className="text-sm text-white">
+                        <span className="text-[#FD9635] font-medium">PH:</span>{' '}
+                        {lightboxImage.credits.photographerLink ? (
+                          <a
+                            href={lightboxImage.credits.photographerLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline hover:text-[#FD9635] transition-colors"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {lightboxImage.credits.photographer}
+                          </a>
+                        ) : (
+                          lightboxImage.credits.photographer
+                        )}
+                      </span>
+                    )}
+                    {lightboxImage.credits.mua && (
+                      <span className="text-sm text-white">
+                        <span className="text-[#FD9635] font-medium">MUA:</span>{' '}
+                        {lightboxImage.credits.muaLink ? (
+                          <a
+                            href={lightboxImage.credits.muaLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline hover:text-[#FD9635] transition-colors"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {lightboxImage.credits.mua}
+                          </a>
+                        ) : (
+                          lightboxImage.credits.mua
+                        )}
+                      </span>
+                    )}
+                    {lightboxImage.credits.hair && (
+                      <span className="text-sm text-white">
+                        <span className="text-[#FD9635] font-medium">HS:</span>{' '}
+                        {renderHairCredits(lightboxImage.credits.hair)}
+                      </span>
+                    )}
+                    {lightboxImage.credits.stylist && (
+                      <span className="text-sm text-white">
+                        <span className="text-[#FD9635] font-medium">FS:</span>{' '}
+                        {lightboxImage.credits.stylistLink ? (
+                          <a
+                            href={lightboxImage.credits.stylistLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline hover:text-[#FD9635] transition-colors"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {lightboxImage.credits.stylist}
+                          </a>
+                        ) : (
+                          lightboxImage.credits.stylist
+                        )}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Image */}
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="relative max-w-[90vw] max-h-[90vh]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <Image
+                  src={lightboxImage.src}
+                  alt={lightboxImage.alt}
+                  width={0}
+                  height={0}
+                  sizes="90vw"
+                  className="w-auto h-auto max-w-[90vw] max-h-[90vh] object-contain"
+                />
+              </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
