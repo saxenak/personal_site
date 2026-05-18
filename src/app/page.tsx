@@ -98,15 +98,15 @@ export default function Home() {
 
         {/* Scroll-down indicator */}
         <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 cursor-pointer flex flex-col items-center gap-3"
+          className="absolute bottom-20 md:bottom-10 left-1/2 -translate-x-1/2 z-10 cursor-pointer flex flex-col items-center gap-2 md:gap-3"
           onClick={scrollToContent}
         >
-          <span className="text-sm md:text-base font-semibold tracking-[0.2em] text-yellow-200 uppercase">
+          <span className="text-xs md:text-base font-semibold tracking-[0.2em] text-yellow-200 uppercase">
             Scroll for more
           </span>
           <div className="scroll-chevron">
             <svg
-              className="w-10 h-10 md:w-12 md:h-12 text-yellow-200"
+              className="w-8 h-8 md:w-12 md:h-12 text-yellow-200"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -149,40 +149,112 @@ export default function Home() {
         </div>
 
         {/* Staircase layout - cards staggered from top-left to bottom-right */}
-        <div ref={staircaseRef} className="h-screen flex items-center relative">
-          {/* SERVICES - stacked letters on left side */}
+        <div ref={staircaseRef} className="min-h-screen flex items-center relative py-8 md:py-0">
+          {/* SERVICES - stacked letters on left side (desktop only) */}
           <motion.div
-            className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1 md:gap-2 origin-center"
+            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex-col items-center gap-2 origin-center hidden md:flex"
             style={{ y: labelY }}
           >
             {'SERVICES'.split('').map((letter, i) => (
-              <span key={i} className="text-xs md:text-sm font-bold text-white/40">
+              <span key={i} className="text-sm font-bold text-white/40">
                 {letter}
               </span>
             ))}
           </motion.div>
-          {/* PORTFOLIO - stacked letters on right side */}
+          {/* PORTFOLIO - stacked letters on right side (desktop only) */}
           <motion.div
-            className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-1 md:gap-2 origin-center"
+            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex-col items-center gap-2 origin-center hidden md:flex"
             style={{ y: labelY }}
           >
             {'PORTFOLIO'.split('').map((letter, i) => (
-              <span key={i} className="text-xs md:text-sm font-bold text-white/40">
+              <span key={i} className="text-sm font-bold text-white/40">
                 {letter}
               </span>
             ))}
           </motion.div>
-          <div className="w-full relative h-[70vh] md:h-[75vh] px-4 md:px-12">
+
+          {/* Mobile: 2-column grid layout */}
+          <div className="w-full px-6 md:hidden">
+            {/* SERVICES label */}
+            <p className="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase mb-3 text-center">Services</p>
+            <div className="grid grid-cols-3 gap-3 mb-6">
+              {[
+                { href: '/projects/artist', mobileLabel: 'ARTIST', src: '/artist_landingpage.mp4' },
+                { href: '/projects/clinics', mobileLabel: 'CLINICS', src: '/clinics_landingpage.mp4' },
+                { href: '/projects/web-development', mobileLabel: 'WEB DEV', src: '/ajnamarket.com.mp4' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.05] relative block aspect-square"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(253, 150, 53, 0.2)',
+                  }}
+                >
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    muted
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src={`${item.src}#t=0.1`} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
+                  <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center bg-gradient-to-t from-black/70 to-transparent">
+                    <h3 className="text-[8px] font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                      {item.mobileLabel}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            {/* PORTFOLIO label */}
+            <p className="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase mb-3 text-center">Portfolio</p>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { href: '/projects/engineering', mobileLabel: 'ENGINEER', src: '/engineering_landingpage.mp4' },
+                { href: '/projects/athletics', mobileLabel: 'ATHLETE', src: '/wrestling_landingpage.mp4' },
+                { href: '/projects/modelling', mobileLabel: 'MODEL', src: '/model_landingpage.MP4' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.05] relative block aspect-square"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(253, 150, 53, 0.2)',
+                  }}
+                >
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    muted
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src={`${item.src}#t=0.1`} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
+                  <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center bg-gradient-to-t from-black/70 to-transparent">
+                    <h3 className="text-[8px] font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                      {item.mobileLabel}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Desktop: V-shape staircase layout */}
+          <div className="w-full relative h-[75vh] px-12 hidden md:block">
             {[
-              { href: '/projects/artist', label: 'ARTIST', mobileLabel: 'ARTIST', type: 'video', src: '/artist_landingpage.mp4', group: 'services' },
-              { href: '/projects/clinics', label: 'CLINICS & TALKS', mobileLabel: 'CLINICS', type: 'video', src: '/clinics_landingpage.mp4', group: 'services' },
-              { href: '/projects/web-development', label: 'WEB DEVELOPMENT', mobileLabel: 'WEB DEV', type: 'video', src: '/ajnamarket.com.mp4', group: 'services' },
-              { href: '/projects/engineering', label: 'ENGINEER', mobileLabel: 'ENGINEER', type: 'video', src: '/engineering_landingpage.mp4', group: 'portfolio' },
-              { href: '/projects/athletics', label: 'ATHLETE', mobileLabel: 'ATHLETE', type: 'video', src: '/wrestling_landingpage.mp4', group: 'portfolio' },
-              { href: '/projects/modelling', label: 'MODEL', mobileLabel: 'MODEL', type: 'video', src: '/model_landingpage.MP4', group: 'portfolio' },
+              { href: '/projects/artist', label: 'ARTIST', src: '/artist_landingpage.mp4', group: 'services' },
+              { href: '/projects/clinics', label: 'CLINICS & TALKS', src: '/clinics_landingpage.mp4', group: 'services' },
+              { href: '/projects/web-development', label: 'WEB DEVELOPMENT', src: '/ajnamarket.com.mp4', group: 'services' },
+              { href: '/projects/engineering', label: 'ENGINEER', src: '/engineering_landingpage.mp4', group: 'portfolio' },
+              { href: '/projects/athletics', label: 'ATHLETE', src: '/wrestling_landingpage.mp4', group: 'portfolio' },
+              { href: '/projects/modelling', label: 'MODEL', src: '/model_landingpage.MP4', group: 'portfolio' },
             ].map((item, index) => {
-              // Services: staircase goes DOWN left-to-right
-              // Portfolio: staircase goes UP left-to-right (V shape)
               const isPortfolio = item.group === 'portfolio';
               const portfolioIndex = index - 3;
               const left = isPortfolio
@@ -200,14 +272,14 @@ export default function Home() {
               >
                 <Link
                   href={item.href}
-                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.05] hover:-translate-y-1 relative block w-24 h-24 md:w-36 md:h-36 lg:w-40 lg:h-40"
+                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.05] hover:-translate-y-1 relative block w-36 h-36 lg:w-40 lg:h-40"
                   style={{
                     backgroundColor: 'rgba(255, 255, 255, 0.05)',
                     border: '1px solid rgba(253, 150, 53, 0.2)',
                   }}
                 >
                   <video
-                    className="absolute inset-0 w-full h-full object-cover hidden md:block"
+                    className="absolute inset-0 w-full h-full object-cover"
                     muted
                     loop
                     autoPlay
@@ -215,19 +287,10 @@ export default function Home() {
                   >
                     <source src={item.src} type="video/mp4" />
                   </video>
-                  <video
-                    className="absolute inset-0 w-full h-full object-cover md:hidden"
-                    muted
-                    playsInline
-                    preload="metadata"
-                  >
-                    <source src={`${item.src}#t=0.1`} type="video/mp4" />
-                  </video>
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
-                  <div className="absolute bottom-0 left-0 right-0 p-1 md:p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
-                    <h3 className="text-[7px] md:text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
-                      <span className="md:hidden">{item.mobileLabel}</span>
-                      <span className="hidden md:inline">{item.label}</span>
+                  <div className="absolute bottom-0 left-0 right-0 p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
+                    <h3 className="text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                      {item.label}
                     </h3>
                   </div>
                 </Link>
