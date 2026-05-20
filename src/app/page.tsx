@@ -1,19 +1,11 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
-  const staircaseRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: staircaseRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const labelY = useTransform(scrollYProgress, [0, 0.3, 0.4, 0.5, 0.55, 0.6], [-50, 30, 10, 70, 50, 100]);
 
   const scrollToContent = () => {
     contentRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -149,29 +141,7 @@ export default function Home() {
         </div>
 
         {/* Staircase layout - cards staggered from top-left to bottom-right */}
-        <div ref={staircaseRef} className="min-h-screen flex items-center relative py-8 md:py-0">
-          {/* SERVICES - stacked letters on left side (desktop only) */}
-          <motion.div
-            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex-col items-center gap-2 origin-center hidden md:flex"
-            style={{ y: labelY }}
-          >
-            {'SERVICES'.split('').map((letter, i) => (
-              <span key={i} className="text-sm font-bold text-white/40">
-                {letter}
-              </span>
-            ))}
-          </motion.div>
-          {/* PORTFOLIO - stacked letters on right side (desktop only) */}
-          <motion.div
-            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 flex-col items-center gap-2 origin-center hidden md:flex"
-            style={{ y: labelY }}
-          >
-            {'PORTFOLIO'.split('').map((letter, i) => (
-              <span key={i} className="text-sm font-bold text-white/40">
-                {letter}
-              </span>
-            ))}
-          </motion.div>
+        <div className="min-h-screen flex items-center relative py-8 md:py-0">
 
           {/* Mobile: 2-column grid layout */}
           <div className="w-full px-6 md:hidden">
@@ -247,34 +217,19 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Desktop: V-shape staircase layout */}
-          <div className="w-full relative h-[75vh] px-12 hidden md:block">
-            {[
-              { href: '/projects/artist', label: 'ARTIST', src: '/artist_landingpage.mp4', group: 'services' },
-              { href: '/projects/clinics', label: 'CLINICS & TALKS', src: '/clinics_landingpage.mp4', group: 'services' },
-              { href: '/projects/web-development', label: 'WEB DEVELOPMENT', src: '/ajnamarket.com.mp4', group: 'services' },
-              { href: '/projects/engineering', label: 'ENGINEER', src: '/engineering_landingpage.mp4', group: 'portfolio' },
-              { href: '/projects/athletics', label: 'ATHLETE', src: '/wrestling_landingpage.mp4', group: 'portfolio' },
-              { href: '/projects/modelling', label: 'MODEL', src: '/model_landingpage.MP4', group: 'portfolio' },
-            ].map((item, index) => {
-              const isPortfolio = item.group === 'portfolio';
-              const portfolioIndex = index - 3;
-              const left = isPortfolio
-                ? `${55 + (portfolioIndex * 13)}%`
-                : `${10 + (index * 13)}%`;
-              const top = isPortfolio
-                ? `${49 - (portfolioIndex * 17)}%`
-                : `${15 + (index * 17)}%`;
-
-              return (
-              <div
-                key={item.href}
-                className="absolute"
-                style={{ left, top }}
-              >
+          {/* Desktop: 3x2 grid layout */}
+          <div className="w-full max-w-3xl mx-auto px-12 hidden md:block">
+            <p className="text-xs font-bold tracking-[0.3em] text-white/30 uppercase mb-4 text-center">Services</p>
+            <div className="grid grid-cols-3 gap-4 mb-8">
+              {[
+                { href: '/projects/artist', label: 'ARTIST', src: '/artist_landingpage.mp4' },
+                { href: '/projects/clinics', label: 'CLINICS & TALKS', src: '/clinics_landingpage.mp4' },
+                { href: '/projects/web-development', label: 'WEB DEVELOPMENT', src: '/ajnamarket.com.mp4' },
+              ].map((item) => (
                 <Link
+                  key={item.href}
                   href={item.href}
-                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.05] hover:-translate-y-1 relative block w-36 h-36 lg:w-40 lg:h-40"
+                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.05] hover:-translate-y-1 relative block aspect-square"
                   style={{
                     backgroundColor: 'rgba(255, 255, 255, 0.05)',
                     border: '1px solid rgba(253, 150, 53, 0.2)',
@@ -296,10 +251,42 @@ export default function Home() {
                     </h3>
                   </div>
                 </Link>
-              </div>
-              );
-              }
-            )}
+              ))}
+            </div>
+            <p className="text-xs font-bold tracking-[0.3em] text-white/30 uppercase mb-4 text-center">Portfolio</p>
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { href: '/projects/engineering', label: 'ENGINEER', src: '/engineering_landingpage.mp4' },
+                { href: '/projects/athletics', label: 'ATHLETE', src: '/wrestling_landingpage.mp4' },
+                { href: '/projects/modelling', label: 'MODEL', src: '/model_landingpage.MP4' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="group/card rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.05] hover:-translate-y-1 relative block aspect-square"
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(253, 150, 53, 0.2)',
+                  }}
+                >
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    muted
+                    loop
+                    autoPlay
+                    playsInline
+                  >
+                    <source src={item.src} type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
+                    <h3 className="text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
+                      {item.label}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
 
