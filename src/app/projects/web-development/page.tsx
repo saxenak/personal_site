@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ProjectNav from '@/components/ProjectNav';
 import ProjectHeader from '@/components/ProjectHeader';
 import WebDevCardForm from '@/components/WebDevCardForm';
+import AutoplayVideo from '@/components/AutoplayVideo';
 
 export default function WebDevelopment() {
   const [inquiryForm, setInquiryForm] = useState({
@@ -166,15 +167,10 @@ export default function WebDevelopment() {
               }}
             >
               <div className="aspect-video relative overflow-hidden">
-                <video
+                <AutoplayVideo
+                  src="/kirtisaxena_web.mp4"
                   className="absolute inset-0 w-full h-full object-cover"
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                >
-                  <source src="/kirtisaxena_web.mp4" type="video/mp4" />
-                </video>
+                />
                 <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
@@ -204,15 +200,10 @@ export default function WebDevelopment() {
               }}
             >
               <div className="aspect-video relative overflow-hidden">
-                <video
+                <AutoplayVideo
+                  src="/AOC Edit 2 (1).mp4"
                   className="absolute inset-0 w-full h-full object-cover"
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                >
-                  <source src="/AOC Edit 2 (1).mp4" type="video/mp4" />
-                </video>
+                />
                 <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">
@@ -242,15 +233,10 @@ export default function WebDevelopment() {
               }}
             >
               <div className="aspect-video relative overflow-hidden">
-                <video
+                <AutoplayVideo
+                  src="/ajnamarket.com.mp4"
                   className="absolute inset-0 w-full h-full object-cover"
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                >
-                  <source src="/ajnamarket.com.mp4" type="video/mp4" />
-                </video>
+                />
                 <div className="absolute inset-0 bg-transparent group-hover:bg-black/10 transition-colors" />
               </div>
               <div className="p-4">

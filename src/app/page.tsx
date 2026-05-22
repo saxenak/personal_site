@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import AutoplayVideo from '@/components/AutoplayVideo';
 
 export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -162,15 +163,10 @@ export default function Home() {
                     border: '1px solid rgba(253, 150, 53, 0.2)',
                   }}
                 >
-                  <video
+                  <AutoplayVideo
+                    src={item.src}
                     className="absolute inset-0 w-full h-full object-cover"
-                    muted
-                    loop
-                    autoPlay
-                    playsInline
-                  >
-                    <source src={item.src} type="video/mp4" />
-                  </video>
+                  />
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center bg-gradient-to-t from-black/70 to-transparent">
                     <h3 className="text-[8px] font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
@@ -197,15 +193,10 @@ export default function Home() {
                     border: '1px solid rgba(253, 150, 53, 0.2)',
                   }}
                 >
-                  <video
+                  <AutoplayVideo
+                    src={item.src}
                     className="absolute inset-0 w-full h-full object-cover"
-                    muted
-                    loop
-                    autoPlay
-                    playsInline
-                  >
-                    <source src={item.src} type="video/mp4" />
-                  </video>
+                  />
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center bg-gradient-to-t from-black/70 to-transparent">
                     <h3 className="text-[8px] font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
@@ -235,15 +226,10 @@ export default function Home() {
                     border: '1px solid rgba(253, 150, 53, 0.2)',
                   }}
                 >
-                  <video
+                  <AutoplayVideo
+                    src={item.src}
                     className="absolute inset-0 w-full h-full object-cover"
-                    muted
-                    loop
-                    autoPlay
-                    playsInline
-                  >
-                    <source src={item.src} type="video/mp4" />
-                  </video>
+                  />
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
                     <h3 className="text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
@@ -269,15 +255,10 @@ export default function Home() {
                     border: '1px solid rgba(253, 150, 53, 0.2)',
                   }}
                 >
-                  <video
+                  <AutoplayVideo
+                    src={item.src}
                     className="absolute inset-0 w-full h-full object-cover"
-                    muted
-                    loop
-                    autoPlay
-                    playsInline
-                  >
-                    <source src={item.src} type="video/mp4" />
-                  </video>
+                  />
                   <div className="absolute inset-0 bg-black/30 group-hover/card:bg-black/10 transition-colors" />
                   <div className="absolute bottom-0 left-0 right-0 p-3 text-center bg-gradient-to-t from-black/70 to-transparent">
                     <h3 className="text-sm font-bold tracking-wider text-gray-200 group-hover/card:text-[#FD9635] transition-colors">
